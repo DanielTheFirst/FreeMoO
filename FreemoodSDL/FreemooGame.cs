@@ -79,8 +79,8 @@ namespace FreemooSDL
             //sm.changeState("");
             //mCurrentScreen = new MainScreen(this);
             //mCurrentScreen.start(); // refactor into changestate function
-            //changeScreen(ScreenEnum.MainScreen);
-            changeScreen(ScreenEnum.OpeningMovie);
+            changeScreen(ScreenEnum.MainScreen);
+            //changeScreen(ScreenEnum.OpeningMovie);
 
             int framesElapsed = 0;
             double currMillis = mTimer.TotalMilliseconds;
@@ -108,7 +108,7 @@ namespace FreemooSDL
             buildEventHandlers();
             buildScreensCollection();
 
-            Mixer.Initialize();
+            //Mixer.Initialize();
 
             mScreenStack = new ScreenStack();
 

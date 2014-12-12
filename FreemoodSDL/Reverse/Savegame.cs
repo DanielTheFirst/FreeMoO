@@ -45,7 +45,7 @@ namespace FreemooSDL.Reverse
         public Savegame(int pIndex, Game.Game pGame)
         {
             _game = pGame;
-            _fileName = "C:\\Users\\Daniel\\Documents\\Visual Studio 2010\\Projects\\FreemoodSDL\\data\\SAVE" + pIndex + ".GAM";
+            _fileName = "C:\\Users\\Daniel\\Documents\\Visual Studio 2013\\Freemoo Data\\data\\SAVE" + pIndex + ".GAM";
             Debug.Assert(File.Exists(_fileName), "Save game file does not exist.");
             BinaryReader br = new BinaryReader(new FileStream(_fileName, FileMode.Open));
             _fileSize = (int)br.BaseStream.Length;
