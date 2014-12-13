@@ -17,6 +17,7 @@ namespace FreemooSDL.Controls
         : AbstractControl
     {
         private FreemooImageInstance mStarImage;
+        private FreemooImageInstance mPlanetBorder;
 
         private MainStarmap mParent;
         private Planet mPlanetRef;
@@ -35,6 +36,8 @@ namespace FreemooSDL.Controls
             string imageIndex = (mPlanetRef.StarSize == 0 ? "SMSTARS  " : "MEDSTARS ") + colorRef[mPlanetRef.StarColor];
             ImageService imgService = mParent.Screen.Game.Images; //(ImageService)mParent.Screen.Game.Services[ServiceEnum.ImageService];
             mStarImage = new FreemooImageInstance(ArchiveEnum.STARMAP, imageIndex, imgService);
+
+            mPlanetBorder = new FreemooImageInstance(ArchiveEnum.STARMAP, "PLANBORD", imgService);
         }
 
         public override void update(FreemooTimer pTimer)
@@ -102,6 +105,18 @@ namespace FreemooSDL.Controls
                     string drawName = mPlanetRef.Name.ToUpper();
                     int heightAdjust = mPlanetRef.StarSize == 0 ? 8 : 13;
                     pGui.drawString(drawName, x - 8, y + heightAdjust, FontEnum.font_2, Color.LightYellow);
+
+                    // now check to see if I am focused on
+                    if (mPlanetRef.ID == mParent.Screen.Game.OrionGame.GalaxyData.PlanetFocus)
+                    {
+                        // draw the planet border
+                        // border is 25x25
+                        // small stars are 7x7 
+                        // med stars are 13x11
+                        int xAdjust = mPlanetRef.StarSize == 0 ? -3 : 0;
+                        int yAdjust = mPlanetRef.StarSize == 0 ? -3 : -1;
+                        pGui.drawImage(mPlanetBorder.getCurrentFrame(), x  + xAdjust, y + yAdjust);
+                    }
                 }
             }
         }

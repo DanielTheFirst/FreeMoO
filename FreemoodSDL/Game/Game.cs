@@ -246,6 +246,10 @@ namespace FreemooSDL.Game
         {
             return mTransports.MaxBy(o => o.ID).ID + 1;
         }
+        public void UpdatePlanetFocus(int id)
+        {
+            mGalaxy.PlanetFocus = id;
+        }
         #endregion
     }
 }

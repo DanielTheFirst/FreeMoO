@@ -163,6 +163,8 @@ namespace FreemooSDL.Screens
                 mColonyPanel = new ColonyPanel(this, p);
                 Controls.add(mColonyPanel);
             }
+
+            Game.OrionGame.UpdatePlanetFocus(p.ID);
         }
 
         private void handleMenuClick(object Sender, EventArgs ea)
