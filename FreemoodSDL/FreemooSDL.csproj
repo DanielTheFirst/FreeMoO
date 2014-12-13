@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Collections\ControlCollection.cs" />
     <Compile Include="Collections\ImageCollection.cs" />
+    <Compile Include="Collections\ObjectPool.cs" />
     <Compile Include="Collections\ScreenCollection.cs" />
     <Compile Include="Collections\ScreenStack.cs" />
     <Compile Include="Collections\SoundCollection.cs" />

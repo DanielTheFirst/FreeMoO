@@ -108,6 +108,8 @@ namespace FreemooSDL
             buildEventHandlers();
             buildScreensCollection();
 
+            ObjectPool.Initialize();
+
             //Mixer.Initialize();
 
             mScreenStack = new ScreenStack();
