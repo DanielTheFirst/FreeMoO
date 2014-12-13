@@ -17,6 +17,7 @@ namespace FreemooSDL.Screens
     {
         private MainStarmap mStarmap = null;
         private ColonyPanel mColonyPanel = null;
+        private UnexploredStarPanel _unexploredPanel = null;
         private MainScreenMenuButtons[] mMenuButtons = new MainScreenMenuButtons[8];
 
         public MainScreen(FreemooGame pGame)
@@ -154,16 +155,27 @@ namespace FreemooSDL.Screens
         {
             Planet p = (Planet)Sender;
             // this should probably be strongly typed using delegates....eventually
+            // also, should not be nulling and newing here. 
             if (mColonyPanel != null)
             {
                 Controls.remove(mColonyPanel.Id);
                 mColonyPanel = null;
+            }
+            if (_unexploredPanel != null)
+            {
+                Controls.remove(_unexploredPanel.Id);
+                _unexploredPanel = null;
             }
             
             if (p.PlayerId == 0)
             {
                 mColonyPanel = new ColonyPanel(this, p);
                 Controls.add(mColonyPanel);
+            }
+            else if (p.Player0Explored)
+            {
+                _unexploredPanel = new UnexploredStarPanel(this, p);
+                Controls.add(_unexploredPanel);
             }
 
             Game.OrionGame.UpdatePlanetFocus(p.ID);
