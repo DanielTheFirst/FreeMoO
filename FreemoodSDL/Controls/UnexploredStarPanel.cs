@@ -41,6 +41,9 @@ namespace FreemooSDL.Controls
             // font 5
             Rectangle unexRect = new Rectangle(240, 27, 59, 7);
             pGuiService.drawString(UNEXPLORED_TEXT, unexRect, FontEnum.font_5, Color.FromArgb(73, 207, 36));
+
+            Rectangle textRect = new Rectangle();
+            
         }
 
         public override void update(FreemooTimer pTimer)
