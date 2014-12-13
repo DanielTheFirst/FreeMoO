@@ -57,7 +57,9 @@ namespace FreemooSDL.Screens
             Controls.add(mStarmap);
             mStarmap.PlanetClickEvent += new EventHandler<EventArgs>(this.handlePlanetClick);
 
-            Music m = Game.SoundFX.GetMusic();
+            handlePlanetClick(Game.OrionGame.Planets[Game.OrionGame.GalaxyData.PlanetFocus], null); // ugly way to handle this  but it works
+
+            //Music m = Game.SoundFX.GetMusic();
             //m.Play(true);
 
             initMenu();
