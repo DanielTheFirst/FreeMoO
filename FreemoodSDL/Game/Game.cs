@@ -90,7 +90,7 @@ namespace FreemooSDL.Game
             mPlayers = saveGame.parsePlayers();
             mGalaxy = saveGame.parseGalaxy();
             mPlanets = saveGame.parsePlanets(mGalaxy.NumStars);
-            mFleets = saveGame.parseFleetsIntransit();
+            mFleets = saveGame.parseFleetsIntransit(mPlayers.Count);
             // and then concatenate with fleets in orbit
             List<Fleet> orbits = saveGame.parseFleetsInOrbit(mPlanets.Count, mPlayers.Count);
             mFleets.AddRange(orbits);
@@ -249,6 +249,26 @@ namespace FreemooSDL.Game
         public void UpdatePlanetFocus(int id)
         {
             mGalaxy.PlanetFocus = id;
+        }
+        public int CalcPlayer0Range(int x, int y)
+        {
+            // in the shiny and new save game, Klystron is 2 parsecs while Dunatis is 4
+            var planets = mPlanets.Where(p => p.PlayerId == 0 && p.IsColonized == true);
+            double x1, x2, y1, y2;
+            x1 = ((double)x) ;
+            y1 = ((double)y) ;
+            int maxRange = int.MaxValue;
+            foreach(var p in planets)
+            {
+                x2 = ((double)p.X) ;
+                y2 = ((double)p.Y) ;
+                double range = Math.Sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
+                //Console.WriteLine("Range calculated at " + range);
+                int rangeI = (int)Math.Ceiling(range / 20D);
+                if (rangeI < maxRange) maxRange = rangeI;
+            }
+            //Console.WriteLine("Maxrange = " + maxRange);
+            return maxRange;
         }
         #endregion
     }

@@ -17,11 +17,14 @@ namespace FreemooSDL.Controls
         : AbstractControl
     {
         private const string UNEXPLORED_TEXT = "UNEXPLORED";
+        private const string RANGE_TEMPLATE = "Range {0} Parsecs";
 
         private Planet _planetRef = null;
         private MainScreen _mainScreenRef = null;
         private string _starDescText = string.Empty;
         private string[] _starDescLines;
+        private string _rangeText = RANGE_TEMPLATE;
+
 
         public UnexploredStarPanel(MainScreen pScreen, Planet pPlanet)
             : base()
@@ -32,6 +35,7 @@ namespace FreemooSDL.Controls
             Id = "UNEXPLOREDPANEL_" + _planetRef.Name;
 
             _setStarDescText();
+            RecalculateRange();
         }
 
         private void _setStarDescText()
@@ -59,6 +63,12 @@ namespace FreemooSDL.Controls
 
             }
             _starDescLines = _starDescText.Split('|');
+        }
+
+        public void RecalculateRange()
+        {
+            int range = _mainScreenRef.Game.OrionGame.CalcPlayer0Range(_planetRef.X, _planetRef.Y);
+            _rangeText = string.Format(RANGE_TEMPLATE, range);
         }
 
         public override void draw(FreemooTimer pTimer, GuiService pGuiService)
@@ -96,6 +106,10 @@ namespace FreemooSDL.Controls
 
                 p.Y += s.Height;
             }
+
+            p.Y = 165;
+            rect.Location = p;
+            pGuiService.drawString(_rangeText, rect, FontEnum.font_0, FontPaletteEnum.UnexploredRange);
 
             ObjectPool.RectanglePool.PutObject(rect);
             ObjectPool.PointObjPool.PutObject(p);

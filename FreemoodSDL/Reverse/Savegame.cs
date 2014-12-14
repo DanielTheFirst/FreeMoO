@@ -200,13 +200,13 @@ namespace FreemooSDL.Reverse
             return p;
         }
 
-        public List<Fleet> parseFleetsIntransit()
+        public List<Fleet> parseFleetsIntransit(int numPlayers)
         {
             List<Fleet> fleets = new List<Fleet>();
             for (int i = 0; i < 260; i++) // only room for 260 fleets in the save game
             {
                 //fleets.Add(parseFleetIntransit(Util.getNextFleetId(), Util.slice(mFileData, i * FLEET_DATA_LEN + FLEET_DATA_OFFSET, FLEET_DATA_LEN)));
-                Fleet f = parseFleetIntransit(Util.getNextFleetId(), Util.slice(_fileData, i * FLEET_DATA_LEN + FLEET_DATA_OFFSET, FLEET_DATA_LEN));
+                Fleet f = parseFleetIntransit(Util.getNextFleetId(), Util.slice(_fileData, i * FLEET_DATA_LEN + FLEET_DATA_OFFSET, FLEET_DATA_LEN), numPlayers);
                 if (f != null)
                 {
                     fleets.Add(f);
@@ -215,11 +215,11 @@ namespace FreemooSDL.Reverse
             return fleets;
         }
 
-        private Fleet parseFleetIntransit(int pId, byte[] rawFleetData)
+        private Fleet parseFleetIntransit(int pId, byte[] rawFleetData, int numPlayers)
         {
             Fleet f = null;
             int test = Util.buildInt(rawFleetData[0], rawFleetData[1]);
-            if (test < 0x80)
+            if (test < numPlayers)
             {
                 f = new Fleet(pId);
                 f.InTransit = true;

@@ -172,7 +172,7 @@ namespace FreemooSDL.Screens
                 mColonyPanel = new ColonyPanel(this, p);
                 Controls.add(mColonyPanel);
             }
-            else if (p.Player0Explored)
+            else if (!p.Player0Explored)
             {
                 _unexploredPanel = new UnexploredStarPanel(this, p);
                 Controls.add(_unexploredPanel);

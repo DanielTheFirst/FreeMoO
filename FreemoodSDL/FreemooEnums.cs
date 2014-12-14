@@ -113,7 +113,8 @@ namespace FreemooSDL
         Font4Colors,
         PlanetType,
         PlanetBluePal,
-        PopulationGreen
+        PopulationGreen,
+        UnexploredRange
     }
 
     public enum TextAlignEnum

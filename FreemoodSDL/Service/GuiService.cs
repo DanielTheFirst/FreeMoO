@@ -71,6 +71,16 @@ namespace FreemooSDL.Service
             font4Colors[9] = Color.FromArgb(0xf3, 0xe7, 0xc3);
             mFontPalettes.Add(FontPaletteEnum.Font4Colors, font4Colors);
 
+            Color[] fontUnexRange = new Color[256];
+            fontUnexRange[0] = Color.FromArgb(0x00, 0xff, 0x00, 0xff);
+            fontUnexRange[1] = Color.FromArgb(134, 134, 134);
+            fontUnexRange[2] = Color.FromArgb(105, 105, 105);
+            fontUnexRange[3] = Color.Blue;  // hunh?
+            fontUnexRange[4] = Color.FromArgb(105, 105, 105);
+            //fontUnexRange[2] = fontUnexRange[3] = Color.Blue;'
+            for (int i = 5; i < 256; i++) fontUnexRange[i] = Color.Blue;
+            mFontPalettes.Add(FontPaletteEnum.UnexploredRange, fontUnexRange);
+
             // really need to externalize this...make it a tasking
             // [0xff00ff, 0xFFDF51, 0xff88ff, 0xff88ff, 0xCB9600]
             Color[] planetTypePal = buildPalette(new int[] {0xff00ff, 0xFFDF51, 0xff88ff, 0xff88ff, 0xCB9600});
