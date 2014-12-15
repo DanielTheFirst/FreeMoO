@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
+using FreemooSDL.Collections;
 using FreemooSDL.Game;
 using FreemooSDL.Screens;
 using FreemooSDL.Service;
@@ -12,7 +13,7 @@ using SdlDotNet.Input;
 
 namespace FreemooSDL.Controls
 {
-    class ProductionBarEventArgs
+    /*class ProductionBarEventArgs
         : EventArgs
     {
         public ProductionBarEventArgs()
@@ -22,9 +23,9 @@ namespace FreemooSDL.Controls
         public ProductionEnum ProdType;
         //public int NewValue;
         public int Delta;
-    }
+    }*/
 
-    class ProductionBars
+    /*class ProductionBars
         : AbstractControl
     {
         ProductionEnum mProdType;
@@ -53,7 +54,7 @@ namespace FreemooSDL.Controls
 
         public override void update(FreemooTimer pTimer)
         {
-            // don't really need tto do anything here.
+            // don't really need to do anything here.
         }
 
         public int Value
@@ -150,15 +151,24 @@ namespace FreemooSDL.Controls
                 }
             }
         }
-    }
+    }*/
 
     public class ColonyPanel 
         : AbstractControl
     {
         private Planet mPlanetRef = null;
         private MainScreen mScreenRef = null;
-        private ProductionBars[] mProductionBars = null;
+        //private ProductionBars[] mProductionBars = null;
+        private ProductionBarGroup _productionBars = null;
         private MooButton[] mButtons = null;
+
+        private const int PRODUCTION_PANEL_X_OFFSET = 226;
+        private const int PRODUCTION_PANEL_Y_OFFSET = 81;
+        private const int PRODUCTION_BAR_HEIGHT = 11;
+        private const int PRODUCTION_BAR_WIDTH = 60;
+        private const int PRODUCTION_BAR_LABEL_WIDTH = 20;
+        
+        private Color _lockedColor = Color.FromArgb(0xff, 0x86, 0x2c, 0x00); //862C00
 
         public ColonyPanel(MainScreen pScreen, Planet pPlanet)
             : base()
@@ -173,22 +183,38 @@ namespace FreemooSDL.Controls
 
         private void buildProductionBars()
         {
+            _productionBars = ObjectPool.ProductionBarGroupPool.GetObject();
+
             PlanetaryProduction pp = mPlanetRef.Production;
             int[] vals = pp.getArrayOfValues();
             bool[] locked = pp.getArrayOfLocked();
 
-            mProductionBars = new ProductionBars[5];
+            _productionBars.ParentControl = this;
+            _productionBars.Id = "ColonyProductionBars";
+
+            /*mProductionBars = new ProductionBars[5];*/
             for (int i = 0; i < 5; i++)
             {
                 ProductionEnum pe = (ProductionEnum)i;
-                mProductionBars[i] = new ProductionBars();
-                mProductionBars[i].Id = "ProductionBar_" + i;
-                mProductionBars[i].Value = vals[i];
-                mProductionBars[i].Locked = locked[i];
-                mProductionBars[i].ProductionType = pe;
-                mProductionBars[i].ProductionBarChange += new EventHandler<ProductionBarEventArgs>(this.handleProductionBarChange);
-                Controls.add(mProductionBars[i]);
+                ProductionBar pb = ObjectPool.ProductionBarPool.GetObject();
+                //pb = new ProductionBars();
+                pb.Id = "ProductionBar_" + i;
+                pb.Value = vals[i];
+                pb.Locked = locked[i];
+                if (i == 1)
+                {
+                    pb.Locked = true;
+                }
+                pb.ProdType = pe;
+                pb.X = PRODUCTION_PANEL_X_OFFSET;
+                pb.Y = PRODUCTION_PANEL_Y_OFFSET + (PRODUCTION_BAR_HEIGHT * i);
+                pb.Width = PRODUCTION_BAR_WIDTH;
+                pb.Height = PRODUCTION_BAR_HEIGHT;
+                pb.LabelWidth = PRODUCTION_BAR_LABEL_WIDTH;
+                //pb.ProductionBarChange += new EventHandler<ProductionBarEventArgs>(this.handleProductionBarChange);
+                _productionBars.Controls.add(pb);
             }
+            Controls.add(_productionBars);
         }
 
         private void buildButtons()
@@ -216,6 +242,7 @@ namespace FreemooSDL.Controls
             //{
             //    pb.update(pTimer);
             //}
+
             for (int i = 0; i < Controls.count(); i++)
             {
                 Controls.get(i).update(pTimer);
@@ -225,11 +252,31 @@ namespace FreemooSDL.Controls
         public override void draw(FreemooTimer pTimer, GuiService pGuiService)
         {
             ImageService imgService = mScreenRef.Game.Images; //(ImageService)mScreenRef.Game.Services[ServiceEnum.ImageService];
+            Rectangle poolRect = ObjectPool.RectanglePool.GetObject();
+            Point poolPoint = ObjectPool.PointObjPool.GetObject();
+            Size poolSize = ObjectPool.SizeObjPool.GetObject();
+
+            for (int i = 0; i < _productionBars.Controls.count(); i++)
+            {
+                if (_productionBars.Controls.get(i) is ProductionBar)
+                {
+                    var ctr = (ProductionBar)_productionBars.Controls.get(i);
+
+                    if (ctr.Locked)
+                    {
+                        pGuiService.drawRect(ctr.X, ctr.Y, ctr.LabelWidth, ctr.Height, _lockedColor);
+                    }
+                    else
+                    {
+                        pGuiService.drawRect(ctr.X, ctr.Y, ctr.LabelWidth, ctr.Height, Color.Black);
+                    }
+                }
+            }
 
             // draw a box behind the production labels black for unlocked, 862C00 for locked
-            int y = 82;
-            mProductionBars[1].Locked = true;
-            foreach (ProductionBars pb in mProductionBars)
+            //int y = 82;
+            //mProductionBars[1].Locked = true;
+            /*foreach (ProductionBars pb in mProductionBars)
             {
                 Color fillcol = Color.Black;
                 if (pb.Locked)
@@ -238,7 +285,7 @@ namespace FreemooSDL.Controls
                 }
                 pGuiService.drawRect(227, y, 17, 7, fillcol);
                 y += 11;
-            }
+            }*/
 
             Surface panelSurf = imgService.getSurface(ArchiveEnum.STARMAP, "YOURPLNT", 0); //imgService.Images[ArchiveEnum.STARMAP, "YOURPLNT"][0];
 
@@ -309,10 +356,10 @@ namespace FreemooSDL.Controls
         public override void mousePressed(MouseButtonEventArgs pMbea)
         {
             //base.mousePressed(pMbea);
-            foreach (ProductionBars pb in mProductionBars)
+            /*foreach (ProductionBars pb in mProductionBars)
             {
                 pb.mousePressed(pMbea);
-            }
+            }*/
             foreach (MooButton btn in mButtons)
             {
                 btn.mousePressed(pMbea);
@@ -321,10 +368,10 @@ namespace FreemooSDL.Controls
 
         public override void mouseReleased(MouseButtonEventArgs pMbea)
         {
-            foreach (ProductionBars pb in mProductionBars)
+            /*foreach (ProductionBars pb in mProductionBars)
             {
                 pb.mousePressed(pMbea);
-            }
+            }*/
             foreach (MooButton btn in mButtons)
             {
                 btn.mouseReleased(pMbea);
@@ -344,7 +391,7 @@ namespace FreemooSDL.Controls
         {
             //Console.Write(pArgs.ProdType.ToString());
             // recalculate the production bar
-            int delta = pArgs.Delta * 4;
+            /*int delta = pArgs.Delta * 4;
             int prodIdx = (int)pArgs.ProdType;
             int[] order = { 4, 2, 3, 0, 1 };
             int newVal = mProductionBars[prodIdx].Value - delta;
@@ -405,7 +452,7 @@ namespace FreemooSDL.Controls
             pp.Industry.Value = mProductionBars[2].Value;
             pp.Ecology.Value = mProductionBars[3].Value;
             pp.Technology.Value = mProductionBars[4].Value;
-            mPlanetRef.Production = pp;
+            mPlanetRef.Production = pp;*/
         }
 
         private void ShipBtn_Click(object pSender, EventArgs pArgs)

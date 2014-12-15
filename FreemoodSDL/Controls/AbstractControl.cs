@@ -31,8 +31,16 @@ namespace FreemooSDL.Controls
             }
         }
 
+        public IControl ParentControl { get; set; }
+
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+
         public abstract void update(FreemooTimer pTimer);
         public abstract void draw(FreemooTimer pTimer, FreemooSDL.Service.GuiService pGuiService);
+        public void Release() { }
 
         public virtual void keyPressed(KeyboardEventArgs pKea) { }
 

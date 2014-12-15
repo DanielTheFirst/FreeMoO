@@ -64,6 +64,8 @@
     <Compile Include="Controls\MainScreenMenuButtons.cs" />
     <Compile Include="Controls\MainStarmap.cs" />
     <Compile Include="Controls\MooButton.cs" />
+    <Compile Include="Controls\ProductionBar.cs" />
+    <Compile Include="Controls\ProductionBarGroup.cs" />
     <Compile Include="Controls\UnexploredStarPanel.cs" />
     <Compile Include="Freemoo.cs" />
     <Compile Include="FreemooEnums.cs" />

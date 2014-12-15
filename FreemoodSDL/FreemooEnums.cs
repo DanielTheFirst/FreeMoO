@@ -99,7 +99,7 @@ namespace FreemooSDL
 
     public enum ProductionEnum
     {
-        Ship = 0, Def = 1, Ind = 2, Eco = 3, Tech = 4
+        Ship = 0, Def = 1, Ind = 2, Eco = 3, Tech = 4, None = 99
     }
 
     public enum FontEnum

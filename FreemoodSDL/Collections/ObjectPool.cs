@@ -2,6 +2,8 @@
 using System.Collections.Concurrent;
 using System.Drawing;
 
+using FreemooSDL.Controls;
+
 namespace FreemooSDL.Collections
 {
     public class ObjectPool
@@ -43,11 +45,15 @@ namespace FreemooSDL.Collections
             RectanglePool = new ObjectPoolImpl<Rectangle>(() => new Rectangle(), 100);
             SizeObjPool = new ObjectPoolImpl<Size>(() => new Size(), 100);
             PointObjPool = new ObjectPoolImpl<Point>(() => new Point(), 100);
+            ProductionBarGroupPool = new ObjectPoolImpl<ProductionBarGroup>(() => new ProductionBarGroup(), 10);
+            ProductionBarPool = new ObjectPoolImpl<ProductionBar>(() => new ProductionBar(), 10);
         }
 
         public static ObjectPoolImpl<Rectangle> RectanglePool;
         public static ObjectPoolImpl<Size> SizeObjPool;
         public static ObjectPoolImpl<Point> PointObjPool;
+        public static ObjectPoolImpl<ProductionBarGroup> ProductionBarGroupPool;
+        public static ObjectPoolImpl<ProductionBar> ProductionBarPool;
 
     }
 }
