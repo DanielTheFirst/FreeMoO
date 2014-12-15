@@ -201,16 +201,15 @@ namespace FreemooSDL.Controls
                 pb.Id = "ProductionBar_" + i;
                 pb.Value = vals[i];
                 pb.Locked = locked[i];
-                if (i == 1)
-                {
-                    pb.Locked = true;
-                }
                 pb.ProdType = pe;
                 pb.X = PRODUCTION_PANEL_X_OFFSET;
                 pb.Y = PRODUCTION_PANEL_Y_OFFSET + (PRODUCTION_BAR_HEIGHT * i);
                 pb.Width = PRODUCTION_BAR_WIDTH;
                 pb.Height = PRODUCTION_BAR_HEIGHT;
                 pb.LabelWidth = PRODUCTION_BAR_LABEL_WIDTH;
+                pb.PreCalculateRectangles();
+                pb.MaxValue = 100;
+                pb.ProductionBarChange += _productionBars.HandleProductionBarChange;
                 //pb.ProductionBarChange += new EventHandler<ProductionBarEventArgs>(this.handleProductionBarChange);
                 _productionBars.Controls.add(pb);
             }
@@ -234,6 +233,13 @@ namespace FreemooSDL.Controls
             {
                 Controls.add(mb);
             }
+        }
+
+        public override void Release()
+        {
+            _productionBars.Release();
+            ObjectPool.ProductionBarGroupPool.PutObject(_productionBars);
+            base.Release();
         }
 
         public override void update(FreemooTimer pTimer)
@@ -351,6 +357,10 @@ namespace FreemooSDL.Controls
             {
                 Controls.get(i).draw(pTimer, pGuiService);
             }
+
+            ObjectPool.RectanglePool.PutObject(poolRect);
+            ObjectPool.SizeObjPool.PutObject(poolSize);
+            ObjectPool.PointObjPool.PutObject(poolPoint);
         }
 
         public override void mousePressed(MouseButtonEventArgs pMbea)
@@ -360,9 +370,13 @@ namespace FreemooSDL.Controls
             {
                 pb.mousePressed(pMbea);
             }*/
-            foreach (MooButton btn in mButtons)
+            /*foreach (MooButton btn in mButtons)
             {
                 btn.mousePressed(pMbea);
+            }*/
+            for (int i = 0; i < Controls.count(); i++)
+            {
+                Controls.get(i).mousePressed(pMbea);
             }
         }
 
@@ -372,9 +386,13 @@ namespace FreemooSDL.Controls
             {
                 pb.mousePressed(pMbea);
             }*/
-            foreach (MooButton btn in mButtons)
+            /*foreach (MooButton btn in mButtons)
             {
                 btn.mouseReleased(pMbea);
+            }*/
+            for (int i = 0; i < Controls.count(); i++)
+            {
+                Controls.get(i).mouseReleased(pMbea);
             }
         }
 

@@ -40,7 +40,7 @@ namespace FreemooSDL.Controls
 
         public abstract void update(FreemooTimer pTimer);
         public abstract void draw(FreemooTimer pTimer, FreemooSDL.Service.GuiService pGuiService);
-        public void Release() { }
+        public virtual void Release() { }
 
         public virtual void keyPressed(KeyboardEventArgs pKea) { }
 
