@@ -82,14 +82,14 @@ namespace FreemooSDL.Controls
                     {
                         ProdEventArgs.ProdType = ProdType;
                         ProdEventArgs.ID = Id;
-                        ProdEventArgs.Delta = 1;
+                        ProdEventArgs.Delta = -1;
                         ProdEventArgs.Sender = this;
                         ProductionBarChange(ProdEventArgs);
                     }
                     else
                     {
                         // assume not part of a group and just make the change as is
-                        Value += 1;
+                        Value -= 1;
                     }
                 }
             }
@@ -102,7 +102,7 @@ namespace FreemooSDL.Controls
                     {
                         ProdEventArgs.ProdType = ProdType;
                         ProdEventArgs.ID = Id;
-                        ProdEventArgs.Delta = -1;
+                        ProdEventArgs.Delta = 1;
                         ProdEventArgs.Sender = this;
                         ProductionBarChange(ProdEventArgs);
                     }
@@ -110,6 +110,22 @@ namespace FreemooSDL.Controls
                     {
                         Value += 1;
                     }
+                }
+            }
+
+            if (prodRect.Contains(pMbea.Position))
+            {
+                if (!this.Locked && ProductionBarChange != null)
+                {
+                    ProdEventArgs.ProdType = ProdType;
+                    ProdEventArgs.ID = Id;
+                    ProdEventArgs.Delta = _value - (pMbea.X - prodRect.X);
+                    ProdEventArgs.Sender = this;
+                    ProductionBarChange(ProdEventArgs);
+                }
+                else
+                {
+                    Value += (pMbea.X - prodRect.X) - _value;
                 }
             }
         }

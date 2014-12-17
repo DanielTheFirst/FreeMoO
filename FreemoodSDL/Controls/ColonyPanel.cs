@@ -208,7 +208,7 @@ namespace FreemooSDL.Controls
                 pb.Height = PRODUCTION_BAR_HEIGHT;
                 pb.LabelWidth = PRODUCTION_BAR_LABEL_WIDTH;
                 pb.PreCalculateRectangles();
-                pb.MaxValue = 100;
+                pb.MaxValue = 25; // 100 / 4
                 pb.ProductionBarChange += _productionBars.HandleProductionBarChange;
                 //pb.ProductionBarChange += new EventHandler<ProductionBarEventArgs>(this.handleProductionBarChange);
                 _productionBars.Controls.add(pb);

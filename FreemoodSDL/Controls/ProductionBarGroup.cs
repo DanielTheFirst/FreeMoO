@@ -8,7 +8,6 @@ namespace FreemooSDL.Controls
         : AbstractControl
     {
 
-
         public override void update(FreemooTimer pTimer)
         {
             for (int i = 0; i < Controls.count(); i++)
@@ -68,6 +67,82 @@ namespace FreemooSDL.Controls
         public void HandleProductionBarChange(ProductionBarEventArgs prodBarEvt)
         {
             Console.WriteLine(prodBarEvt.ID + " sent a delta of " + prodBarEvt.Delta);
+            int delta = prodBarEvt.Delta * 4;
+            int prodIdx = (int)prodBarEvt.ProdType;
+            // there is probably a better way to do this but for now...
+            ProductionBar[] prodBars = new ProductionBar[5];
+
+            //int index = 0;
+            foreach (var ctr in Controls)
+            {
+                if (ctr.Value is ProductionBar)
+                {
+                    var prodCtr = (ProductionBar)ctr.Value;
+                    prodBars[(int)prodCtr.ProdType] = (ProductionBar)ctr.Value;
+                    //index++;
+                }
+            }
+            int[] order = { 4, 2, 3, 0, 1 };
+            int newVal = prodBarEvt.Sender.Value - delta;
+            int leftOver = newVal - prodBarEvt.Sender.Value;
+
+            if (leftOver < 0)
+            {
+                foreach (int pk in order)
+                {
+                    if (leftOver < 0)
+                    {
+                        if (!prodBars[pk].Locked && pk != prodIdx)
+                        {
+                            if ((prodBars[pk].Value - leftOver) <= 100)
+                            {
+                                prodBars[pk].Value -= leftOver;
+                                leftOver = 0;
+                            }
+                            else
+                            {
+                                leftOver -= (100 - prodBars[pk].Value);
+                                prodBars[pk].Value = 100;
+                            }
+
+                        }
+                    }
+                }
+            }
+            else if (leftOver > 0)
+            {
+                foreach (int pk in order)
+                {
+                    if (leftOver > 0)
+                    {
+                        if (!prodBars[pk].Locked && pk != prodIdx)
+                        {
+                            if ((prodBars[pk].Value - leftOver) >= 0)
+                            {
+                                prodBars[pk].Value -= leftOver;
+                                leftOver = 0;
+                            }
+                            else
+                            {
+                                leftOver -= (prodBars[pk].Value);
+                                prodBars[pk].Value = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // now update the triggering bar
+            prodBarEvt.Sender.Value = newVal;
+
+            // now write the new values to the planet ref
+            //PlanetaryProduction pp = mPlanetRef.Production;
+            //pp.Ship.Value = mProductionBars[0].Value;
+            //pp.Defense.Value = mProductionBars[1].Value;
+            //pp.Industry.Value = mProductionBars[2].Value;
+            //pp.Ecology.Value = mProductionBars[3].Value;
+            //pp.Technology.Value = mProductionBars[4].Value;
+            //mPlanetRef.Production = pp;
         }
     }
 }
