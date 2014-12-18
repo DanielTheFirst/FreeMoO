@@ -335,6 +335,9 @@ namespace FreemooSDL.Controls
             string currentPopulation = mPlanetRef.CurrentPopulation.ToString().PadLeft(3, ' ');
             pGuiService.drawString(currentPopulation, new Rectangle(259, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
 
+            string currentBases = mPlanetRef.AmtBases.ToString().PadLeft(3, ' ');
+            pGuiService.drawString(currentBases, new Rectangle(304, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
+
             string shipString = string.Empty;
             if (mPlanetRef.Production.Ship.Value > 0)
             {
