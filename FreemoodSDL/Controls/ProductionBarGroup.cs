@@ -1,12 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using FreemooSDL.Collections;
 
 namespace FreemooSDL.Controls
 {
+    public delegate void ProductionBarUpdateDelegate(ProductionBarUpdateArgs args);
+
     public class ProductionBarGroup
         : AbstractControl
     {
+
+        public event ProductionBarUpdateDelegate OnProductionBarUpdate;
+
+        private ProductionBarUpdateArgs _updateArgs = new ProductionBarUpdateArgs();
+        
 
         public override void update(FreemooTimer pTimer)
         {
@@ -135,6 +143,17 @@ namespace FreemooSDL.Controls
             // now update the triggering bar
             prodBarEvt.Sender.Value = newVal;
 
+            if (OnProductionBarUpdate != null)
+            {
+                //_updateArgs.prodValues = prodBars;
+                _updateArgs.prodValues.Clear();
+                foreach(var p in prodBars)
+                {
+                    _updateArgs.prodValues.Add(new Tuple<ProductionEnum, int, bool>(p.ProdType, p.Value, p.Locked ));
+                }
+                OnProductionBarUpdate(_updateArgs);
+            }
+
             // now write the new values to the planet ref
             //PlanetaryProduction pp = mPlanetRef.Production;
             //pp.Ship.Value = mProductionBars[0].Value;
@@ -144,5 +163,11 @@ namespace FreemooSDL.Controls
             //pp.Technology.Value = mProductionBars[4].Value;
             //mPlanetRef.Production = pp;
         }
+    }
+
+    public class ProductionBarUpdateArgs
+        : EventArgs
+    {
+        public List<Tuple<ProductionEnum, int, bool>> prodValues = new List<Tuple<ProductionEnum,int, bool>>();
     }
 }

@@ -184,6 +184,7 @@ namespace FreemooSDL.Controls
         private void buildProductionBars()
         {
             _productionBars = ObjectPool.ProductionBarGroupPool.GetObject();
+            _productionBars.OnProductionBarUpdate += this.HabndleProductionBarGroupUpdate;
 
             PlanetaryProduction pp = mPlanetRef.Production;
             int[] vals = pp.getArrayOfValues();
@@ -403,6 +404,43 @@ namespace FreemooSDL.Controls
                 btn.mouseMoved(pMbea);
             }
             base.mouseMoved(pMbea);
+        }
+
+        private void HabndleProductionBarGroupUpdate(ProductionBarUpdateArgs args)
+        {
+            PlanetaryProduction pp = mPlanetRef.Production;
+            //pp.Ship.Value = args.prodValues.Value;
+            //pp.Defense.Value = mProductionBars[1].Value;
+            //pp.Industry.Value = mProductionBars[2].Value;
+            //pp.Ecology.Value = mProductionBars[3].Value;
+            //pp.Technology.Value = mProductionBars[4].Value;
+            foreach(var p in args.prodValues)
+            {
+                switch(p.Item1)
+                {
+                    case ProductionEnum.Ship:
+                        pp.Ship.Value = p.Item2;
+                        pp.Ship.Locked = p.Item3;
+                        break;
+                    case ProductionEnum.Def:
+                        pp.Defense.Value = p.Item2;
+                        pp.Defense.Locked = p.Item3;
+                        break;
+                    case ProductionEnum.Eco:
+                        pp.Ecology.Value = p.Item2;
+                        pp.Ecology.Locked = p.Item3;
+                        break;
+                    case ProductionEnum.Ind:
+                        pp.Industry.Value = p.Item2;
+                        pp.Industry.Locked = p.Item3;
+                        break;
+                    case ProductionEnum.Tech:
+                        pp.Technology.Value = p.Item2;
+                        pp.Technology.Locked = p.Item3;
+                        break;
+                }
+            }
+            mPlanetRef.Production = pp;
         }
 
         private void handleProductionBarChange(object sender, ProductionBarEventArgs pArgs)
