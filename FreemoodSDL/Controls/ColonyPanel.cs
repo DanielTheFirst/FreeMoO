@@ -332,6 +332,9 @@ namespace FreemooSDL.Controls
             string popString = "POP" + mPlanetRef.MaxPopulation.ToString().PadLeft(3, ' ') + " MAX";
             pGuiService.drawString(popString, new Rectangle(263, 45, 43, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
 
+            string currentPopulation = mPlanetRef.CurrentPopulation.ToString().PadLeft(3, ' ');
+            pGuiService.drawString(currentPopulation, new Rectangle(259, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
+
             string shipString = string.Empty;
             if (mPlanetRef.Production.Ship.Value > 0)
             {
