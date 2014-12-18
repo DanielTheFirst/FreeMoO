@@ -338,6 +338,13 @@ namespace FreemooSDL.Controls
             string currentBases = mPlanetRef.AmtBases.ToString().PadLeft(3, ' ');
             pGuiService.drawString(currentBases, new Rectangle(304, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
 
+            string productivity = mPlanetRef.AmtProductivity.ToString().PadLeft(3, ' ');
+            pGuiService.drawString(productivity, new Rectangle(283, 72, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Left, TextVAlignEnum.None);
+
+            string maxProductivity = "(" + mPlanetRef.MaxProductivity.ToString().PadLeft(3, ' ') + ")";
+            pGuiService.drawString(maxProductivity, new Rectangle(298, 72, 14, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
+
+
             string shipString = string.Empty;
             if (mPlanetRef.Production.Ship.Value > 0)
             {
