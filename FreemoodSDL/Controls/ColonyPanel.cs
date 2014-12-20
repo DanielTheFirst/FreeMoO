@@ -367,6 +367,30 @@ namespace FreemooSDL.Controls
             }
             pGuiService.drawString(shipString, new Rectangle(288, 83, 24, 5), FontEnum.font_2, Color.Black, TextAlignEnum.Right, TextVAlignEnum.None);
 
+            // figure out what ship to draw in the current ship thing
+            // will eventually include star gates under certain circumstances
+            int q = mPlanetRef.CurrShip;
+            int starshipImageIdx = this.mScreenRef.Game.OrionGame.Starships[q].ImageIdx;
+            ArchiveEnum shipArc = ArchiveEnum.SHIPS;
+            if (starshipImageIdx < 72)
+            {
+                shipArc = ArchiveEnum.SHIPS2;
+                //starshipImageIdx -= 72;
+            }
+            else
+            {
+                starshipImageIdx -= 72;
+            }
+
+            int offset = starshipImageIdx % 6;
+            int shipSize = starshipImageIdx / 6 % 4;
+            int playerColor = mScreenRef.Game.OrionGame.Players[0].ColorId;
+            string[] shipSizes = {"SMALL", "MEDIUM", "LARGE", "HUGE"};
+            string [] colors = {"B","G","P","R","W","Y"};
+            //Rectangle shipProdRect = new Rectangle(236, 142, 39, 29);
+            pGuiService.drawImage(imgService.getSurface(shipArc, colors[playerColor] + shipSizes[shipSize], 0, offset), 236, 142);
+
+
             for (int i = 0; i < Controls.count(); i++)
             {
                 Controls.get(i).draw(pTimer, pGuiService);
