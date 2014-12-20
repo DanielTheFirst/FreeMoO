@@ -244,16 +244,32 @@ namespace FreemooSDL.Service
             return newPal;
         }
 
-        public Surface getSurface(ArchiveEnum pArch, string pImageIdx, int pFrame)
+        public Surface getSurface(ArchiveEnum arc, string imageIdx, int frame)
         {
-            string idx = pArch.ToString() + "_" + pImageIdx;
+            return getSurface(arc, imageIdx, frame, 0);
+        }
+
+        // adding offset parameter for things like the ships that have more than one image with the same name
+        public Surface getSurface(ArchiveEnum pArch, string pImageIdx, int pFrame, int offset)
+        {
+            string idx = pArch.ToString() + "_" + pImageIdx + "_" + offset;
             if (mImageCache.ContainsKey(idx))
             {
                 return mImageCache[idx];
             }
             else
             {
-                FreemooImage fi = mImageList.Single(x => x.Archive == pArch && x.ImageIndex == pImageIdx);
+                var fiList = mImageList.Where(x => x.Archive == pArch && x.ImageIndex == pImageIdx).ToList();
+                FreemooImage fi = null;
+                if (fiList.Count > offset)
+                {
+                    fi = fiList[offset];
+                }
+                else
+                {
+                    fi = fiList[0];
+                }
+                //FreemooImage fi = mImageList.Single(x => x.Archive == pArch && x.ImageIndex == pImageIdx);
                 Surface surf = null;
                 if (pFrame >= fi.BufferCount)
                 {
@@ -287,7 +303,7 @@ namespace FreemooSDL.Service
                     surf = makeSurface(fi.getBuffer(pFrame), mPalettes[fi.Palette]);
                 }
                 
-                //mImageCache.Add(idx, surf);
+                mImageCache.Add(idx, surf);
                 return surf;
             }
         }
