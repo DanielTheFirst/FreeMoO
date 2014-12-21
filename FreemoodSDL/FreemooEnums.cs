@@ -151,4 +151,9 @@ namespace FreemooSDL
     {
         Game, Design, Fleet, Map, Races, Planets, Tech, NextTurn
     }
+
+    public enum ShipSizeEnum
+    {
+        Small, Medium, Large, Huge
+    }
 }

@@ -284,9 +284,31 @@ namespace FreemooSDL.Reverse
         private Starship parseSingleStarshipDesign(int pPlayerId, int pStarshipId, byte[] pRawData)
         {
             Starship ship = new Starship(pStarshipId);
+            ship.Name = Util.GetZString(Util.slice(pRawData, 0, 12));
+
+            ship.Weapon1 = pRawData[0x1c];
+            ship.Weapon1Count = pRawData[0x24];
+            ship.Weapon2 = pRawData[0x1e];
+            ship.Weapon2Count = pRawData[0x26];
+            ship.Weapon3 = pRawData[0x20];
+            ship.Weapon3Count = pRawData[0x28];
+            ship.Weapon4 = pRawData[0x22];
+            ship.Weapon4Count = pRawData[0x2a];
+
+            ship.Special1 = pRawData[0x32];
+            ship.Special2 = pRawData[0x34];
+            ship.Special3 = pRawData[0x36];
+
+            ship.Ecm = pRawData[0x3a];
+            ship.Computer = pRawData[0x3c];
+            ship.Armor = pRawData[0x3e];
+            ship.Maneuver = pRawData[0x40];
+            ship.HitPoints = Util.buildInt(pRawData[0x42], pRawData[0x43]);
+
             ship.PlayerID = pPlayerId;
             ship.ImageIdx = pRawData[0x1a];
             ship.Cost = Util.buildInt(pRawData[0x14], pRawData[0x15]);
+            // any address up to 0x44 that is not here, is currently unknown.
             return ship;
         }
 
