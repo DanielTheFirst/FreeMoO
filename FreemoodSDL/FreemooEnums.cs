@@ -48,7 +48,8 @@ namespace FreemooSDL
         FleetScreen,
         DesignScreen,
         GameScreen,
-        OpeningMovie
+        OpeningMovie,
+        LoadingScreen
     }
 
     public enum PlanetTypeEnum

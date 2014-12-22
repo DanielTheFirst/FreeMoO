@@ -98,6 +98,7 @@
     <Compile Include="Screens\FleetScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\GroundCombat.cs" />
+    <Compile Include="Screens\LoadingScreen.cs" />
     <Compile Include="Screens\MapScreen.cs" />
     <Compile Include="Screens\NextTurn.cs" />
     <Compile Include="Screens\OpeningMovie.cs" />

@@ -79,8 +79,8 @@ namespace FreemooSDL
             //sm.changeState("");
             //mCurrentScreen = new MainScreen(this);
             //mCurrentScreen.start(); // refactor into changestate function
-            changeScreen(ScreenEnum.MainScreen);
-            //changeScreen(ScreenEnum.OpeningMovie);
+            //changeScreen(ScreenEnum.MainScreen);
+            changeScreen(ScreenEnum.LoadingScreen);
 
             int framesElapsed = 0;
             double currMillis = mTimer.TotalMilliseconds;
@@ -199,6 +199,7 @@ namespace FreemooSDL
             mScreenCollection.Add(ScreenEnum.DesignScreen, new DesignScreen(this));
             mScreenCollection.Add(ScreenEnum.GameScreen, new GameScreen(this));
             mScreenCollection.Add(ScreenEnum.OpeningMovie, new OpeningMovie(this));
+            mScreenCollection.Add(ScreenEnum.LoadingScreen, new LoadingScreen(this));
         }
 
         public void quitAction(object sender, QuitEventArgs qea)
