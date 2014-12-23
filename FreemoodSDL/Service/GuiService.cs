@@ -71,6 +71,30 @@ namespace FreemooSDL.Service
             font4Colors[9] = Color.FromArgb(0xf3, 0xe7, 0xc3);
             mFontPalettes.Add(FontPaletteEnum.Font4Colors, font4Colors);
 
+            Color[] fontEnabledMainMenuBtn = new Color[10];
+            int [] colors = {0xFF00FF,0xCB9600,0xCB9600,0xD3A624,0xDFBA55,0xCB9600,0xD3A624,0xDFBA55,0xDFBA55,0xDFBA55};
+            for (int i = 0; i < colors.Length; i++)
+            {
+                fontEnabledMainMenuBtn[i] = Color.FromArgb(colors[i]);
+            }
+            mFontPalettes.Add(FontPaletteEnum.MainMenuBtnEnabled, fontEnabledMainMenuBtn);
+
+            Color[] fontDisabledMainMenuBtn = new Color[10];
+            int [] colors2 = {0xFF00FF,0x454545,0x555555,0x696969,0x797979,0x696969,0x797979,0x8E8E8E,0x8E8E8E,0x8E8E8E};
+            for (int i = 0; i < colors2.Length; i++)
+            {
+                fontDisabledMainMenuBtn[i] = Color.FromArgb(colors2[i]);
+            }
+            mFontPalettes.Add(FontPaletteEnum.MainMenuBtnDisabled, fontDisabledMainMenuBtn);
+
+            int[] colors3 = { 0xFF00FF, 0x9A969A, 0xAAAAAA, 0xC7C7C7, 0xD7D7D7, 0xB2B2B2, 0xC7C7C7, 0xD7D7D7, 0xF7F7F7, 0xF7F7F7 };
+            Color[] fontActiveMainMenuBtn = new Color[10];
+            for (int i = 0; i < colors3.Length; i++)
+            {
+                fontActiveMainMenuBtn[i] = Color.FromArgb(colors3[i]);
+            }
+            mFontPalettes.Add(FontPaletteEnum.MainMenuBtnActive, fontActiveMainMenuBtn);
+
             Color[] fontUnexRange = new Color[256];
             fontUnexRange[0] = Color.FromArgb(0x00, 0xff, 0x00, 0xff);
             fontUnexRange[1] = Color.FromArgb(134, 134, 134);

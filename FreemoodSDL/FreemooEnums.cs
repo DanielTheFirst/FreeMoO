@@ -116,7 +116,10 @@ namespace FreemooSDL
         PlanetType,
         PlanetBluePal,
         PopulationGreen,
-        UnexploredRange
+        UnexploredRange,
+        MainMenuBtnDisabled,
+        MainMenuBtnEnabled,
+        MainMenuBtnActive
     }
 
     public enum TextAlignEnum

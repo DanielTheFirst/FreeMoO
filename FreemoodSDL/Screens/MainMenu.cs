@@ -39,8 +39,8 @@ namespace FreemooSDL.Screens
             Game.Screen.drawImage(_bgImage.getCurrentFrame(), 0, 0);
             Game.Screen.drawImage(_title.getCurrentFrame(), 45, 11);
             // 119, 127
-            Game.Screen.drawString("Continue Game", 119, 127, FontEnum.font_4, FontPaletteEnum.Font4Colors);
-            Game.Screen.drawString("Load Game", 129, 143, FontEnum.font_4, FontPaletteEnum.Font4Colors);
+            Game.Screen.drawString("Continue Game", 119, 127, FontEnum.font_4, FontPaletteEnum.MainMenuBtnDisabled);
+            Game.Screen.drawString("Load Game", 129, 143, FontEnum.font_4, FontPaletteEnum.MainMenuBtnActive);
             Game.Screen.drawString("New Game", 131, 159, FontEnum.font_4, FontPaletteEnum.Font4Colors);
             Game.Screen.drawString("Quit to Dos", 125, 175, FontEnum.font_4, FontPaletteEnum.Font4Colors);
         }
