@@ -56,6 +56,8 @@ namespace FreemooSDL.Screens
             base.stop();
         }
 
+
+
         private void BuildMovie()
         {
             _introMovieSequence = new List<FreemooImageInstance>();

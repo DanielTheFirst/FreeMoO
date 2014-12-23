@@ -15,7 +15,8 @@ namespace FreemooSDL
         private ArchiveEnum mArchiveEnum;
         private string mImageIndex = string.Empty;
         public Boolean Animate { get; set; }
-        public long AnimationTimer { get; set; }
+        public Boolean AnimateLoop { get; set; }
+        public Double AnimationTimer { get; set; }
         public long FrameRate
         {
             get
@@ -32,6 +33,7 @@ namespace FreemooSDL
             mImageIndex = pImageIndex;
             mImageRef = mImgServiceRef.getImage(pArchive, pImageIndex);
             mCurrentFrame = 0;
+            if (mImageRef.FrameRate == 0) mImageRef.FrameRate = 100; // just do animations at 10 frames per second if none is specified.
         }
 
         public Surface getCurrentFrame()
@@ -57,9 +59,35 @@ namespace FreemooSDL
             }
         }
 
+        public void UpdateAnimation(FreemooTimer timer)
+        {
+            if (Animate)
+            {
+                AnimationTimer += timer.MillisecondsElapsed;
+                //mImageRef.FrameRate = 48;
+                if (AnimationTimer > mImageRef.FrameRate)
+                {
+                    mCurrentFrame++;
+                    AnimationTimer = 0;
+                    if (mCurrentFrame >= mImageRef.FrameCount)
+                    {
+                        if (AnimateLoop)
+                        {
+                            mCurrentFrame = 0;
+                        }
+                        else
+                        {
+                            mCurrentFrame = mImageRef.FrameCount - 1;
+                        }
+                    }
+                }
+            }
+        }
+
         public void ResetAnimation()
         {
             mCurrentFrame = 0;
+            AnimationTimer = 0;
         }
 
         public int CurrentFrameNum
