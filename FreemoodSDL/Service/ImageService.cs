@@ -252,7 +252,7 @@ namespace FreemooSDL.Service
         // adding offset parameter for things like the ships that have more than one image with the same name
         public Surface getSurface(ArchiveEnum pArch, string pImageIdx, int pFrame, int offset)
         {
-            string idx = pArch.ToString() + "_" + pImageIdx + "_" + offset;
+            string idx = pArch.ToString() + "_" + pImageIdx + "_" + pFrame + "_" + offset;
             if (mImageCache.ContainsKey(idx))
             {
                 return mImageCache[idx];
