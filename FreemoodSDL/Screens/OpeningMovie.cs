@@ -50,6 +50,12 @@ namespace FreemooSDL.Screens
             base.start();
         }
 
+        public override void stop()
+        {
+            Game.Images.ResetImageCache();
+            base.stop();
+        }
+
         private void BuildMovie()
         {
             _introMovieSequence = new List<FreemooImageInstance>();

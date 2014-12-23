@@ -313,5 +313,12 @@ namespace FreemooSDL.Service
             FreemooImage fi = mImageList.Single(x => x.Archive == pArch && x.ImageIndex == pImageIdx);
             return fi;
         }
+
+        public void ResetImageCache()
+        {
+            Console.WriteLine("Resetting image cache");
+            mImageCache.Clear();
+            GC.Collect();  // not sure about this one but it seems to make sense...we'll see
+        }
     }
 }
