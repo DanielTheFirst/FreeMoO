@@ -153,6 +153,8 @@ namespace FreemooSDL.Controls
         }
     }*/
 
+    public delegate void OnShipProductionUpdate(int planetId);
+
     public class ColonyPanel 
         : AbstractControl
     {
@@ -160,7 +162,7 @@ namespace FreemooSDL.Controls
         private MainScreen mScreenRef = null;
         //private ProductionBars[] mProductionBars = null;
         private ProductionBarGroup _productionBars = null;
-        private MooButton[] mButtons = null;
+        private MooButton[] _buttons = null;
 
         private const int PRODUCTION_PANEL_X_OFFSET = 226;
         private const int PRODUCTION_PANEL_Y_OFFSET = 81;
@@ -169,6 +171,8 @@ namespace FreemooSDL.Controls
         private const int PRODUCTION_BAR_LABEL_WIDTH = 20;
         
         private Color _lockedColor = Color.FromArgb(0xff, 0x86, 0x2c, 0x00); //862C00
+
+        public event OnShipProductionUpdate ShipProductionUpdateEvent;
 
         public ColonyPanel(MainScreen pScreen, Planet pPlanet)
             : base()
@@ -219,18 +223,18 @@ namespace FreemooSDL.Controls
 
         private void buildButtons()
         {
-            mButtons = new MooButton[3];
+            _buttons = new MooButton[3];
             ImageService imgService = mScreenRef.Game.Images;
-            mButtons[0] = new MooButton(ArchiveEnum.STARMAP, "COL_BUTT ship", imgService, 282, 140);
-            mButtons[0].Id = "ShipButton";
-            mButtons[0].Click +=new EventHandler<EventArgs>(this.ShipBtn_Click);
-            mButtons[1] = new MooButton(ArchiveEnum.STARMAP, "COL_BUTT relocate", imgService, 282, 152);
-            mButtons[1].Id = "RelocButton";
-            mButtons[1].Click += new EventHandler<EventArgs>(this.RelocBtn_Click);
-            mButtons[2] = new MooButton(ArchiveEnum.STARMAP, "COL_BUTT trans", imgService, 282, 164);
-            mButtons[2].Id = "TransButton";
-            mButtons[2].Click += new EventHandler<EventArgs>(this.TransBtn_Click);
-            foreach (MooButton mb in mButtons)
+            _buttons[0] = new MooButton(ArchiveEnum.STARMAP, "COL_BUTT ship", imgService, 282, 140);
+            _buttons[0].Id = "ShipButton";
+            _buttons[0].Click +=new EventHandler<EventArgs>(this.ShipBtn_Click);
+            _buttons[1] = new MooButton(ArchiveEnum.STARMAP, "COL_BUTT relocate", imgService, 282, 152);
+            _buttons[1].Id = "RelocButton";
+            _buttons[1].Click += new EventHandler<EventArgs>(this.RelocBtn_Click);
+            _buttons[2] = new MooButton(ArchiveEnum.STARMAP, "COL_BUTT trans", imgService, 282, 164);
+            _buttons[2].Id = "TransButton";
+            _buttons[2].Click += new EventHandler<EventArgs>(this.TransBtn_Click);
+            foreach (MooButton mb in _buttons)
             {
                 Controls.add(mb);
             }
@@ -436,7 +440,7 @@ namespace FreemooSDL.Controls
 
         public override void mouseMoved(MouseMotionEventArgs pMbea)
         {
-            foreach (MooButton btn in mButtons)
+            foreach (MooButton btn in _buttons)
             {
                 btn.mouseMoved(pMbea);
             }
@@ -550,7 +554,10 @@ namespace FreemooSDL.Controls
 
         private void ShipBtn_Click(object pSender, EventArgs pArgs)
         {
-            
+            if (ShipProductionUpdateEvent != null)
+            {
+                ShipProductionUpdateEvent(this.mPlanetRef.ID);
+            }
         }
 
         private void TransBtn_Click(object pSender, EventArgs pArgs)

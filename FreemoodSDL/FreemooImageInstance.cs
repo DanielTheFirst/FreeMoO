@@ -96,6 +96,10 @@ namespace FreemooSDL
             {
                 return mCurrentFrame;
             }
+            set
+            {
+                mCurrentFrame = value;
+            }
         }
 
         public int FrameCount

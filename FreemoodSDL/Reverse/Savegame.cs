@@ -100,6 +100,7 @@ namespace FreemooSDL.Reverse
                     int techCount = Util.buildInt(rawPlayerData[techNum], rawPlayerData[techNum + 1]);
                     p.setKnowTechCount(t, techCount);
                 }
+                p.ValidShipDesigns = rawPlayerData[0x3a0];
             }
             return p;
         }

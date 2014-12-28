@@ -23,6 +23,8 @@ namespace FreemooSDL.Game
             }
         }
 
+        public int ValidShipDesigns { get; set; }
+
         public Player(int pId)
             : base(pId)
         {

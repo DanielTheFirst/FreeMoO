@@ -170,6 +170,7 @@ namespace FreemooSDL.Screens
             if (p.PlayerId == 0)
             {
                 mColonyPanel = new ColonyPanel(this, p);
+                mColonyPanel.ShipProductionUpdateEvent += this.HandleColonyShipProdChange;
                 Controls.add(mColonyPanel);
             }
             else if (!p.Player0Explored)
@@ -212,6 +213,13 @@ namespace FreemooSDL.Screens
                     CalculateNextTurnTemp();
                     break;
             }
+
+            
+        }
+
+        private void HandleColonyShipProdChange(int planetId)
+        {
+            Game.OrionGame.Planets[planetId].UpdateShipProduction();
         }
 
         private void CalculateNextTurnTemp()

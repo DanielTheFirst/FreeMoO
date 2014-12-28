@@ -400,5 +400,15 @@ namespace FreemooSDL.Game
             int numYears = (int)(shipCost / shipProd);
             return numYears;
         }
+
+        public void UpdateShipProduction()
+        {
+            // increment.  if it exceeds the max index of ships that can be produced, set to 0
+            mCurrShip++;
+            if (mCurrShip >= mGame.Players[this.PlayerId].ValidShipDesigns)
+            {
+                mCurrShip = 0;
+            }
+        }
     }
 }

@@ -11,11 +11,12 @@ namespace FreemooSDL.Controls
     class MooButton 
         : AbstractControl
     {
-        private bool mMouseDown = false;
-        private bool mMouseOver = false;
+        private bool _mouseDown = false;
+        private bool _mouseOver = false;
 
         private Rectangle mBoundingRect;
-        private FreemooImage mButtonImage;
+        //private FreemooImage mButtonImage;
+        private FreemooImageInstance _buttonImage;
         private ImageService mImgServiceRef = null;
 
         public event EventHandler<EventArgs> Click;
@@ -23,8 +24,9 @@ namespace FreemooSDL.Controls
         public MooButton(ArchiveEnum pButtonImageArchive, string pButtonImageIndex, ImageService pImgService, int px, int py)
             : base()
         {
-            mButtonImage = pImgService.getImage(pButtonImageArchive, pButtonImageIndex); //pImgService.Images[pButtonImageArchive, pButtonImageIndex];
-            Surface s = mButtonImage[0];
+            //mButtonImage = pImgService.getImage(pButtonImageArchive, pButtonImageIndex); //pImgService.Images[pButtonImageArchive, pButtonImageIndex];
+            _buttonImage = new FreemooImageInstance(pButtonImageArchive, pButtonImageIndex, pImgService);
+            Surface s = _buttonImage.getCurrentFrame();
             mBoundingRect = new Rectangle(px, py, s.Width,s.Height);
             mImgServiceRef = pImgService;
         }
@@ -32,7 +34,7 @@ namespace FreemooSDL.Controls
         public override void draw(FreemooTimer pTimer, Service.GuiService pGuiService)
         {
             int frame = 0;
-            if (mMouseDown && mMouseOver)
+            if (_mouseDown && _mouseOver)
             {
                 //pGuiService.drawImage(mButtonImage[1], mBoundingRect.X, mBoundingRect.Y);
                 frame = 1;
@@ -41,7 +43,8 @@ namespace FreemooSDL.Controls
             {
                 //pGuiService.drawImage(mButtonImage[0], mBoundingRect.X, mBoundingRect.Y);
             }
-            Surface surf = mImgServiceRef.getSurface(mButtonImage.Archive, mButtonImage.ImageIndex, frame);
+            _buttonImage.CurrentFrameNum = frame;
+            Surface surf = _buttonImage.getCurrentFrame(); //mImgServiceRef.getSurface(mButtonImage.Archive, mButtonImage.ImageIndex, frame);
             pGuiService.drawImage(surf, mBoundingRect.X, mBoundingRect.Y);
         }
 
@@ -53,11 +56,11 @@ namespace FreemooSDL.Controls
         {
             if (mBoundingRect.Contains(pMbea.Position))
             {
-                mMouseOver = true;
+                _mouseOver = true;
             }
             else
             {
-                mMouseOver = false;
+                _mouseOver = false;
             }
             base.mouseMoved(pMbea);
         }
@@ -66,14 +69,14 @@ namespace FreemooSDL.Controls
         {
             if (mBoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
             {
-                mMouseDown = true;
+                _mouseDown = true;
             }
             base.mousePressed(pMbea);
         }
 
         public override void mouseReleased(SdlDotNet.Input.MouseButtonEventArgs pMbea)
         {
-            mMouseDown = false;
+            _mouseDown = false;
             if (mBoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
             {
                 //mMouseDown = false;

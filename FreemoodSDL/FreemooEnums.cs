@@ -50,7 +50,8 @@ namespace FreemooSDL
         GameScreen,
         OpeningMovie,
         LoadingScreen,
-        MainMenu
+        MainMenu,
+        LoadGameScreen
     }
 
     public enum PlanetTypeEnum
