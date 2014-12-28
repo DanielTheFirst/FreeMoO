@@ -60,6 +60,7 @@
     <Compile Include="Constance.cs" />
     <Compile Include="Controls\AbstractControl.cs" />
     <Compile Include="Controls\ColonyPanel.cs" />
+    <Compile Include="Controls\EmptyControl.cs" />
     <Compile Include="Controls\IControl.cs" />
     <Compile Include="Controls\MainScreenMenuButtons.cs" />
     <Compile Include="Controls\MainStarmap.cs" />

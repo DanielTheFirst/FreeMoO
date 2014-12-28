@@ -163,6 +163,7 @@ namespace FreemooSDL.Controls
         //private ProductionBars[] mProductionBars = null;
         private ProductionBarGroup _productionBars = null;
         private MooButton[] _buttons = null;
+        private EmptyControl _shipPanel = null;
 
         private const int PRODUCTION_PANEL_X_OFFSET = 226;
         private const int PRODUCTION_PANEL_Y_OFFSET = 81;
@@ -238,6 +239,11 @@ namespace FreemooSDL.Controls
             {
                 Controls.add(mb);
             }
+
+            _shipPanel = new EmptyControl(227, 139, 50, 38);
+            _shipPanel.EmptyControlClickEvent += ShipPanel_Click;
+            _shipPanel.Id = "Ship Prod Panel";
+            Controls.add(_shipPanel);
         }
 
         public override void Release()
@@ -440,11 +446,15 @@ namespace FreemooSDL.Controls
 
         public override void mouseMoved(MouseMotionEventArgs pMbea)
         {
-            foreach (MooButton btn in _buttons)
+            /*foreach (MooButton btn in _buttons)
             {
                 btn.mouseMoved(pMbea);
             }
-            base.mouseMoved(pMbea);
+            base.mouseMoved(pMbea);*/
+            for (int i = 0; i < Controls.count(); i++)
+            {
+                Controls.get(i).mouseMoved(pMbea);
+            }
         }
 
         private void HabndleProductionBarGroupUpdate(ProductionBarUpdateArgs args)
@@ -552,12 +562,22 @@ namespace FreemooSDL.Controls
             mPlanetRef.Production = pp;*/
         }
 
-        private void ShipBtn_Click(object pSender, EventArgs pArgs)
+        private void FireShipProductionUpdate()
         {
             if (ShipProductionUpdateEvent != null)
             {
                 ShipProductionUpdateEvent(this.mPlanetRef.ID);
             }
+        }
+
+        private void ShipBtn_Click(object pSender, EventArgs pArgs)
+        {
+            FireShipProductionUpdate();
+        }
+
+        private void ShipPanel_Click(EmptyControl sender)
+        {
+            FireShipProductionUpdate();
         }
 
         private void TransBtn_Click(object pSender, EventArgs pArgs)
