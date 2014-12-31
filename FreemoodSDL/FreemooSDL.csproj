@@ -66,6 +66,7 @@
     <Compile Include="Controls\MainScreenMenuButtons.cs" />
     <Compile Include="Controls\MainStarmap.cs" />
     <Compile Include="Controls\MooButton.cs" />
+    <Compile Include="Controls\NoColonyPanel.cs" />
     <Compile Include="Controls\ProductionBar.cs" />
     <Compile Include="Controls\ProductionBarGroup.cs" />
     <Compile Include="Controls\SmallPlanetLabel.cs" />

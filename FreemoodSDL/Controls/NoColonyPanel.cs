@@ -13,28 +13,27 @@ using SdlDotNet.Input;
 
 namespace FreemooSDL.Controls
 {
-    public class EnemyColonyPanel
+    class NoColonyPanel
         : AbstractControl
     {
-
         private MainScreen _mainScreen = null;
         private Planet _planet = null;
         private SmallPlanetLabel _spl = null;
         private string _ownerRace = string.Empty;  // not pulling this value in savegame.cs yet.
         private string _rangeText = string.Empty;
 
-        private static string[] environments = { "NOPLANET", "RADIATE2", "TOXIC2", "INFERNO2", "DEAD2", 
-                                                   "TUNDRA2", "BARREN2", "MINIMAL2", "DESERT2", "STEPPE2", 
-                                                   "ARID2", "OCEAN2", "JUNGLE2", "TERRAN2" };
+        private static string[] environments = { "NOPLANET", "RADIATE1", "TOXIC1", "INFERNO1", "DEAD1", 
+                                                   "TUNDRA1", "BARREN1", "MINIMAL1", "DESERT1", "STEPPE1", 
+                                                   "ARID1", "OCEAN1", "JUNGLE1", "TERRAN1" };
 
         private const string RANGE_TEMPLATE = "Range {0} Parsecs";
 
-        public EnemyColonyPanel(MainScreen ms, Planet p)
-            :base()
+        public NoColonyPanel(MainScreen ms, Planet p)
+            : base()
         {
             _mainScreen = ms;
             _planet = p;
-            Id = "EnemyColony_" + p.Name;
+            Id = "NoColony_" + p.Name;
             //_ownerRace = _mainScreen.Game.OrionGame.Players[p.PlayerId].Name
 
             RecalculateRange();
@@ -56,17 +55,15 @@ namespace FreemooSDL.Controls
 
         public override void update(FreemooTimer pTimer)
         {
-            // nothing
-            foreach(var ctrls in Controls)
+            foreach (var ctrls in Controls)
             {
                 ctrls.Value.update(pTimer);
             }
         }
 
-        public override void draw(FreemooTimer pTimer, GuiService guiService)
+        public override void draw(FreemooTimer timer, GuiService guiService)
         {
-
-            Surface panelSurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.STARMAP, "EN_COLNY", 0);
+            Surface panelSurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.STARMAP, "NO_COLNY", 0);
             guiService.drawImage(panelSurf, 224, 5);
 
             Surface colonySurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.COLONIES, environments[(int)_planet.PlanetType], 0);
@@ -75,19 +72,12 @@ namespace FreemooSDL.Controls
             Rectangle rect = new Rectangle(227, 8, 84, 13);
             guiService.drawString(_planet.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
 
-            Rectangle rangeRect = new Rectangle(237, 94, 63, 8);
+            Rectangle rangeRect = new Rectangle(237, 84, 63, 8);
             guiService.drawString(_rangeText, rangeRect, FontEnum.font_0, FontPaletteEnum.UnexploredRange);
 
-            string currentPopulation = _planet.CurrentPopulation.ToString().PadLeft(3, ' ');
-            guiService.drawString(currentPopulation, new Rectangle(259, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
-
-            string currentBases = _planet.AmtBases.ToString().PadLeft(3, ' ');
-            //guiService.drawString(currentBases, new Rectangle(304, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
-
-
-            foreach(var ctrls in Controls)
+            foreach (var ctrls in Controls)
             {
-                ctrls.Value.draw(pTimer, guiService);
+                ctrls.Value.draw(timer, guiService);
             }
         }
     }
