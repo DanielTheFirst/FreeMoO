@@ -172,6 +172,8 @@ namespace FreemooSDL.Reverse
                 p.CurrentPopulation = Util.buildInt(rawPlanetData[58], rawPlanetData[59]);
                 p.AmtWaste = Util.buildInt(rawPlanetData[52], rawPlanetData[53]);
                 p.AmtFactories = Util.buildInt(rawPlanetData[62], rawPlanetData[63]);
+                // need to find out what this actually is since the address of the low bit should be even
+                // and I currently have a planet with over 22000 bases.
                 p.AmtBases = Util.buildInt(rawPlanetData[95], rawPlanetData[96]);
                 p.AmtProductivity = Util.buildInt(rawPlanetData[64], rawPlanetData[65]);
                 p.MaxProductivity = Util.buildInt(rawPlanetData[66], rawPlanetData[67]);
