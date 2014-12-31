@@ -164,6 +164,7 @@ namespace FreemooSDL.Controls
         private ProductionBarGroup _productionBars = null;
         private MooButton[] _buttons = null;
         private EmptyControl _shipPanel = null;
+        private SmallPlanetLabel _smallPlanetLabel = null;
 
         private const int PRODUCTION_PANEL_X_OFFSET = 226;
         private const int PRODUCTION_PANEL_Y_OFFSET = 81;
@@ -184,6 +185,10 @@ namespace FreemooSDL.Controls
 
             buildProductionBars();
             buildButtons();
+
+            _smallPlanetLabel = new SmallPlanetLabel(mScreenRef, this, mPlanetRef);
+            _smallPlanetLabel.Id = "spl_" + mPlanetRef.Name;
+            Controls.add(_smallPlanetLabel);
         }
 
         private void buildProductionBars()
@@ -311,7 +316,7 @@ namespace FreemooSDL.Controls
             Rectangle rect = new Rectangle(227, 8, 311 - 227, 21 - 8);
             pGuiService.drawString(mPlanetRef.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
 
-            string smallPlanet = "PLANET" + (mPlanetRef.SmallPlanetImageIndex+1);
+            /*string smallPlanet = "PLANET" + (mPlanetRef.SmallPlanetImageIndex+1);
             Surface smallPanetSurf = imgService.getSurface(ArchiveEnum.PLANETS, smallPlanet, 0); //imgService.Images[ArchiveEnum.PLANETS, smallPlanet][0];
             // 229x26
             pGuiService.drawImage(smallPanetSurf, 229, 26);
@@ -341,7 +346,7 @@ namespace FreemooSDL.Controls
 
             string popString = "POP" + mPlanetRef.MaxPopulation.ToString().PadLeft(3, ' ') + " MAX";
             pGuiService.drawString(popString, new Rectangle(263, 45, 43, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
-
+            */
             string currentPopulation = mPlanetRef.CurrentPopulation.ToString().PadLeft(3, ' ');
             pGuiService.drawString(currentPopulation, new Rectangle(259, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
 

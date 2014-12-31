@@ -18,6 +18,7 @@ namespace FreemooSDL.Screens
         private MainStarmap mStarmap = null;
         private ColonyPanel mColonyPanel = null;
         private UnexploredStarPanel _unexploredPanel = null;
+        private EnemyColonyPanel _enemyColPanel = null;
         private MainScreenMenuButtons[] mMenuButtons = new MainScreenMenuButtons[8];
 
         public MainScreen(FreemooGame pGame)
@@ -166,6 +167,11 @@ namespace FreemooSDL.Screens
                 Controls.remove(_unexploredPanel.Id);
                 _unexploredPanel = null;
             }
+            if (_enemyColPanel != null)
+            {
+                Controls.remove(_enemyColPanel.Id);
+                _enemyColPanel = null;
+            }
             
             if (p.PlayerId == 0)
             {
@@ -177,6 +183,11 @@ namespace FreemooSDL.Screens
             {
                 _unexploredPanel = new UnexploredStarPanel(this, p);
                 Controls.add(_unexploredPanel);
+            }
+            else if (p.Player0Explored && p.IsColonized)
+            {
+                _enemyColPanel = new EnemyColonyPanel(this, p);
+                Controls.add(_enemyColPanel);
             }
 
             Game.OrionGame.UpdatePlanetFocus(p.ID);
