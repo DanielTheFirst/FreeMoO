@@ -145,7 +145,8 @@ namespace FreemooSDL
 
     public enum RacialEnum
     {
-        Alkari, Bulrathi, Darlok, Human, Klackon, Meklar, Mrrshan, Psilon, Sakkra, Silicoid
+        //Alkari, Bulrathi, Darlok, Human, Klackon, Meklar, Mrrshan, Psilon, Sakkra, Silicoid
+        Human, Mrrshan, Silicoid, Sakkra, Psilon, Alkari, Klackon, Bulrathi, Meklar, Darlock
     }
 
     public enum ShipComponentType

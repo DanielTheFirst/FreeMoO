@@ -35,7 +35,7 @@ namespace FreemooSDL.Controls
             _mainScreen = ms;
             _planet = p;
             Id = "EnemyColony_" + p.Name;
-            //_ownerRace = _mainScreen.Game.OrionGame.Players[p.PlayerId].Name
+            _ownerRace = _mainScreen.Game.OrionGame.Players[p.PlayerId].Race.ToString() + " Colony";
 
             RecalculateRange();
             BuildControls();
@@ -74,6 +74,10 @@ namespace FreemooSDL.Controls
 
             Rectangle rect = new Rectangle(227, 8, 84, 13);
             guiService.drawString(_planet.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
+
+            Rectangle ownerRect = new Rectangle(237, 83, 63, 9);
+            //string ownerStr = _mainScreen.Game.OrionGame.Players[_planet.PlayerId].Race.ToString() + " Colony";
+            guiService.drawString(_ownerRace, ownerRect, FontEnum.font_1, Color.Magenta, TextAlignEnum.Center, TextVAlignEnum.Center);
 
             Rectangle rangeRect = new Rectangle(237, 94, 63, 8);
             guiService.drawString(_rangeText, rangeRect, FontEnum.font_0, FontPaletteEnum.UnexploredRange);

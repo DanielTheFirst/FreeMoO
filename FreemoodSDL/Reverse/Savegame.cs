@@ -89,6 +89,7 @@ namespace FreemooSDL.Reverse
             if (test > 0)
             {
                 p = new Player(pId);
+                p.Race = (RacialEnum)Util.buildInt(rawPlayerData[0], rawPlayerData[1]);
                 p.ColorId = Util.buildInt(rawPlayerData[2], rawPlayerData[3]); // why a number with the value 0-5 needs two bytes...
 
                 // parse the number of known techs

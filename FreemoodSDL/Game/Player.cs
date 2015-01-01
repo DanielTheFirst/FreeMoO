@@ -6,6 +6,7 @@ namespace FreemooSDL.Game
 {
     public class Player : GameObject
     {
+        public RacialEnum Race { get; set; }
         private int mColorId;
 
         private Dictionary<TechTypeEnum, int> mNumKnownTechs = new Dictionary<TechTypeEnum, int>();
