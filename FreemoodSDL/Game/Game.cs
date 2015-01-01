@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using MoreLinq;
 
@@ -29,6 +30,10 @@ namespace FreemooSDL.Game
         private Galaxy mGalaxy;
         private TechTree mTechTree = null;
         private List<Nebula> _nebulaList = null;
+        private List<string> _saveGameNames = new List<string>();
+
+        private const int CONFIG_NAME_OFFSET = 0x22;
+        private const int CONFIG_NAME_LENGTH = 0X14;
 
         #region Properties
         public List<Planet> Planets
@@ -77,6 +82,7 @@ namespace FreemooSDL.Game
         public Game()
         {
             mTechTree = new TechTree();
+            LoadSaveGameNames();
             //Technology test = mTechTree.getByName("testing...");
         }
 
@@ -106,6 +112,23 @@ namespace FreemooSDL.Game
         public void saveGame(int pIdx)
         {
 
+        }
+
+        private void LoadSaveGameNames()
+        {
+            _saveGameNames.Clear();
+            // config.moo is a bit of a mystery right now.  It's been about 20 years since I've seen an installation of 
+            // master of orion without all six save games so...I'm going to for now assume that all six are there
+            using (BinaryReader br = new BinaryReader(new FileStream(Config.DataFolder + "CONFIG.MOO", FileMode.Open)))
+            {
+                byte[] buffer = new byte[br.BaseStream.Length];
+                br.Read(buffer, 0, buffer.Length);
+                br.Close();
+                for (int i = 0; i < 6; i++)
+                {
+                    _saveGameNames.Add(Util.GetZString(Util.slice(buffer, CONFIG_NAME_OFFSET + (i * CONFIG_NAME_LENGTH), CONFIG_NAME_LENGTH)));
+                }
+            }
         }
 
 
