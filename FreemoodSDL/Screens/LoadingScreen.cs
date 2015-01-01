@@ -2,6 +2,7 @@
 using System.Drawing;
 
 using FreemooSDL.Collections;
+using FreemooSDL.Controls;
 using FreemooSDL.Service;
 using SdlDotNet.Graphics;
 using SdlDotNet.Core;
@@ -18,11 +19,22 @@ namespace FreemooSDL.Screens
         int textB = 0x45;
         int textMaxR = 0x65;
         double fadeTimer = 0;
+        bool _fadeIn = true;
+        private EmptyControl _mouseEvtControl = null;
+
+        const int FADE_RATE = 30;
+
 
         public LoadingScreen(FreemooGame game)
             : base(game)
         {
 
+        }
+
+        public override void start()
+        {
+
+            base.start();
         }
 
         public override void update(FreemooTimer pTimer)
@@ -37,12 +49,27 @@ namespace FreemooSDL.Screens
 
             fadeTimer += pTimer.MillisecondsElapsed;
 
-            if (textR < textMaxR && fadeTimer >= 12)
+            if (_fadeIn && textR < textMaxR && fadeTimer >= FADE_RATE)
             {
                 textR++;
                 textG++;
                 textB++;
                 fadeTimer = 0;
+                if (textR >= textMaxR)
+                {
+                    _fadeIn = false;
+                }
+            }
+            else if (!_fadeIn && textR > 0 && fadeTimer >= FADE_RATE)
+            {
+                textR--;
+                textG--;
+                textB--;
+                fadeTimer = 0;
+                if (textR <= 0)
+                {
+                    Game.changeScreen(ScreenEnum.OpeningMovie);
+                }
             }
 
             Color currTextColor = Color.FromArgb(textR, textG, textB);

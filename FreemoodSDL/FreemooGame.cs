@@ -79,8 +79,8 @@ namespace FreemooSDL
             //sm.changeState("");
             //mCurrentScreen = new MainScreen(this);
             //mCurrentScreen.start(); // refactor into changestate function
-            changeScreen(ScreenEnum.MainScreen);
-            //changeScreen(ScreenEnum.LoadGameScreen);
+            //changeScreen(ScreenEnum.MainScreen);
+            changeScreen(ScreenEnum.LoadingScreen);
 
             int framesElapsed = 0;
             double currMillis = mTimer.TotalMilliseconds;
