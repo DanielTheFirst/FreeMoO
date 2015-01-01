@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Drawing;
 
+using SdlDotNet.Input;
+
 namespace FreemooSDL.Controls
 {
-    public delegate void OnEmptyControlClick(EmptyControl sender);
+    public delegate void OnEmptyControlClick(EmptyControl sender, MouseButton btn);
 
     public class EmptyControl
         : AbstractControl
@@ -48,7 +50,7 @@ namespace FreemooSDL.Controls
             {
                 if (EmptyControlClickEvent != null)
                 {
-                    EmptyControlClickEvent(this);
+                    EmptyControlClickEvent(this, pMbea.Button);
                 }
             }
             _mouseDown = false;

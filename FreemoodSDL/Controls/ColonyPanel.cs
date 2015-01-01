@@ -582,7 +582,7 @@ namespace FreemooSDL.Controls
             FireShipProductionUpdate();
         }
 
-        private void ShipPanel_Click(EmptyControl sender)
+        private void ShipPanel_Click(EmptyControl sender, MouseButton btn)
         {
             FireShipProductionUpdate();
         }

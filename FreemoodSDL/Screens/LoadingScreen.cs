@@ -18,12 +18,17 @@ namespace FreemooSDL.Screens
         int textG = 0x21;
         int textB = 0x45;
         int textMaxR = 0x65;
-        double fadeTimer = 0;
+        double _fadeTimer = 0;
         bool _fadeIn = true;
+        int _fadeMode = 0;
         private EmptyControl _mouseEvtControl = null;
 
         const int FADE_RATE = 30;
-
+        const int FADE_HOLD_LENGTH = 2000;
+        const int FADE_MODE_IN = 0;
+        const int FADE_MODE_HIGH = 1;
+        const int FADE_MODE_OUT = 2;
+        const int FADE_MODE_LOW = 3;
 
         public LoadingScreen(FreemooGame game)
             : base(game)
@@ -33,13 +38,98 @@ namespace FreemooSDL.Screens
 
         public override void start()
         {
-
+            _mouseEvtControl = new EmptyControl(0, 0, 320, 200);
+            _mouseEvtControl.EmptyControlClickEvent += _mouseEvtControl_EmptyControlClickEvent;
+            _mouseEvtControl.Id = "MouseEventControl";
+            Controls.add(_mouseEvtControl);
             base.start();
+        }
+
+        void _mouseEvtControl_EmptyControlClickEvent(EmptyControl sender, MouseButton btn)
+        {
+            if (btn == MouseButton.PrimaryButton)
+            {
+                _fadeTimer = 0;
+                _fadeMode = FADE_MODE_OUT;
+            }
+        }
+
+        //  I'm starting to think that the abstract control shouldn't just have empty functions and
+        // instead should pump input events down whether anyone uses them or not.
+        public override void mousePressed(MouseButtonEventArgs pMbea)
+        {
+            foreach (var ctrl in Controls)
+            {
+                ctrl.Value.mousePressed(pMbea);
+            }
+            base.mousePressed(pMbea);
+        }
+
+        public override void mouseMoved(MouseMotionEventArgs pMbea)
+        {
+            foreach (var ctrl in Controls)
+            {
+                ctrl.Value.mouseMoved(pMbea);
+            }
+            base.mouseMoved(pMbea);
+        }
+
+        public override void mouseReleased(MouseButtonEventArgs pMbea)
+        {
+            foreach (var ctrl in Controls)
+            {
+                ctrl.Value.mouseReleased(pMbea);
+            }
+            base.mouseReleased(pMbea);
         }
 
         public override void update(FreemooTimer pTimer)
         {
             //throw new NotImplementedException();
+            _fadeTimer += pTimer.MillisecondsElapsed;
+
+            switch (_fadeMode)
+            {
+                case FADE_MODE_IN:
+                    if (_fadeTimer >= FADE_RATE)
+                    {
+                        textR++;
+                        textG++;
+                        textB++;
+                        _fadeTimer = 0;
+                        if (textR >= textMaxR)
+                        {
+                            _fadeMode = FADE_MODE_HIGH;
+                        }
+                    }
+                    break;
+                case FADE_MODE_HIGH:
+                    if (_fadeTimer > FADE_HOLD_LENGTH)
+                    {
+                        _fadeMode = FADE_MODE_OUT;
+                        _fadeTimer = 0;
+                    }
+                    break;
+                case FADE_MODE_OUT:
+                    if (_fadeTimer >= FADE_RATE)
+                    {
+                        textR--;
+                        textG--;
+                        textB--;
+                        _fadeTimer = 0;
+                        if (textR <= 0)
+                        {
+                            _fadeMode = FADE_MODE_LOW;
+                        }
+                    }
+                    break;
+                case FADE_MODE_LOW:
+                    if (_fadeTimer > FADE_HOLD_LENGTH)
+                    {
+                        Game.changeScreen(ScreenEnum.OpeningMovie);
+                    }
+                    break;
+            }
         }
 
         public override void draw(FreemooTimer pTimer)
@@ -47,30 +137,30 @@ namespace FreemooSDL.Screens
             ImageService img = Game.Images;
             GuiService gui = Game.Screen;
 
-            fadeTimer += pTimer.MillisecondsElapsed;
+            
 
-            if (_fadeIn && textR < textMaxR && fadeTimer >= FADE_RATE)
+            /*if (_fadeMode == 0 && textR < textMaxR && _fadeTimer >= FADE_RATE)
             {
                 textR++;
                 textG++;
                 textB++;
-                fadeTimer = 0;
+                _fadeTimer = 0;
                 if (textR >= textMaxR)
                 {
-                    _fadeIn = false;
+                    _fadeMode = FADE_MODE_HIGH
                 }
             }
-            else if (!_fadeIn && textR > 0 && fadeTimer >= FADE_RATE)
+            else if (!_fadeIn && textR > 0 && _fadeTimer >= FADE_RATE)
             {
                 textR--;
                 textG--;
                 textB--;
-                fadeTimer = 0;
+                _fadeTimer = 0;
                 if (textR <= 0)
                 {
                     Game.changeScreen(ScreenEnum.OpeningMovie);
                 }
-            }
+            }*/
 
             Color currTextColor = Color.FromArgb(textR, textG, textB);
 
