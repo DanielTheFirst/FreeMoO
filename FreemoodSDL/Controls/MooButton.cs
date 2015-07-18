@@ -31,7 +31,7 @@ namespace FreemooSDL.Controls
             mImgServiceRef = pImgService;
         }
 
-        public override void draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
         {
             int frame = 0;
             if (_mouseDown && _mouseOver)
@@ -48,7 +48,7 @@ namespace FreemooSDL.Controls
             pGuiService.drawImage(surf, mBoundingRect.X, mBoundingRect.Y);
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
         }
 

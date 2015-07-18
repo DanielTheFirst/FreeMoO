@@ -53,15 +53,15 @@ namespace FreemooSDL.Controls
             _rangeText = string.Format(RANGE_TEMPLATE, range);
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             foreach (var ctrls in Controls)
             {
-                ctrls.Value.update(pTimer);
+                ctrls.Value.Update(pTimer);
             }
         }
 
-        public override void draw(FreemooTimer timer, GuiService guiService)
+        public override void Draw(FreemooTimer timer, GuiService guiService)
         {
             Surface panelSurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.STARMAP, "NO_COLNY", 0);
             guiService.drawImage(panelSurf, 224, 5);
@@ -77,7 +77,7 @@ namespace FreemooSDL.Controls
 
             foreach (var ctrls in Controls)
             {
-                ctrls.Value.draw(timer, guiService);
+                ctrls.Value.Draw(timer, guiService);
             }
         }
     }

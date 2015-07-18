@@ -27,7 +27,7 @@ namespace FreemooSDL.Screens
         {
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             //mStarmap.update(pTimer);
             //if (mColonyPanel != null) mColonyPanel.update(pTimer);
@@ -86,25 +86,25 @@ namespace FreemooSDL.Screens
             }
         }
 
-        public override void draw(FreemooTimer pTimer)
+        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
             ImageService imgService = Game.Images; //(ImageService)Game.Services.get(ServiceEnum.ImageService);
-            GuiService gs = Game.Screen; //(GuiService)Game.Services.get(ServiceEnum.GuiService);
+            //GuiService gs = Game.Screen; //(GuiService)Game.Services.get(ServiceEnum.GuiService);
 
             //Surface starBack = imgService.Images[ArchiveEnum.STARMAP, "STARBAK2"][0];
             Surface starBack = imgService.getSurface(ArchiveEnum.STARMAP, "STARBAK2", 0);
             //Surface mainInterface = imgService.Images[ArchiveEnum.STARMAP, "MAINVIEW"][0];
             Surface mainInterface = imgService.getSurface(ArchiveEnum.STARMAP, "MAINVIEW", 0);
 
-            gs.drawImage(starBack, 0, 0);
-            gs.drawImage(mainInterface, 0, 0);
+            pGuiService.drawImage(starBack, 0, 0);
+            pGuiService.drawImage(mainInterface, 0, 0);
 
             //mStarmap.draw(pTimer, gs);
             //if (mColonyPanel != null) mColonyPanel.draw(pTimer, gs);
 
             for (int i = 0; i < Controls.count(); i++)
             {
-                Controls.get(i).draw(pTimer, gs);
+                Controls.get(i).Draw(pTimer, pGuiService);
             }
        }
 

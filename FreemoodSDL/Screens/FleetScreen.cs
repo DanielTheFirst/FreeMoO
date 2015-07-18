@@ -18,16 +18,16 @@ namespace FreemooSDL.Screens
         {
         }
 
-        public override void draw(FreemooTimer pTimer)
+        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
             ImageService imgService = Game.Images;
-            GuiService gs = Game.Screen;
+            //GuiService gs = Game.Screen;
 
             Surface fleetBack = imgService.getSurface(ArchiveEnum.BACKGRND, "FLEETBRB",0);
-            gs.drawImage(fleetBack, 0, 0);
+            pGuiService.drawImage(fleetBack, 0, 0);
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             //throw new NotImplementedException();
         }

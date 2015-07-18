@@ -79,10 +79,10 @@ namespace FreemooSDL.Screens
             }
         }
 
-        public override void draw(FreemooTimer pTimer)
+        public override void Draw(FreemooTimer pTimer, GuiService guiSvc)
         {
             ImageService imgSvc = Game.Images;
-            GuiService guiSvc = Game.Screen;
+            //GuiService guiSvc = Game.Screen;
 
             //Surface surf = imgSvc.getSurface(ArchiveEnum.LANDING, "LANDINF1", 0);
             //guiSvc.drawImage(surf, 0, 0);
@@ -91,7 +91,7 @@ namespace FreemooSDL.Screens
             guiSvc.drawImage(surf, 0, 0);
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             //_introMovie1.AnimationTimer  += (long)pTimer.MillisecondsElapsed;
             //if (_introMovie1.AnimationTimer > _introMovie1.FrameRate * FreemooConstants.FRAMERATE_ADJUST)

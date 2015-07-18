@@ -28,12 +28,12 @@ namespace FreemooSDL.Controls
             _screenRef = screen;
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             
         }
 
-        public override void draw(FreemooTimer pTimer, GuiService guiService)
+        public override void Draw(FreemooTimer pTimer, GuiService guiService)
         {
             ImageService imgService = _screenRef.Game.Images;
             string smallPlanet = "PLANET" + (_planetRef.SmallPlanetImageIndex + 1);

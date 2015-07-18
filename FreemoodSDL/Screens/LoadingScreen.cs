@@ -83,7 +83,7 @@ namespace FreemooSDL.Screens
             base.mouseReleased(pMbea);
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             //throw new NotImplementedException();
             _fadeTimer += pTimer.MillisecondsElapsed;
@@ -132,7 +132,7 @@ namespace FreemooSDL.Screens
             }
         }
 
-        public override void draw(FreemooTimer pTimer)
+        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
             ImageService img = Game.Images;
             GuiService gui = Game.Screen;
@@ -164,7 +164,7 @@ namespace FreemooSDL.Screens
 
             Color currTextColor = Color.FromArgb(textR, textG, textB);
 
-            gui.drawString(LoadingText, 0, 0, FontEnum.font_1, currTextColor);
+            pGuiService.drawString(LoadingText, 0, 0, FontEnum.font_1, currTextColor);
 
         }
     }

@@ -71,7 +71,7 @@ namespace FreemooSDL.Controls
             _rangeText = string.Format(RANGE_TEMPLATE, range);
         }
 
-        public override void draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
             ImageService imgService = _mainScreenRef.Game.Images;
             Rectangle rect = ObjectPool.RectanglePool.GetObject();
@@ -117,7 +117,7 @@ namespace FreemooSDL.Controls
 
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             
         }

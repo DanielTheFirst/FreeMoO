@@ -40,7 +40,7 @@ namespace FreemooSDL.Controls
             mPlanetBorder = new FreemooImageInstance(ArchiveEnum.STARMAP, "PLANBORD", imgService);
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             //checkAnimation(pTimer);
         }
@@ -88,7 +88,7 @@ namespace FreemooSDL.Controls
             return ret;
         }
 
-        public override void draw(FreemooTimer pTimer, GuiService pGui)
+        public override void Draw(FreemooTimer pTimer, GuiService pGui)
         {
             int maxViewX = mParent.View_X + MainStarmap.WIDTH;
             int maxViewY = mParent.View_Y + MainStarmap.HEIGHT;
@@ -171,11 +171,11 @@ namespace FreemooSDL.Controls
             mImage = new FreemooImageInstance(ArchiveEnum.STARMAP, "SMALSHIP" + colorId, imgService);
         }
 
-        public override void  update(FreemooTimer pTimer)
+        public override void  Update(FreemooTimer pTimer)
         {
         }
 
-        public override void draw(FreemooTimer pTimer, GuiService pGui)
+        public override void Draw(FreemooTimer pTimer, GuiService pGui)
         {
             if (mFleetRef.InTransit == true)
             {
@@ -299,26 +299,26 @@ namespace FreemooSDL.Controls
 
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             
             rebuildFleets(); // really don't need too rebuild the fleets every turn though maybe do bounds checking an
             // only build the ones on screen
             foreach (StarImage si in mStarControls)
             {
-                si.update(pTimer);
+                si.Update(pTimer);
             }
         }
 
-        public override void draw(FreemooTimer pTimer, GuiService pGui)
+        public override void Draw(FreemooTimer pTimer, GuiService pGui)
         {
             foreach (StarImage si in mStarControls)
             {
-                si.draw(pTimer, pGui);
+                si.Draw(pTimer, pGui);
             }
             foreach (FleetImage fi in mFleetControls)
             {
-                fi.draw(pTimer, pGui);
+                fi.Draw(pTimer, pGui);
             }
         }
 

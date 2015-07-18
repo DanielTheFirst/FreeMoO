@@ -16,19 +16,19 @@ namespace FreemooSDL.Controls
         private ProductionBarUpdateArgs _updateArgs = new ProductionBarUpdateArgs();
         
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             for (int i = 0; i < Controls.count(); i++)
             {
-                Controls.get(i).update(pTimer);
+                Controls.get(i).Update(pTimer);
             }
         }
 
-        public override void draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
         {
             for (int i = 0; i < Controls.count(); i++)
             {
-                Controls.get(i).draw(pTimer, pGuiService);
+                Controls.get(i).Draw(pTimer, pGuiService);
             }
         }
 

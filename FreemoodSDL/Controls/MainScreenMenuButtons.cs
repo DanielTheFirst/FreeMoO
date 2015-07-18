@@ -39,13 +39,13 @@ namespace FreemooSDL.Controls
             mButtonEnum = pType;
         }
 
-        public override void draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
             Color drawColor = mHover ? Color.FromArgb(0xefefef) : Color.FromArgb(0xa6a6a6);
             mParentScreen.Game.Screen.drawString(Id, mRect, FontEnum.font_5, drawColor);
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             //throw new NotImplementedException();
         }

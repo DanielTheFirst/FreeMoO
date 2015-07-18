@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 using FreemooSDL.Service;
 using FreemooSDL.Collections;
+using FreemooSDL.Controls;
 
 using SdlDotNet.Input;
 
 namespace FreemooSDL.Screens
 {
-    public abstract class AbstractScreen : IScreen 
+    public abstract class AbstractScreen : IScreen , IControl
     {
         private FreemooGame mGame;
         private ControlCollection mControls = new ControlCollection();
@@ -42,9 +43,9 @@ namespace FreemooSDL.Screens
 
         public virtual void resume() { }
 
-        public abstract void update(FreemooTimer pTimer);
+        public abstract void Update(FreemooTimer pTimer);
 
-        public abstract void draw(FreemooTimer pTimer);
+        public abstract void Draw(FreemooTimer pTimer, GuiService pGuiService);
 
         public virtual void keyPressed(KeyboardEventArgs pKea)
         {
@@ -103,7 +104,7 @@ namespace FreemooSDL.Screens
             {
                 if (Controls.get(i) != null)
                 {
-                    Controls.get(i).update(timer);
+                    Controls.get(i).Update(timer);
                 }
                 else
                 {
@@ -113,6 +114,82 @@ namespace FreemooSDL.Screens
             foreach (int i in toRemove)
             {
                 Controls.remove(i);
+            }
+        }
+
+
+        //public void draw(FreemooTimer pTimer, GuiService pGuiService)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public void Release()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Id
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public IControl ParentControl
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int X
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int Y
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int Width
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int Height
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
             }
         }
     }

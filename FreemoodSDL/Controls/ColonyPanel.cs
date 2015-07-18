@@ -258,7 +258,7 @@ namespace FreemooSDL.Controls
             base.Release();
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             //foreach (ProductionBars pb in mProductionBars)
             //{
@@ -267,11 +267,11 @@ namespace FreemooSDL.Controls
 
             for (int i = 0; i < Controls.count(); i++)
             {
-                Controls.get(i).update(pTimer);
+                Controls.get(i).Update(pTimer);
             }
         }
 
-        public override void draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
             ImageService imgService = mScreenRef.Game.Images; //(ImageService)mScreenRef.Game.Services[ServiceEnum.ImageService];
             Rectangle poolRect = ObjectPool.RectanglePool.GetObject();
@@ -410,7 +410,7 @@ namespace FreemooSDL.Controls
 
             for (int i = 0; i < Controls.count(); i++)
             {
-                Controls.get(i).draw(pTimer, pGuiService);
+                Controls.get(i).Draw(pTimer, pGuiService);
             }
 
             ObjectPool.RectanglePool.PutObject(poolRect);

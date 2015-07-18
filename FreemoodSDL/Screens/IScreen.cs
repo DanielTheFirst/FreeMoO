@@ -18,7 +18,7 @@ namespace FreemooSDL.Screens
 
         void resume();
 
-        void update(FreemooTimer pTimer);
+        /*void update(FreemooTimer pTimer);
 
         void draw(FreemooTimer pTimer);
 
@@ -40,6 +40,6 @@ namespace FreemooSDL.Screens
 
         event EventHandler<KeyboardEventArgs> keyPressedEvent;
 
-        event EventHandler<KeyboardEventArgs> keyReleasedEvent;
+        event EventHandler<KeyboardEventArgs> keyReleasedEvent;*/
     }
 }

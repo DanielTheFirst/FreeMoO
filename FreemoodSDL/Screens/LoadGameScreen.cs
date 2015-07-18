@@ -1,5 +1,7 @@
 ﻿using System;
 
+using FreemooSDL.Service;
+
 namespace FreemooSDL.Screens
 {
     class LoadGameScreen
@@ -20,14 +22,14 @@ namespace FreemooSDL.Screens
             base.start();
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             
         }
 
-        public override void draw(FreemooTimer pTimer)
+        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
-            Game.Screen.drawImage(_loadScreenImage.getCurrentFrame(), 0, 0);
+            pGuiService.drawImage(_loadScreenImage.getCurrentFrame(), 0, 0);
         }
     }
 }

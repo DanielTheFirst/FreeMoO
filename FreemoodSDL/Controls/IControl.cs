@@ -9,8 +9,8 @@ namespace FreemooSDL.Controls
 {
     public interface IControl
     {
-        void update(FreemooTimer pTimer);
-        void draw(FreemooTimer pTimer, FreemooSDL.Service.GuiService pGuiService);
+        void Update(FreemooTimer pTimer);
+        void Draw(FreemooTimer pTimer, FreemooSDL.Service.GuiService pGuiService);
         void Release();
         void keyPressed(KeyboardEventArgs pKea);
 

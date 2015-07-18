@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using FreemooSDL.Service;
+
 namespace FreemooSDL.Screens
 {
     class MainMenu
@@ -29,12 +31,12 @@ namespace FreemooSDL.Screens
             base.start();
         }
 
-        public override void update(FreemooTimer pTimer)
+        public override void Update(FreemooTimer pTimer)
         {
             _bgImage.UpdateAnimation(pTimer);
         }
 
-        public override void draw(FreemooTimer pTimer)
+        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
             Game.Screen.drawImage(_bgImage.getCurrentFrame(), 0, 0);
             Game.Screen.drawImage(_title.getCurrentFrame(), 45, 11);

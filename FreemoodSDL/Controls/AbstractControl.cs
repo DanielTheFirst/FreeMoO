@@ -38,8 +38,8 @@ namespace FreemooSDL.Controls
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public abstract void update(FreemooTimer pTimer);
-        public abstract void draw(FreemooTimer pTimer, FreemooSDL.Service.GuiService pGuiService);
+        public abstract void Update(FreemooTimer pTimer);
+        public abstract void Draw(FreemooTimer pTimer, FreemooSDL.Service.GuiService pGuiService);
         public virtual void Release() { }
 
         public virtual void keyPressed(KeyboardEventArgs pKea) { }

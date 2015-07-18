@@ -10,6 +10,7 @@ using FreemooSDL.Collections;
 using FreemooSDL.Service;
 using FreemooSDL.Game;
 using FreemooSDL.Screens;
+using FreemooSDL.Controls;
 
 namespace FreemooSDL
 {
@@ -27,6 +28,7 @@ namespace FreemooSDL
         private ImageService mImageService = null;
         private GuiService mGuiService = null;
         private bool mScreenshot = false;
+        private string _dispFps = "60 FPS";
 
         // properties
         public Game.Game OrionGame
@@ -80,15 +82,14 @@ namespace FreemooSDL
             //mCurrentScreen = new MainScreen(this);
             //mCurrentScreen.start(); // refactor into changestate function
             //changeScreen(ScreenEnum.MainScreen);
-            changeScreen(ScreenEnum.LoadingScreen);
+            //changeScreen(ScreenEnum.LoadingScreen);
+            changeScreen(ScreenEnum.MainMenu);
 
             int framesElapsed = 0;
             double currMillis = mTimer.TotalMilliseconds;
+            string fpsString = "{0} FPS";
             while (!mQuit)
             {
-                update();
-                draw();
-                framesElapsed++;
                 double timeGoneBy = mTimer.TotalMilliseconds - currMillis;
                 if (timeGoneBy > 1000)
                 {
@@ -96,7 +97,14 @@ namespace FreemooSDL
                     Console.Write("FPS = " + Math.Round(fps, 2) + Environment.NewLine);
                     currMillis = mTimer.TotalMilliseconds;
                     framesElapsed = 0;
+                    //string fpsString = string.Format("%0 FPS", Math.Round(fps, 2));
+                    _dispFps = string.Format(fpsString, Math.Round(fps, 2));
+                    //Screen.drawString(fpsString, new System.Drawing.Rectangle(), FontEnum.font_0, FontPaletteEnum.Font4Colors);
                 }
+                update();
+                Draw();
+                framesElapsed++;
+                
             }
 
             unloadContent();
@@ -143,10 +151,10 @@ namespace FreemooSDL
         {
             mTimer.update();
             Events.Poll();
-            CurrentScreen.update(mTimer);
+            ScreenControl.Update(mTimer);
         }
 
-        private void draw()
+        private void Draw()
         {
             //ImageService imgs = (ImageService)Services[ServiceEnum.ImageService];
             //GuiService gs = (GuiService)Services.get(ServiceEnum.GuiService);
@@ -155,14 +163,14 @@ namespace FreemooSDL
             this.Screen.blank();
 
             //((StateManager)Services.get(ServiceEnum.StateManager)).draw(mTimer);
-            CurrentScreen.draw(mTimer);
+            ScreenControl.Draw(mTimer, this.Screen);
 
             if (mScreenshot)
             {
                 Screen.takescreenshot();
                 mScreenshot = false;
             }
-
+            Screen.drawString(_dispFps, 0, 0, FontEnum.font_2, FontPaletteEnum.PopulationGreen);
             this.Screen.flip();
         }
 
@@ -234,7 +242,7 @@ namespace FreemooSDL
 
         public void keyPressed(object sender, KeyboardEventArgs pKea)
         {
-            CurrentScreen.keyPressed(pKea);
+            ScreenControl.keyPressed(pKea);
         }
 
         public void keyReleased(object sender, KeyboardEventArgs pKea)
@@ -249,25 +257,25 @@ namespace FreemooSDL
                 mScreenshot = true;
             }
 #endif
-            CurrentScreen.keyReleased(pKea);
+            ScreenControl.keyReleased(pKea);
         }
 
         public void mousePressed(object sender, MouseButtonEventArgs pMbea)
         {
             // need to scale the click position
             //pMbea.Position = new System.Drawing.Point(pMbea.Position.X / 4, pMbea.Position.Y / 4);
-            CurrentScreen.mousePressed(scaleMouseBtnPos(pMbea));
+            ScreenControl.mousePressed(scaleMouseBtnPos(pMbea));
         }
 
         public void mouseReleased(object sender, MouseButtonEventArgs pMbea)
         {
 
-            CurrentScreen.mouseReleased(scaleMouseBtnPos(pMbea));
+            ScreenControl.mouseReleased(scaleMouseBtnPos(pMbea));
         }
 
         public void mouseMoved(object sender, MouseMotionEventArgs pMbea)
         {
-            CurrentScreen.mouseMoved(scaleMouseMovedPos(pMbea));
+            ScreenControl.mouseMoved(scaleMouseMovedPos(pMbea));
         }
 
         // screen manager functions
@@ -303,6 +311,14 @@ namespace FreemooSDL
             get
             {
                 return mScreenStack.Peek();
+            }
+        }
+
+        public IControl ScreenControl
+        {
+            get
+            {
+                return (IControl)mScreenStack.Peek();
             }
         }
     }
