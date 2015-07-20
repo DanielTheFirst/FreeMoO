@@ -53,6 +53,10 @@ namespace FreemooSDL.Screens
             {
                 keyPressedEvent(this, pKea);
             }
+            foreach (var ctrl in Controls)
+            {
+                ctrl.Value.keyPressed(pKea);
+            }
         }
 
         public virtual void keyReleased(KeyboardEventArgs pKea)
@@ -60,6 +64,10 @@ namespace FreemooSDL.Screens
             if (keyReleasedEvent != null)
             {
                 keyReleasedEvent(this, pKea);
+            }
+            foreach (var ctrl in Controls)
+            {
+                ctrl.Value.keyReleased(pKea);
             }
         }
 
@@ -69,6 +77,10 @@ namespace FreemooSDL.Screens
             {
                 mousePressedEvent(this, pMbea);
             }
+            foreach (var ctrl in Controls)
+            {
+                ctrl.Value.mousePressed(pMbea);
+            }
         }
 
         public virtual void mouseReleased(MouseButtonEventArgs pMbea)
@@ -77,6 +89,10 @@ namespace FreemooSDL.Screens
             {
                 mouseReleasedEvent(this, pMbea);
             }
+            foreach (var ctrl in Controls)
+            {
+                ctrl.Value.mouseReleased(pMbea);
+            }
         }
 
         public virtual void mouseMoved(MouseMotionEventArgs pMbea)
@@ -84,6 +100,10 @@ namespace FreemooSDL.Screens
             if (mouseMovedEvent != null)
             {
                 mouseMovedEvent(this, pMbea);
+            }
+            foreach (var ctrl in Controls)
+            {
+                ctrl.Value.mouseMoved(pMbea);
             }
         }
 

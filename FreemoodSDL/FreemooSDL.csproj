@@ -63,6 +63,7 @@
     <Compile Include="Controls\EmptyControl.cs" />
     <Compile Include="Controls\EnemyColonyPanel.cs" />
     <Compile Include="Controls\IControl.cs" />
+    <Compile Include="Controls\MainMenuButton.cs" />
     <Compile Include="Controls\MainScreenMenuButtons.cs" />
     <Compile Include="Controls\MainStarmap.cs" />
     <Compile Include="Controls\MooButton.cs" />

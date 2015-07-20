@@ -14,12 +14,26 @@ namespace FreemooSDL.Controls
         private bool _mouseDown = false;
         private bool _mouseOver = false;
 
-        private Rectangle mBoundingRect;
+        protected Rectangle mBoundingRect;
         //private FreemooImage mButtonImage;
         private FreemooImageInstance _buttonImage;
         private ImageService mImgServiceRef = null;
 
         public event EventHandler<EventArgs> Click;
+
+        protected bool MouseOver
+        {
+            get
+            {
+                return _mouseOver;
+            }
+        }
+
+        public MooButton()
+            : base()
+        {
+
+        }
 
         public MooButton(ArchiveEnum pButtonImageArchive, string pButtonImageIndex, ImageService pImgService, int px, int py)
             : base()
