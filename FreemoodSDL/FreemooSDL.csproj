@@ -70,7 +70,9 @@
     <Compile Include="Controls\NoColonyPanel.cs" />
     <Compile Include="Controls\ProductionBar.cs" />
     <Compile Include="Controls\ProductionBarGroup.cs" />
+    <Compile Include="Controls\SaveFileControl.cs" />
     <Compile Include="Controls\SmallPlanetLabel.cs" />
+    <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Controls\UnexploredStarPanel.cs" />
     <Compile Include="Freemoo.cs" />
     <Compile Include="FreemooEnums.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="MoreLinq\MaxBy.cs" />
     <Compile Include="MoreLinq\MinBy.cs" />
     <Compile Include="Reverse\Archive.cs" />
+    <Compile Include="Reverse\ConfigMoo.cs" />
     <Compile Include="Reverse\Font.cs" />
     <Compile Include="Reverse\Savegame.cs" />
     <Compile Include="Screens\DesignScreen.cs" />

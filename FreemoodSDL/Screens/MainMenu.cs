@@ -38,27 +38,58 @@ namespace FreemooSDL.Screens
             _continueBtn.Id = "Continue";
             _continueBtn.Enabled = false;
             _continueBtn.ParentControl = this;
+            _continueBtn.Click += ContinueButtonClick;
             this.Controls.add(_continueBtn);
 
             _loadBtn = new MainMenuButton(129, 143, "Load Game");
             _loadBtn.Id = "Load";
             _loadBtn.Enabled = true;
             _loadBtn.ParentControl = this;
+            _loadBtn.Click += LoadButtonClick;
             this.Controls.add(_loadBtn);
 
             _newBtn = new MainMenuButton(131, 159, "New Game");
             _newBtn.Id = "New Button";
             _newBtn.Enabled = true;
             _newBtn.ParentControl = this;
+            _newBtn.Click += NewButtonClick;
             this.Controls.add(_newBtn);
 
             _quitBtn = new MainMenuButton(125, 175, "Quit To Dos");
             _quitBtn.Id = "Quit";
             _quitBtn.Enabled = true;
             _quitBtn.ParentControl = this;
+            _quitBtn.Click += QuitButtonClick;
             this.Controls.add(_quitBtn);
 
             base.start();
+        }
+
+        private void LoadButtonClick(object sender, EventArgs args)
+        {
+            if (_loadBtn.Enabled)
+            {
+                this.Game.pushScreen(ScreenEnum.LoadGameScreen);
+            }
+        }
+
+        private void NewButtonClick(object sender, EventArgs args)
+        {
+            if (_newBtn.Enabled)
+            {
+                //this.Game.changeScreen(ScreenEnum.)
+            }
+        }
+
+        private void QuitButtonClick(object sender, EventArgs args)
+        {
+            // provably going to need to write into FreemooGame a quit function, or have it subscribe to this event or something
+            //Game.
+        }
+
+        private void ContinueButtonClick(object sender, EventArgs args)
+        {
+
         }
 
         public override void Update(FreemooTimer pTimer)

@@ -111,6 +111,9 @@ namespace FreemooSDL.Service
             mFontPalettes.Add(FontPaletteEnum.PlanetType, planetTypePal);
             mFontPalettes.Add(FontPaletteEnum.PlanetBluePal, buildPalette(new int[] { 0xff00ff, 0x7196BE, 0x4D79AA, 0x7196BE, 0x4D79AA }));
             mFontPalettes.Add(FontPaletteEnum.PopulationGreen, buildPalette(new int[] { 0xff00ff, 0x49CF24, 0xef00ef, 0xef00ef, 0xff0000 }));
+
+            Color[] loadScreenGray = buildPalette(new int[] { 0xff00ff, 0x9E9EBE, 0xff00fe, 0xff00fe, 0x75759E });
+            mFontPalettes.Add(FontPaletteEnum.LoadScreenGray, loadScreenGray);
         }
 
         private Color[] buildPalette(int[] pColors)

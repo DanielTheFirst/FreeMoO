@@ -120,7 +120,10 @@ namespace FreemooSDL
         UnexploredRange,
         MainMenuBtnDisabled,
         MainMenuBtnEnabled,
-        MainMenuBtnActive
+        MainMenuBtnActive,
+        LoadScreenGreen,
+        LoadScreenGray,
+        LoadScreenRed
     }
 
     public enum TextAlignEnum
