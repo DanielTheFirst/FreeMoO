@@ -114,6 +114,9 @@ namespace FreemooSDL.Service
 
             Color[] loadScreenGray = buildPalette(new int[] { 0xff00ff, 0x9E9EBE, 0xff00fe, 0xff00fe, 0x75759E });
             mFontPalettes.Add(FontPaletteEnum.LoadScreenGray, loadScreenGray);
+
+            Color[] loadScreenGreen = buildPalette(new int[] { 0xff00ff, 0x00BE00, 0xff00fe, 0xff00fe, 0x007900 });
+            mFontPalettes.Add(FontPaletteEnum.LoadScreenGreen, loadScreenGreen);
         }
 
         private Color[] buildPalette(int[] pColors)

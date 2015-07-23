@@ -16,7 +16,7 @@ namespace FreemooSDL.Screens
         private const int SFC_X_OFFSET = 129;
         private const int SFC_Y_OFFSET = 30;
         private const int SFC_WIDTH = 134;
-        private const int SFC_HEIGHT = 14;
+        private const int SFC_HEIGHT = 18;
 
         FreemooImageInstance _loadScreenImage = null;
         ConfigMoo _saveFileNames = new ConfigMoo();
@@ -61,6 +61,7 @@ namespace FreemooSDL.Screens
                 if (!firstActive)
                 {
                     sfc.ControlState = SaveFileControlState.Selected;
+                    firstActive = true;
                 }
                 else
                 {
@@ -71,9 +72,27 @@ namespace FreemooSDL.Screens
                 sfc.Width = SFC_WIDTH;
                 sfc.Height = SFC_HEIGHT;
                 sfc.X = SFC_X_OFFSET;
-                sfc.Y = SFC_Y_OFFSET + (i * (SFC_HEIGHT + 8));
+                sfc.Y = SFC_Y_OFFSET + (i * (SFC_HEIGHT));
                 sfc.InitTextBox();
+                sfc.InitIndicator(Game.Images);
+                sfc.OnSelected += HandleSaveFileSelected;
                 Controls.add(sfc);
+            }
+        }
+
+
+        private void HandleSaveFileSelected(SaveFileControl sfCtrl)
+        {
+            foreach(var ctrl in this.Controls)
+            {
+                if (ctrl.Value is SaveFileControl)
+                {
+                    if (!ctrl.Value.Id.Equals(sfCtrl.Id))
+                    {
+                        var sfc = ctrl.Value as SaveFileControl;
+                        sfc.ControlState = SaveFileControlState.Deselected;
+                    }
+                }
             }
         }
 
@@ -92,7 +111,7 @@ namespace FreemooSDL.Screens
 
         public override void Update(FreemooTimer pTimer)
         {
-            
+            UpdateControls(pTimer);
         }
 
         public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
