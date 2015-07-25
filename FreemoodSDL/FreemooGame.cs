@@ -78,8 +78,8 @@ namespace FreemooSDL
             loadContent();
 
             //changeScreen(ScreenEnum.MainScreen);
-            //changeScreen(ScreenEnum.LoadingScreen);
-            changeScreen(ScreenEnum.MainMenu);
+            changeScreen(ScreenEnum.LoadingScreen);
+            //changeScreen(ScreenEnum.MainMenu);
 
             int framesElapsed = 0;
             double currMillis = _timer.TotalMilliseconds;
@@ -112,11 +112,13 @@ namespace FreemooSDL
 
         private void Initialize()
         {
+            ObjectPool.Initialize();
+
             buildServices();
             buildEventHandlers();
             buildScreensCollection();
 
-            ObjectPool.Initialize();
+            
 
             //Mixer.Initialize();
 

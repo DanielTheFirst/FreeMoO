@@ -23,7 +23,7 @@ namespace FreemooSDL.Screens
         private string[] _intro1Movies = { "TITLE", "BOMBNEW", "LAUNCHER", "CITYBOMB" };
         private string[] _intro2Movies = { "EXPLODE","WARP", "CREDITS" };
         private int _currPicIdx = 0;
-
+        private EmptyControl _mouseEvtControl = new EmptyControl(0, 0, 320, 200);
 
         public OpeningMovie(FreemooGame game)
             : base(game)
@@ -47,6 +47,9 @@ namespace FreemooSDL.Screens
                 BuildMovie();
                 _currPicIdx = 0;
             }
+            _mouseEvtControl.EmptyControlClickEvent += MouseClickEvent;
+            _mouseEvtControl.Id = "MouseEventControl";
+            Controls.add(_mouseEvtControl);
             base.start();
         }
 
@@ -56,7 +59,12 @@ namespace FreemooSDL.Screens
             base.stop();
         }
 
-
+        private void MouseClickEvent(EmptyControl sender, MouseButton args)
+        {
+            _screenAction.ScreenAction = ScreenActionEnum.Change;
+            _screenAction.NextScreen = ScreenEnum.MainMenu;
+            Game.QueueScreenAction(_screenAction);
+        }
 
         private void BuildMovie()
         {

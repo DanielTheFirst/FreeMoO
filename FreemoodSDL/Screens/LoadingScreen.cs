@@ -126,7 +126,10 @@ namespace FreemooSDL.Screens
                 case FADE_MODE_LOW:
                     if (_fadeTimer > FADE_HOLD_LENGTH)
                     {
-                        Game.changeScreen(ScreenEnum.OpeningMovie);
+                        //Game.changeScreen(ScreenEnum.OpeningMovie);
+                        _screenAction.ScreenAction = ScreenActionEnum.Change;
+                        _screenAction.NextScreen = ScreenEnum.OpeningMovie;
+                        Game.QueueScreenAction(_screenAction);
                     }
                     break;
             }
