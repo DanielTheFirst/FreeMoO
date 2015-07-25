@@ -69,11 +69,15 @@ namespace FreemooSDL.Controls
             Surface colonySurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.COLONIES, environments[(int)_planet.PlanetType], 0);
             guiService.drawImage(colonySurf, 227, 73);
 
-            Rectangle rect = new Rectangle(227, 8, 84, 13);
+            //Rectangle rect = new Rectangle(227, 8, 84, 13);
+            var rect = ObjectPool.GetRectangle(227, 8, 84, 13);
             guiService.drawString(_planet.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
+            ObjectPool.RectanglePool.PutObject(rect);
 
-            Rectangle rangeRect = new Rectangle(237, 84, 63, 8);
+            //Rectangle rangeRect = new Rectangle(237, 84, 63, 8);
+            var rangeRect = ObjectPool.GetRectangle(237, 84, 63, 8);
             guiService.drawString(_rangeText, rangeRect, FontEnum.font_0, FontPaletteEnum.UnexploredRange);
+            ObjectPool.RectanglePool.PutObject(rangeRect);
 
             foreach (var ctrls in Controls)
             {

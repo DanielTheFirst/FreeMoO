@@ -14,7 +14,7 @@ namespace FreemooSDL.Controls
         private bool _mouseDown = false;
         private bool _mouseOver = false;
 
-        protected Rectangle mBoundingRect;
+        //protected Rectangle mBoundingRect;
         //private FreemooImage mButtonImage;
         private FreemooImageInstance _buttonImage;
         private ImageService mImgServiceRef = null;
@@ -41,7 +41,7 @@ namespace FreemooSDL.Controls
             //mButtonImage = pImgService.getImage(pButtonImageArchive, pButtonImageIndex); //pImgService.Images[pButtonImageArchive, pButtonImageIndex];
             _buttonImage = new FreemooImageInstance(pButtonImageArchive, pButtonImageIndex, pImgService);
             Surface s = _buttonImage.getCurrentFrame();
-            mBoundingRect = new Rectangle(px, py, s.Width,s.Height);
+            //mBoundingRect = new Rectangle(px, py, s.Width,s.Height);
             mImgServiceRef = pImgService;
         }
 
@@ -59,7 +59,7 @@ namespace FreemooSDL.Controls
             }
             _buttonImage.CurrentFrameNum = frame;
             Surface surf = _buttonImage.getCurrentFrame(); //mImgServiceRef.getSurface(mButtonImage.Archive, mButtonImage.ImageIndex, frame);
-            pGuiService.drawImage(surf, mBoundingRect.X, mBoundingRect.Y);
+            pGuiService.drawImage(surf, BoundingRect.X, BoundingRect.Y);
         }
 
         public override void Update(FreemooTimer pTimer)
@@ -68,7 +68,7 @@ namespace FreemooSDL.Controls
 
         public override void mouseMoved(SdlDotNet.Input.MouseMotionEventArgs pMbea)
         {
-            if (mBoundingRect.Contains(pMbea.Position))
+            if (BoundingRect.Contains(pMbea.Position))
             {
                 _mouseOver = true;
             }
@@ -81,7 +81,7 @@ namespace FreemooSDL.Controls
 
         public override void mousePressed(SdlDotNet.Input.MouseButtonEventArgs pMbea)
         {
-            if (mBoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
+            if (BoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
             {
                 _mouseDown = true;
             }
@@ -91,7 +91,7 @@ namespace FreemooSDL.Controls
         public override void mouseReleased(SdlDotNet.Input.MouseButtonEventArgs pMbea)
         {
             _mouseDown = false;
-            if (mBoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
+            if (BoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
             {
                 //mMouseDown = false;
                 // bubble up a click event

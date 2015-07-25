@@ -49,6 +49,16 @@ namespace FreemooSDL.Collections
             ProductionBarPool = new ObjectPoolImpl<ProductionBar>(() => new ProductionBar(), 10);
         }
 
+        public static Rectangle GetRectangle(int x, int y, int w, int h)
+        {
+            var rect = RectanglePool.GetObject();
+            rect.X = x;
+            rect.Y = y;
+            rect.Width = w;
+            rect.Height = h;
+            return rect;
+        }
+
         public static ObjectPoolImpl<Rectangle> RectanglePool;
         public static ObjectPoolImpl<Size> SizeObjPool;
         public static ObjectPoolImpl<Point> PointObjPool;
