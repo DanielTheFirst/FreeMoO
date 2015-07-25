@@ -13,6 +13,7 @@ namespace FreemooSDL.Screens
     {
         private FreemooGame mGame;
         private ControlCollection mControls = new ControlCollection();
+        protected ScreenActionEventArgs _screenAction = new ScreenActionEventArgs();
 
         public FreemooGame Game
         {

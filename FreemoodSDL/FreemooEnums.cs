@@ -40,6 +40,7 @@ namespace FreemooSDL
 
     public enum ScreenEnum
     {
+        None,
         MainScreen,
         ResearchScreen,
         PlanetScreen,
@@ -52,6 +53,15 @@ namespace FreemooSDL
         LoadingScreen,
         MainMenu,
         LoadGameScreen
+    }
+
+    public enum ScreenActionEnum
+    {
+        None,
+        Change,
+        Push,
+        Pop,
+        Quit
     }
 
     public enum PlanetTypeEnum

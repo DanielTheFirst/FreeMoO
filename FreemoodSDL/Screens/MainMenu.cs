@@ -85,6 +85,9 @@ namespace FreemooSDL.Screens
         {
             // provably going to need to write into FreemooGame a quit function, or have it subscribe to this event or something
             //Game.
+            _screenAction.NextScreen = ScreenEnum.None;
+            _screenAction.ScreenAction = ScreenActionEnum.Quit;
+            Game.QueueScreenAction(_screenAction);
         }
 
         private void ContinueButtonClick(object sender, EventArgs args)

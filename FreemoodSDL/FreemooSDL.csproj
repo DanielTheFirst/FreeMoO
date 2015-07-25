@@ -102,6 +102,7 @@
     <Compile Include="Reverse\ConfigMoo.cs" />
     <Compile Include="Reverse\Font.cs" />
     <Compile Include="Reverse\Savegame.cs" />
+    <Compile Include="ScreenActionEventArgs.cs" />
     <Compile Include="Screens\DesignScreen.cs" />
     <Compile Include="Screens\FleetScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />

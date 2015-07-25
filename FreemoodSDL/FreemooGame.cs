@@ -28,6 +28,7 @@ namespace FreemooSDL
         private GuiService _guiService = null;
         private bool _screenshot = false;
         private string _dispFps = "60 FPS";
+        private ScreenActionEventArgs _queuedScreenAction = new ScreenActionEventArgs();
 
         // properties
         public Game.Game OrionGame
@@ -97,7 +98,13 @@ namespace FreemooSDL
                 update();
                 Draw();
                 framesElapsed++;
-                
+
+                if (_queuedScreenAction.ScreenAction != ScreenActionEnum.None)
+                {
+                    ProcessScreenAction();
+                    _queuedScreenAction.ScreenAction = ScreenActionEnum.None;
+                    _queuedScreenAction.NextScreen = ScreenEnum.None;
+                }
             }
 
             unloadContent();
@@ -120,7 +127,7 @@ namespace FreemooSDL
             _timer = new FreemooTimer();
 
             _orionGame = new Game.Game();
-            _orionGame.loadGame(1);
+            //_orionGame.loadGame(1);
 
             
         }
@@ -289,6 +296,34 @@ namespace FreemooSDL
             _screenStack.Peek().stop();
             _screenStack.Pop();
             _screenStack.Peek().resume();
+        }
+
+        public void QueueScreenAction(ScreenActionEventArgs scr)
+        {
+            Debug.Assert(_queuedScreenAction.ScreenAction == ScreenActionEnum.None && _queuedScreenAction.NextScreen == ScreenEnum.None, "Really bad idea to let an action be queued once one already has.");
+            _queuedScreenAction.NextScreen = scr.NextScreen;
+            _queuedScreenAction.ScreenAction = scr.ScreenAction;
+        }
+
+        private void ProcessScreenAction()
+        {
+            Debug.Assert(_queuedScreenAction.ScreenAction != ScreenActionEnum.None, "Cannot process a NONE action.");
+            switch(_queuedScreenAction.ScreenAction)
+            {
+                case ScreenActionEnum.Change:
+                    changeScreen(_queuedScreenAction.NextScreen);
+                    break;
+                case ScreenActionEnum.Push:
+                    pushScreen(_queuedScreenAction.NextScreen);
+                    break;
+                case ScreenActionEnum.Pop:
+                    popScreen();
+                    break;
+                case ScreenActionEnum.Quit:
+                    _quit = true;
+                    while (_screenStack.Count > 0) _screenStack.Pop();
+                    break;
+            }
         }
 
         public IScreen CurrentScreen
