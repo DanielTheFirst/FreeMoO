@@ -16,18 +16,17 @@ namespace FreemooSDL
 {
     public class FreemooGame : IDisposable
     {
-        private ScreenCollection mScreenCollection = null;
-        private ScreenStack mScreenStack = null;
-        private bool mQuit = false;
-        //private DateTime mTimer = DateTime.Now;
-        private FreemooTimer mTimer = null;
-        private Game.Game mOrionGame = null;
+        private ScreenCollection _screenCollection = null;
+        private ScreenStack _screenStack = null;
+        private bool _quit = false;
+        private FreemooTimer _timer = null;
+        private Game.Game _orionGame = null;
         //private IScreen mCurrentScreen = null;
-        private SoundFXService mSoundFxService = null;
-        private ConfigService mConfigService = null;
-        private ImageService mImageService = null;
-        private GuiService mGuiService = null;
-        private bool mScreenshot = false;
+        private SoundFXService _soundFxService = null;
+        private ConfigService _configService = null;
+        private ImageService _imageService = null;
+        private GuiService _guiService = null;
+        private bool _screenshot = false;
         private string _dispFps = "60 FPS";
 
         // properties
@@ -35,35 +34,35 @@ namespace FreemooSDL
         {
             get
             {
-                return mOrionGame;
+                return _orionGame;
             }
         }
         public SoundFXService SoundFX
         {
             get
             {
-                return mSoundFxService;
+                return _soundFxService;
             }
         }
         public ConfigService Config
         {
             get
             {
-                return mConfigService;
+                return _configService;
             }
         }
         public GuiService Screen
         {
             get
             {
-                return mGuiService;
+                return _guiService;
             }
         }
         public ImageService Images
         {
             get
             {
-                return mImageService;
+                return _imageService;
             }
         }
 
@@ -72,34 +71,28 @@ namespace FreemooSDL
             Mixer.Close();
         }
 
-        public void run()
+        public void Run()
         {
-            initialize();
+            Initialize();
             loadContent();
 
-            //StateManager sm = (StateManager)Services.get(ServiceEnum.StateManager);
-            //sm.changeState("");
-            //mCurrentScreen = new MainScreen(this);
-            //mCurrentScreen.start(); // refactor into changestate function
             //changeScreen(ScreenEnum.MainScreen);
             //changeScreen(ScreenEnum.LoadingScreen);
             changeScreen(ScreenEnum.MainMenu);
 
             int framesElapsed = 0;
-            double currMillis = mTimer.TotalMilliseconds;
+            double currMillis = _timer.TotalMilliseconds;
             string fpsString = "{0} FPS";
-            while (!mQuit)
+            while (!_quit)
             {
-                double timeGoneBy = mTimer.TotalMilliseconds - currMillis;
+                double timeGoneBy = _timer.TotalMilliseconds - currMillis;
                 if (timeGoneBy > 1000)
                 {
                     double fps = (double)framesElapsed / (timeGoneBy / 1000D);
                     Console.Write("FPS = " + Math.Round(fps, 2) + Environment.NewLine);
-                    currMillis = mTimer.TotalMilliseconds;
+                    currMillis = _timer.TotalMilliseconds;
                     framesElapsed = 0;
-                    //string fpsString = string.Format("%0 FPS", Math.Round(fps, 2));
                     _dispFps = string.Format(fpsString, Math.Round(fps, 2));
-                    //Screen.drawString(fpsString, new System.Drawing.Rectangle(), FontEnum.font_0, FontPaletteEnum.Font4Colors);
                 }
                 update();
                 Draw();
@@ -110,7 +103,7 @@ namespace FreemooSDL
             unloadContent();
         }
 
-        private void initialize()
+        private void Initialize()
         {
             buildServices();
             buildEventHandlers();
@@ -120,17 +113,14 @@ namespace FreemooSDL
 
             //Mixer.Initialize();
 
-            mScreenStack = new ScreenStack();
+            _screenStack = new ScreenStack();
 
             this.Screen.initializeVideo();
 
-            mTimer = new FreemooTimer();
+            _timer = new FreemooTimer();
 
-            //StateManager sm = (StateManager)Services.get(ServiceEnum.StateManager);
-            //sm.initalize();
-
-            mOrionGame = new Game.Game();
-            mOrionGame.loadGame(1);
+            _orionGame = new Game.Game();
+            _orionGame.loadGame(1);
 
             
         }
@@ -149,26 +139,21 @@ namespace FreemooSDL
 
         private void update()
         {
-            mTimer.update();
+            _timer.update();
             Events.Poll();
-            ScreenControl.Update(mTimer);
+            ScreenControl.Update(_timer);
         }
 
         private void Draw()
         {
-            //ImageService imgs = (ImageService)Services[ServiceEnum.ImageService];
-            //GuiService gs = (GuiService)Services.get(ServiceEnum.GuiService);
-            //FreemooImage mooImg = imgs.Images[ArchiveEnum.STARMAP, "MAINVIEW"];
-            //Surface surf = mooImg.getCurrentFrame();
             this.Screen.blank();
 
-            //((StateManager)Services.get(ServiceEnum.StateManager)).draw(mTimer);
-            ScreenControl.Draw(mTimer, this.Screen);
+            ScreenControl.Draw(_timer, this.Screen);
 
-            if (mScreenshot)
+            if (_screenshot)
             {
                 Screen.takescreenshot();
-                mScreenshot = false;
+                _screenshot = false;
             }
             Screen.drawString(_dispFps, 0, 0, FontEnum.font_2, FontPaletteEnum.PopulationGreen);
             this.Screen.flip();
@@ -177,11 +162,11 @@ namespace FreemooSDL
         private void buildServices()
         {
 
-            mConfigService = new ConfigService(this);
-            mImageService = new ImageService(this);
-            mGuiService = new GuiService(this);
+            _configService = new ConfigService(this);
+            _imageService = new ImageService(this);
+            _guiService = new GuiService(this);
 
-            mSoundFxService = new SoundFXService(this);
+            _soundFxService = new SoundFXService(this);
         }
 
         private void buildEventHandlers()
@@ -196,25 +181,25 @@ namespace FreemooSDL
 
         private void buildScreensCollection()
         {
-            mScreenCollection = new ScreenCollection();
+            _screenCollection = new ScreenCollection();
 
-            mScreenCollection.Add(ScreenEnum.MainScreen, new MainScreen(this));
-            mScreenCollection.Add(ScreenEnum.ResearchScreen, new ResearchScreen(this));
-            mScreenCollection.Add(ScreenEnum.PlanetScreen, new PlanetsScreen(this));
-            mScreenCollection.Add(ScreenEnum.RaceScreen, new RaceScreen(this));
-            mScreenCollection.Add(ScreenEnum.MapScreen, new MapScreen(this));
-            mScreenCollection.Add(ScreenEnum.FleetScreen, new FleetScreen(this));
-            mScreenCollection.Add(ScreenEnum.DesignScreen, new DesignScreen(this));
-            mScreenCollection.Add(ScreenEnum.GameScreen, new GameScreen(this));
-            mScreenCollection.Add(ScreenEnum.OpeningMovie, new OpeningMovie(this));
-            mScreenCollection.Add(ScreenEnum.LoadingScreen, new LoadingScreen(this));
-            mScreenCollection.Add(ScreenEnum.MainMenu, new MainMenu(this));
-            mScreenCollection.Add(ScreenEnum.LoadGameScreen, new LoadGameScreen(this));
+            _screenCollection.Add(ScreenEnum.MainScreen, new MainScreen(this));
+            _screenCollection.Add(ScreenEnum.ResearchScreen, new ResearchScreen(this));
+            _screenCollection.Add(ScreenEnum.PlanetScreen, new PlanetsScreen(this));
+            _screenCollection.Add(ScreenEnum.RaceScreen, new RaceScreen(this));
+            _screenCollection.Add(ScreenEnum.MapScreen, new MapScreen(this));
+            _screenCollection.Add(ScreenEnum.FleetScreen, new FleetScreen(this));
+            _screenCollection.Add(ScreenEnum.DesignScreen, new DesignScreen(this));
+            _screenCollection.Add(ScreenEnum.GameScreen, new GameScreen(this));
+            _screenCollection.Add(ScreenEnum.OpeningMovie, new OpeningMovie(this));
+            _screenCollection.Add(ScreenEnum.LoadingScreen, new LoadingScreen(this));
+            _screenCollection.Add(ScreenEnum.MainMenu, new MainMenu(this));
+            _screenCollection.Add(ScreenEnum.LoadGameScreen, new LoadGameScreen(this));
         }
 
         public void quitAction(object sender, QuitEventArgs qea)
         {
-            mQuit = true;
+            _quit = true;
         }
 
         private MouseButtonEventArgs scaleMouseBtnPos(MouseButtonEventArgs pBtnArgs)
@@ -250,11 +235,11 @@ namespace FreemooSDL
 #if DEBUG
             if (pKea.Key == Key.Escape)
             {
-                mQuit = true;
+                _quit = true;
             }
             if (pKea.Key == Key.F2)
             {
-                mScreenshot = true;
+                _screenshot = true;
             }
 #endif
             ScreenControl.keyReleased(pKea);
@@ -281,36 +266,36 @@ namespace FreemooSDL
         // screen manager functions
         public void changeScreen(ScreenEnum pNewScreen)
         {
-            while (mScreenStack.Count > 0)
+            while (_screenStack.Count > 0)
             {
                 //popScreen();
-                IScreen tmp = mScreenStack.Pop();
+                IScreen tmp = _screenStack.Pop();
                 tmp.stop();
             }
-            mScreenStack.Push(mScreenCollection[pNewScreen]);
-            mScreenStack.Peek().start();
+            _screenStack.Push(_screenCollection[pNewScreen]);
+            _screenStack.Peek().start();
         }
 
         public void pushScreen(ScreenEnum pNextScreen)
         {
-            mScreenStack.Peek().pause();
-            mScreenStack.Push(mScreenCollection[pNextScreen]);
-            mScreenStack.Peek().start();
+            _screenStack.Peek().pause();
+            _screenStack.Push(_screenCollection[pNextScreen]);
+            _screenStack.Peek().start();
         }
 
         public void popScreen()
         {
-            Debug.Assert(mScreenStack.Count > 0);
-            mScreenStack.Peek().stop();
-            mScreenStack.Pop();
-            mScreenStack.Peek().resume();
+            Debug.Assert(_screenStack.Count > 0);
+            _screenStack.Peek().stop();
+            _screenStack.Pop();
+            _screenStack.Peek().resume();
         }
 
         public IScreen CurrentScreen
         {
             get
             {
-                return mScreenStack.Peek();
+                return _screenStack.Peek();
             }
         }
 
@@ -318,7 +303,7 @@ namespace FreemooSDL
         {
             get
             {
-                return (IControl)mScreenStack.Peek();
+                return (IControl)_screenStack.Peek();
             }
         }
     }

@@ -10,7 +10,7 @@ namespace FreemooSDL
             DateTime start = DateTime.Now;
             using (FreemooGame game = new FreemooGame())
             {
-                game.run();
+                game.Run();
             }
             DateTime stop = DateTime.Now;
             TimeSpan t = stop.Subtract(start);
