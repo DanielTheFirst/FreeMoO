@@ -209,34 +209,40 @@ namespace FreemooSDL.Screens
         {
             MainScreenMenuButtons m = (MainScreenMenuButtons)Sender;
             // ok, now I need to stub in all the other screens
+            _screenAction.ScreenAction = ScreenActionEnum.Push;
             switch (m.ButtonType)
             {
                 case MenuButtonEnum.Tech:
-                    Game.pushScreen(ScreenEnum.ResearchScreen);
+                    //Game.pushScreen(ScreenEnum.ResearchScreen);
+                    _screenAction.NextScreen = ScreenEnum.ResearchScreen;
                     break;
                 case MenuButtonEnum.Planets:
-                    Game.pushScreen(ScreenEnum.PlanetScreen);
+                    _screenAction.NextScreen = ScreenEnum.PlanetScreen;
                     break;
                 case MenuButtonEnum.Races:
-                    Game.pushScreen(ScreenEnum.RaceScreen);
+                    _screenAction.NextScreen = ScreenEnum.RaceScreen;
                     break;
                 case MenuButtonEnum.Map:
-                    Game.pushScreen(ScreenEnum.MapScreen);
+                    _screenAction.NextScreen = ScreenEnum.MapScreen;
                     break;
                 case MenuButtonEnum.Fleet:
-                    Game.pushScreen(ScreenEnum.FleetScreen);
+                    _screenAction.NextScreen = ScreenEnum.FleetScreen;
                     break;
                 case MenuButtonEnum.Design:
-                    Game.pushScreen(ScreenEnum.DesignScreen);
+                    _screenAction.NextScreen = ScreenEnum.DesignScreen;
                     break;
                 case MenuButtonEnum.Game:
-                    Game.pushScreen(ScreenEnum.GameScreen);
+                    _screenAction.NextScreen = ScreenEnum.GameScreen;
                     break;
                 case MenuButtonEnum.NextTurn:
+                    _screenAction.ScreenAction = ScreenActionEnum.None;
                     CalculateNextTurnTemp();
                     break;
             }
-
+            if (_screenAction.ScreenAction != ScreenActionEnum.None)
+            {
+                Game.QueueScreenAction(_screenAction);
+            }
             
         }
 

@@ -17,7 +17,7 @@ namespace FreemooSDL.Controls
 
         private bool _mouseOver = false;
         private bool _mouseDown = false;
-        private Rectangle _rect;
+        //private Rectangle _rect;
 
         public event OnEmptyControlClick EmptyControlClickEvent;
 
@@ -27,13 +27,13 @@ namespace FreemooSDL.Controls
             this.Y = y;
             this.Width = w;
             Height = h;
-            _rect = new Rectangle(x, y, w, h);
+            //_rect = new Rectangle(x, y, w, h);
         }
 
         public override void mouseMoved(SdlDotNet.Input.MouseMotionEventArgs pMbea)
         {
             //base.mouseMoved(pMbea);
-            if (!_rect.Contains(pMbea.Position))
+            if (!BoundingRect.Contains(pMbea.Position))
             {
                 _mouseOver = false;
             }
@@ -58,7 +58,7 @@ namespace FreemooSDL.Controls
 
         public override void mousePressed(SdlDotNet.Input.MouseButtonEventArgs pMbea)
         {
-            if (_rect.Contains(pMbea.Position))
+            if (BoundingRect.Contains(pMbea.Position))
             {
                 _mouseDown = true;
             }

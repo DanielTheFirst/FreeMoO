@@ -69,7 +69,10 @@ namespace FreemooSDL.Screens
         {
             if (_loadBtn.Enabled)
             {
-                this.Game.pushScreen(ScreenEnum.LoadGameScreen);
+                //this.Game.pushScreen(ScreenEnum.LoadGameScreen);
+                _screenAction.ScreenAction = ScreenActionEnum.Push;
+                _screenAction.NextScreen = ScreenEnum.LoadGameScreen;
+                Game.QueueScreenAction(_screenAction);
             }
         }
 

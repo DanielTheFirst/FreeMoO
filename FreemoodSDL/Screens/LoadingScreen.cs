@@ -117,7 +117,7 @@ namespace FreemooSDL.Screens
                         textG--;
                         textB--;
                         _fadeTimer = 0;
-                        if (textR <= 0)
+                        if (textR <= 0 || textG <= 0 || textB <= 0)
                         {
                             _fadeMode = FADE_MODE_LOW;
                         }

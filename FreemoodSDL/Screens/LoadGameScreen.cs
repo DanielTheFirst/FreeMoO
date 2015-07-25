@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 using FreemooSDL.Collections;
 using FreemooSDL.Controls;
@@ -58,6 +59,7 @@ namespace FreemooSDL.Screens
             for (int i = 0; i < 6; i++)
             {
                 SaveFileControl sfc = new SaveFileControl();
+                sfc.SaveFileIndex = i + 1;
                 if (!firstActive)
                 {
                     sfc.ControlState = SaveFileControlState.Selected;
@@ -100,13 +102,34 @@ namespace FreemooSDL.Screens
         {
             if (args == MouseButton.PrimaryButton)
             {
-
+                int selected = 0;
+                foreach(var ctrl in this.Controls)
+                {
+                    if (ctrl.Value is SaveFileControl)
+                    {
+                        var sfc = ctrl.Value as SaveFileControl;
+                        if (sfc.ControlState == SaveFileControlState.Selected)
+                        {
+                            selected = sfc.SaveFileIndex;
+                        }
+                    }
+                }
+                Debug.Assert(selected > 0, "Nothing was selected which should never happen since the load screen should be disaboled if there are no save games");
+                Game.OrionGame.loadGame(selected);
+                _screenAction.ScreenAction = ScreenActionEnum.Change;
+                _screenAction.NextScreen = ScreenEnum.MainScreen;
+                Game.QueueScreenAction(_screenAction);
             }
         }
 
         private void CancelClick(EmptyControl sender, MouseButton args)
         {
-            Game.popScreen();
+            //Game.popScreen();
+            if (args == MouseButton.PrimaryButton)
+            {
+                _screenAction.ScreenAction = ScreenActionEnum.Pop;
+                Game.QueueScreenAction(_screenAction);
+            }
         }
 
         public override void Update(FreemooTimer pTimer)

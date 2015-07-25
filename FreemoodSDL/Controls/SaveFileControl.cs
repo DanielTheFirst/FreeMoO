@@ -31,6 +31,8 @@ namespace FreemooSDL.Controls
             }
         }
 
+        public int SaveFileIndex { get; set; }
+
         private FreemooImageInstance _indicatorLightGreen = null;
         private FreemooImageInstance _indicatorLightGray = null;
 
@@ -56,7 +58,6 @@ namespace FreemooSDL.Controls
             }
         }
 
-        private Rectangle _boundRect;
         private bool _calcRect = false;
 
         public event OnSaveFileControlSelected OnSelected;
@@ -120,29 +121,18 @@ namespace FreemooSDL.Controls
 
         public override void Release()
         {
-            ObjectPool.RectanglePool.PutObject(_boundRect); // possible race condition if release somehoww gets called before first update
             base.Release();
         }
 
         public override void Update(FreemooTimer pTimer)
         {
-            // this is stupid.  abstract control should handle this
-            if (!_calcRect)
-            {
-                _boundRect = ObjectPool.RectanglePool.GetObject();
-                _boundRect.X = this.X;
-                _boundRect.Y = this.Y;
-                _boundRect.Width = this.Width;
-                _boundRect.Height = this.Height;
-                _calcRect = true;
-            }
         }
 
         public override void mousePressed(SdlDotNet.Input.MouseButtonEventArgs pMbea)
         {
             if (!(this.ControlState == SaveFileControlState.Selected) && !(this.ControlState == SaveFileControlState.Disabled))
             {
-                if (_boundRect.Contains(pMbea.Position))
+                if (BoundingRect.Contains(pMbea.Position))
                 {
                     this.ControlState = SaveFileControlState.Selected;
                     if (OnSelected != null)

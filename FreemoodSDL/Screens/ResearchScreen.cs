@@ -34,7 +34,9 @@ namespace FreemooSDL.Screens
         {
             if (pMbea.Button == MouseButton.SecondaryButton)
             {
-                Game.popScreen();
+                //Game.popScreen();
+                _screenAction.ScreenAction = ScreenActionEnum.Pop;
+                Game.QueueScreenAction(_screenAction);
             }
             base.mousePressed(pMbea);
         }
