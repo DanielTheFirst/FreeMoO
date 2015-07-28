@@ -28,8 +28,12 @@ namespace FreemooSDL.Screens
         public OpeningMovie(FreemooGame game)
             : base(game)
         {
-            
 
+            BuildMovie();
+            _currPicIdx = 0;
+            //_mouseEvtControl.EmptyControlClickEvent += MouseClickEvent;
+            //_mouseEvtControl.Id = "MouseEventControl";
+            //Controls.add(_mouseEvtControl);
         }
 
         public override void start()
@@ -42,14 +46,14 @@ namespace FreemooSDL.Screens
             //_introMovie1.Animate = true;
             //_introMovie1.AnimationTimer = 0;
             //_introMovie1.ResetAnimation();
-            if (_introMovieSequence == null)
-            {
-                BuildMovie();
-                _currPicIdx = 0;
-            }
-            _mouseEvtControl.EmptyControlClickEvent += MouseClickEvent;
-            _mouseEvtControl.Id = "MouseEventControl";
-            Controls.add(_mouseEvtControl);
+            //if (_introMovieSequence == null)
+            //{
+            //    BuildMovie();
+            //    _currPicIdx = 0;
+            //}
+            //_mouseEvtControl.EmptyControlClickEvent += MouseClickEvent;
+            //_mouseEvtControl.Id = "MouseEventControl";
+            //Controls.add(_mouseEvtControl);
             base.start();
         }
 
@@ -61,10 +65,19 @@ namespace FreemooSDL.Screens
 
         private void MouseClickEvent(EmptyControl sender, MouseButton args)
         {
-            //Console.WriteLine("Mouse click event noticed.");
+            Console.WriteLine("Mouse click event noticed.");
             _screenAction.ScreenAction = ScreenActionEnum.Change;
             _screenAction.NextScreen = ScreenEnum.MainMenu;
             Game.QueueScreenAction(_screenAction);
+        }
+
+        public override void mousePressed(MouseButtonEventArgs pMbea)
+        {
+            Console.WriteLine("mouse down");
+            _screenAction.ScreenAction = ScreenActionEnum.Change;
+            _screenAction.NextScreen = ScreenEnum.MainMenu;
+            Game.QueueScreenAction(_screenAction);
+            base.mousePressed(pMbea);
         }
 
         private void BuildMovie()
@@ -90,6 +103,7 @@ namespace FreemooSDL.Screens
 
         public override void Draw(FreemooTimer pTimer, GuiService guiSvc)
         {
+            //Console.WriteLine(string.Format("Time since last draw event {0}", pTimer.MillisecondsElapsed));
             ImageService imgSvc = Game.Images;
             //GuiService guiSvc = Game.Screen;
 
