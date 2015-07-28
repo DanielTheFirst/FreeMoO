@@ -77,8 +77,8 @@ namespace FreemooSDL
             Initialize();
             loadContent();
 
-            //changeScreen(ScreenEnum.MainScreen);
-            changeScreen(ScreenEnum.LoadingScreen);
+            changeScreen(ScreenEnum.MainScreen);
+            //changeScreen(ScreenEnum.LoadingScreen);
             //changeScreen(ScreenEnum.MainMenu);
 
             int framesElapsed = 0;
@@ -132,7 +132,7 @@ namespace FreemooSDL
             _timer = new FreemooTimer();
 
             _orionGame = new Game.Game();
-            //_orionGame.loadGame(1);
+            _orionGame.loadGame(1);
 
             
         }

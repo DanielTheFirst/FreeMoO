@@ -57,7 +57,8 @@ namespace FreemooSDL.Controls
             {
                 _planet = value;
                 RecalculateRange();
-                _ownerRace = _mainScreen.Game.OrionGame.Players[Planet.PlayerId].Name;
+                //_ownerRace = _mainScreen.Game.OrionGame.Players[Planet.PlayerId].Name;
+                _spl.SetPlanet(_planet);
             }
         }
 

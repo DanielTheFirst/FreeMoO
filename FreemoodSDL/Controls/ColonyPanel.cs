@@ -192,6 +192,8 @@ namespace FreemooSDL.Controls
             //Controls.add(_smallPlanetLabel);
 
             _smallPlanetLabel = new SmallPlanetLabel(mScreenRef, this);
+            _smallPlanetLabel.Id = "SmallPlanetLabel_ColonyPanel";
+            Controls.add(_smallPlanetLabel);
 
             InitializeProductionBars();
         }
@@ -276,8 +278,8 @@ namespace FreemooSDL.Controls
 
         public override void Release()
         {
-            _productionBars.Release();
-            ObjectPool.ProductionBarGroupPool.PutObject(_productionBars);
+            //_productionBars.Release();
+            //ObjectPool.ProductionBarGroupPool.PutObject(_productionBars);
             base.Release();
         }
 

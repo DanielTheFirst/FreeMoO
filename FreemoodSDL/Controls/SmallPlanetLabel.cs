@@ -40,8 +40,8 @@ namespace FreemooSDL.Controls
 
         public override void Draw(FreemooTimer pTimer, GuiService guiService)
         {
-            if (this.Visible)
-            {
+            //if (this.Visible)
+            //{
                 ImageService imgService = _screenRef.Game.Images;
                 string smallPlanet = "PLANET" + (_planetRef.SmallPlanetImageIndex + 1);
                 Surface smallPanetSurf = imgService.getSurface(ArchiveEnum.PLANETS, smallPlanet, 0); //imgService.Images[ArchiveEnum.PLANETS, smallPlanet][0];
@@ -73,7 +73,7 @@ namespace FreemooSDL.Controls
 
                 string popString = "POP" + _planetRef.MaxPopulation.ToString().PadLeft(3, ' ') + " MAX";
                 guiService.drawString(popString, new Rectangle(263, 45, 43, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
-            }
+            //}
 
         }
     }
