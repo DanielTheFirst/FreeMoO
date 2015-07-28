@@ -176,43 +176,52 @@ namespace FreemooSDL.Controls
 
         public event OnShipProductionUpdate ShipProductionUpdateEvent;
 
-        public ColonyPanel(MainScreen pScreen, Planet pPlanet)
+        public ColonyPanel(MainScreen pScreen)
             : base()
         {
-            mPlanetRef = pPlanet;
+            //mPlanetRef = pPlanet;
             mScreenRef = pScreen;
-            Id = "COLONYPANEL_" + pPlanet.Name;
+            //Id = "COLONYPANEL_" + pPlanet.Name;
+            Id = "COLONYPANEL";
 
-            buildProductionBars();
+            //buildProductionBars();
             buildButtons();
 
-            _smallPlanetLabel = new SmallPlanetLabel(mScreenRef, this, mPlanetRef);
-            _smallPlanetLabel.Id = "spl_" + mPlanetRef.Name;
-            Controls.add(_smallPlanetLabel);
+            //_smallPlanetLabel = new SmallPlanetLabel(mScreenRef, this, mPlanetRef);
+            //_smallPlanetLabel.Id = "spl_" + mPlanetRef.Name;
+            //Controls.add(_smallPlanetLabel);
+
+            _smallPlanetLabel = new SmallPlanetLabel(mScreenRef, this);
+
+            InitializeProductionBars();
         }
 
-        private void buildProductionBars()
+        public Planet Planet
         {
-            _productionBars = ObjectPool.ProductionBarGroupPool.GetObject();
-            _productionBars.OnProductionBarUpdate += this.HabndleProductionBarGroupUpdate;
+            get
+            {
+                return mPlanetRef;
+            }
+            set
+            {
+                mPlanetRef = value;
+                BuildProductionBars();
+                _smallPlanetLabel.SetPlanet(value);
 
-            PlanetaryProduction pp = mPlanetRef.Production;
-            int[] vals = pp.getArrayOfValues();
-            bool[] locked = pp.getArrayOfLocked();
+            }
+        }
 
+        private void InitializeProductionBars()
+        {
+            _productionBars = new ProductionBarGroup();
+            _productionBars.OnProductionBarUpdate += this.HandleProductionBarGroupUpdate;
             _productionBars.ParentControl = this;
             _productionBars.Id = "ColonyProductionBars";
-
-            /*mProductionBars = new ProductionBars[5];*/
             for (int i = 0; i < 5; i++)
             {
+                ProductionBar pb = new ProductionBar();
                 ProductionEnum pe = (ProductionEnum)i;
-                ProductionBar pb = ObjectPool.ProductionBarPool.GetObject();
-                //pb = new ProductionBars();
                 pb.Id = "ProductionBar_" + i;
-                pb.Value = vals[i];
-                pb.Locked = locked[i];
-                pb.ProdType = pe;
                 pb.X = PRODUCTION_PANEL_X_OFFSET;
                 pb.Y = PRODUCTION_PANEL_Y_OFFSET + (PRODUCTION_BAR_HEIGHT * i);
                 pb.Width = PRODUCTION_BAR_WIDTH;
@@ -221,10 +230,24 @@ namespace FreemooSDL.Controls
                 pb.PreCalculateRectangles();
                 pb.MaxValue = 25; // 100 / 4
                 pb.ProductionBarChange += _productionBars.HandleProductionBarChange;
-                //pb.ProductionBarChange += new EventHandler<ProductionBarEventArgs>(this.handleProductionBarChange);
                 _productionBars.Controls.add(pb);
             }
             Controls.add(_productionBars);
+        }
+
+        private void BuildProductionBars()
+        {
+            PlanetaryProduction pp = mPlanetRef.Production;
+            int[] vals = pp.getArrayOfValues();
+            bool[] locked = pp.getArrayOfLocked();
+
+            /*mProductionBars = new ProductionBars[5];*/
+            for (int i = 0; i < 5; i++)
+            {
+                var pb = (ProductionBar)_productionBars.Controls.get(i);
+                pb.Locked = locked[i];
+                pb.Value = vals[i];
+            }
         }
 
         private void buildButtons()
@@ -273,149 +296,152 @@ namespace FreemooSDL.Controls
 
         public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
-            ImageService imgService = mScreenRef.Game.Images; //(ImageService)mScreenRef.Game.Services[ServiceEnum.ImageService];
-            Rectangle poolRect = ObjectPool.RectanglePool.GetObject();
-            Point poolPoint = ObjectPool.PointObjPool.GetObject();
-            Size poolSize = ObjectPool.SizeObjPool.GetObject();
-
-            for (int i = 0; i < _productionBars.Controls.count(); i++)
+            if (this.Visible)
             {
-                if (_productionBars.Controls.get(i) is ProductionBar)
-                {
-                    var ctr = (ProductionBar)_productionBars.Controls.get(i);
+                ImageService imgService = mScreenRef.Game.Images; //(ImageService)mScreenRef.Game.Services[ServiceEnum.ImageService];
+                Rectangle poolRect = ObjectPool.RectanglePool.GetObject();
+                Point poolPoint = ObjectPool.PointObjPool.GetObject();
+                Size poolSize = ObjectPool.SizeObjPool.GetObject();
 
-                    if (ctr.Locked)
+                for (int i = 0; i < _productionBars.Controls.count(); i++)
+                {
+                    if (_productionBars.Controls.get(i) is ProductionBar)
                     {
-                        pGuiService.drawRect(ctr.X, ctr.Y, ctr.LabelWidth, ctr.Height, _lockedColor);
+                        var ctr = (ProductionBar)_productionBars.Controls.get(i);
+
+                        if (ctr.Locked)
+                        {
+                            pGuiService.drawRect(ctr.X, ctr.Y, ctr.LabelWidth, ctr.Height, _lockedColor);
+                        }
+                        else
+                        {
+                            pGuiService.drawRect(ctr.X, ctr.Y, ctr.LabelWidth, ctr.Height, Color.Black);
+                        }
+                    }
+                }
+
+                // draw a box behind the production labels black for unlocked, 862C00 for locked
+                //int y = 82;
+                //mProductionBars[1].Locked = true;
+                /*foreach (ProductionBars pb in mProductionBars)
+                {
+                    Color fillcol = Color.Black;
+                    if (pb.Locked)
+                    {
+                        fillcol = Color.FromArgb(0xff, 0x86, 0x2c, 0x00);
+                    }
+                    pGuiService.drawRect(227, y, 17, 7, fillcol);
+                    y += 11;
+                }*/
+
+                Surface panelSurf = imgService.getSurface(ArchiveEnum.STARMAP, "YOURPLNT", 0); //imgService.Images[ArchiveEnum.STARMAP, "YOURPLNT"][0];
+
+                pGuiService.drawImage(panelSurf, 224, 5);
+
+                Rectangle rect = new Rectangle(227, 8, 311 - 227, 21 - 8);
+                pGuiService.drawString(mPlanetRef.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
+
+                /*string smallPlanet = "PLANET" + (mPlanetRef.SmallPlanetImageIndex+1);
+                Surface smallPanetSurf = imgService.getSurface(ArchiveEnum.PLANETS, smallPlanet, 0); //imgService.Images[ArchiveEnum.PLANETS, smallPlanet][0];
+                // 229x26
+                pGuiService.drawImage(smallPanetSurf, 229, 26);
+
+                string planetType = mPlanetRef.PlanetType.ToString().ToUpper();
+                // [0xff00ff, 0xFFDF51, 0xff88ff, 0xff88ff, 0xCB9600]
+                pGuiService.drawString(planetType, new Rectangle(263, 28, 43, 5), FontEnum.font_0, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None );
+
+                if (mPlanetRef.Wealth != PlanetWealthEnum.Normal)
+                {
+                    string wealth = String.Empty;
+
+                    if (mPlanetRef.Wealth == PlanetWealthEnum.UltraPoor)
+                    {
+                        wealth = "ULTRA POOR";
+                    }
+                    else if (mPlanetRef.Wealth == PlanetWealthEnum.UltraRich)
+                    {
+                        wealth = "ULTRA RICH";
                     }
                     else
                     {
-                        pGuiService.drawRect(ctr.X, ctr.Y, ctr.LabelWidth, ctr.Height, Color.Black);
+                        wealth = mPlanetRef.Wealth.ToString().ToUpper();
                     }
+                    pGuiService.drawString(wealth, new Rectangle(263, 36, 43, 5), FontEnum.font_0, FontPaletteEnum.PlanetBluePal, TextAlignEnum.Right, TextVAlignEnum.None);
                 }
-            }
 
-            // draw a box behind the production labels black for unlocked, 862C00 for locked
-            //int y = 82;
-            //mProductionBars[1].Locked = true;
-            /*foreach (ProductionBars pb in mProductionBars)
-            {
-                Color fillcol = Color.Black;
-                if (pb.Locked)
+                string popString = "POP" + mPlanetRef.MaxPopulation.ToString().PadLeft(3, ' ') + " MAX";
+                pGuiService.drawString(popString, new Rectangle(263, 45, 43, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
+                */
+                string currentPopulation = mPlanetRef.CurrentPopulation.ToString().PadLeft(3, ' ');
+                pGuiService.drawString(currentPopulation, new Rectangle(259, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
+
+                string currentBases = mPlanetRef.AmtBases.ToString().PadLeft(3, ' ');
+                pGuiService.drawString(currentBases, new Rectangle(304, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
+
+                string productivity = mPlanetRef.AmtProductivity.ToString().PadLeft(3, ' ');
+                pGuiService.drawString(productivity, new Rectangle(283, 72, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Left, TextVAlignEnum.None);
+
+                string maxProductivity = "(" + mPlanetRef.MaxProductivity.ToString().PadLeft(3, ' ') + ")";
+                pGuiService.drawString(maxProductivity, new Rectangle(298, 72, 14, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
+
+
+                string shipString = string.Empty;
+                if (mPlanetRef.Production.Ship.Value > 0)
                 {
-                    fillcol = Color.FromArgb(0xff, 0x86, 0x2c, 0x00);
-                }
-                pGuiService.drawRect(227, y, 17, 7, fillcol);
-                y += 11;
-            }*/
 
-            Surface panelSurf = imgService.getSurface(ArchiveEnum.STARMAP, "YOURPLNT", 0); //imgService.Images[ArchiveEnum.STARMAP, "YOURPLNT"][0];
+                    int shipsPerYear = mPlanetRef.calcSingleYearShipProduction();
+                    if (shipsPerYear == 0)
+                    {
+                        int yearsPerShip = mPlanetRef.calcNumYearsToProduceShip();
+                        shipString = yearsPerShip + " Y";
+                    }
+                    else
+                    {
+                        shipString = "1 Y";
+                    }
 
-            pGuiService.drawImage(panelSurf, 224, 5);
-
-            Rectangle rect = new Rectangle(227, 8, 311 - 227, 21 - 8);
-            pGuiService.drawString(mPlanetRef.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
-
-            /*string smallPlanet = "PLANET" + (mPlanetRef.SmallPlanetImageIndex+1);
-            Surface smallPanetSurf = imgService.getSurface(ArchiveEnum.PLANETS, smallPlanet, 0); //imgService.Images[ArchiveEnum.PLANETS, smallPlanet][0];
-            // 229x26
-            pGuiService.drawImage(smallPanetSurf, 229, 26);
-
-            string planetType = mPlanetRef.PlanetType.ToString().ToUpper();
-            // [0xff00ff, 0xFFDF51, 0xff88ff, 0xff88ff, 0xCB9600]
-            pGuiService.drawString(planetType, new Rectangle(263, 28, 43, 5), FontEnum.font_0, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None );
-
-            if (mPlanetRef.Wealth != PlanetWealthEnum.Normal)
-            {
-                string wealth = String.Empty;
-
-                if (mPlanetRef.Wealth == PlanetWealthEnum.UltraPoor)
-                {
-                    wealth = "ULTRA POOR";
-                }
-                else if (mPlanetRef.Wealth == PlanetWealthEnum.UltraRich)
-                {
-                    wealth = "ULTRA RICH";
                 }
                 else
                 {
-                    wealth = mPlanetRef.Wealth.ToString().ToUpper();
+                    shipString = "NONE";
                 }
-                pGuiService.drawString(wealth, new Rectangle(263, 36, 43, 5), FontEnum.font_0, FontPaletteEnum.PlanetBluePal, TextAlignEnum.Right, TextVAlignEnum.None);
-            }
+                pGuiService.drawString(shipString, new Rectangle(288, 83, 24, 5), FontEnum.font_2, Color.Black, TextAlignEnum.Right, TextVAlignEnum.None);
 
-            string popString = "POP" + mPlanetRef.MaxPopulation.ToString().PadLeft(3, ' ') + " MAX";
-            pGuiService.drawString(popString, new Rectangle(263, 45, 43, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
-            */
-            string currentPopulation = mPlanetRef.CurrentPopulation.ToString().PadLeft(3, ' ');
-            pGuiService.drawString(currentPopulation, new Rectangle(259, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
-
-            string currentBases = mPlanetRef.AmtBases.ToString().PadLeft(3, ' ');
-            pGuiService.drawString(currentBases, new Rectangle(304, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
-
-            string productivity = mPlanetRef.AmtProductivity.ToString().PadLeft(3, ' ');
-            pGuiService.drawString(productivity, new Rectangle(283, 72, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Left, TextVAlignEnum.None);
-
-            string maxProductivity = "(" + mPlanetRef.MaxProductivity.ToString().PadLeft(3, ' ') + ")";
-            pGuiService.drawString(maxProductivity, new Rectangle(298, 72, 14, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
-
-
-            string shipString = string.Empty;
-            if (mPlanetRef.Production.Ship.Value > 0)
-            {
-                
-                int shipsPerYear = mPlanetRef.calcSingleYearShipProduction();
-                if (shipsPerYear == 0)
+                // figure out what ship to draw in the current ship thing
+                // will eventually include star gates under certain circumstances
+                int q = mPlanetRef.CurrShip;
+                int starshipImageIdx = this.mScreenRef.Game.OrionGame.Starships[q].ImageIdx;
+                ArchiveEnum shipArc = ArchiveEnum.SHIPS;
+                if (starshipImageIdx < 72)
                 {
-                    int yearsPerShip = mPlanetRef.calcNumYearsToProduceShip();
-                    shipString = yearsPerShip + " Y";
+                    shipArc = ArchiveEnum.SHIPS2;
+                    //starshipImageIdx -= 72;
                 }
                 else
                 {
-                    shipString = "1 Y";
+                    starshipImageIdx -= 72;
                 }
 
-            }
-            else
-            {
-                shipString = "NONE";
-            }
-            pGuiService.drawString(shipString, new Rectangle(288, 83, 24, 5), FontEnum.font_2, Color.Black, TextAlignEnum.Right, TextVAlignEnum.None);
+                int offset = starshipImageIdx % 6;
+                int shipSize = starshipImageIdx / 6 % 4;
+                int playerColor = mScreenRef.Game.OrionGame.Players[0].ColorId;
+                string[] shipSizes = { "SMALL", "MEDIUM", "LARGE", "HUGE" };
+                string[] colors = { "B", "G", "P", "R", "W", "Y" };
+                //Rectangle shipProdRect = new Rectangle(236, 142, 39, 29);
+                pGuiService.drawImage(imgService.getSurface(shipArc, colors[playerColor] + shipSizes[shipSize], 0, offset), 236, 142);
 
-            // figure out what ship to draw in the current ship thing
-            // will eventually include star gates under certain circumstances
-            int q = mPlanetRef.CurrShip;
-            int starshipImageIdx = this.mScreenRef.Game.OrionGame.Starships[q].ImageIdx;
-            ArchiveEnum shipArc = ArchiveEnum.SHIPS;
-            if (starshipImageIdx < 72)
-            {
-                shipArc = ArchiveEnum.SHIPS2;
-                //starshipImageIdx -= 72;
+                // BE9671
+                pGuiService.drawString(this.mScreenRef.Game.OrionGame.Starships[q].Name, new Rectangle(229, 168, 46, 7), FontEnum.font_2, Color.FromArgb(0xBE9671), TextAlignEnum.Center, TextVAlignEnum.Center);
+
+                for (int i = 0; i < Controls.count(); i++)
+                {
+                    Controls.get(i).Draw(pTimer, pGuiService);
+                }
+
+                ObjectPool.RectanglePool.PutObject(poolRect);
+                ObjectPool.SizeObjPool.PutObject(poolSize);
+                ObjectPool.PointObjPool.PutObject(poolPoint);
             }
-            else
-            {
-                starshipImageIdx -= 72;
-            }
-
-            int offset = starshipImageIdx % 6;
-            int shipSize = starshipImageIdx / 6 % 4;
-            int playerColor = mScreenRef.Game.OrionGame.Players[0].ColorId;
-            string[] shipSizes = {"SMALL", "MEDIUM", "LARGE", "HUGE"};
-            string [] colors = {"B","G","P","R","W","Y"};
-            //Rectangle shipProdRect = new Rectangle(236, 142, 39, 29);
-            pGuiService.drawImage(imgService.getSurface(shipArc, colors[playerColor] + shipSizes[shipSize], 0, offset), 236, 142);
-
-            // BE9671
-            pGuiService.drawString(this.mScreenRef.Game.OrionGame.Starships[q].Name, new Rectangle(229, 168, 46, 7), FontEnum.font_2, Color.FromArgb(0xBE9671), TextAlignEnum.Center, TextVAlignEnum.Center);
-
-            for (int i = 0; i < Controls.count(); i++)
-            {
-                Controls.get(i).Draw(pTimer, pGuiService);
-            }
-
-            ObjectPool.RectanglePool.PutObject(poolRect);
-            ObjectPool.SizeObjPool.PutObject(poolSize);
-            ObjectPool.PointObjPool.PutObject(poolPoint);
         }
 
         public override void mousePressed(MouseButtonEventArgs pMbea)
@@ -464,7 +490,7 @@ namespace FreemooSDL.Controls
             }
         }
 
-        private void HabndleProductionBarGroupUpdate(ProductionBarUpdateArgs args)
+        private void HandleProductionBarGroupUpdate(ProductionBarUpdateArgs args)
         {
             PlanetaryProduction pp = mPlanetRef.Production;
             //pp.Ship.Value = args.prodValues.Value;

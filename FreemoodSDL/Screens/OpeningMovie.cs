@@ -61,6 +61,7 @@ namespace FreemooSDL.Screens
 
         private void MouseClickEvent(EmptyControl sender, MouseButton args)
         {
+            //Console.WriteLine("Mouse click event noticed.");
             _screenAction.ScreenAction = ScreenActionEnum.Change;
             _screenAction.NextScreen = ScreenEnum.MainMenu;
             Game.QueueScreenAction(_screenAction);

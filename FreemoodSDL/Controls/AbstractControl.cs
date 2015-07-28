@@ -15,6 +15,7 @@ namespace FreemooSDL.Controls
         public AbstractControl()
         {
             _boundingRect = ObjectPool.RectanglePool.GetObject();
+            SafeRemove = false;
         }
 
         public string Id
@@ -38,6 +39,10 @@ namespace FreemooSDL.Controls
         }
 
         public IControl ParentControl { get; set; }
+
+        public bool Enabled { get; set; }
+
+        public bool Visible { get; set; }
 
         private Rectangle _boundingRect;
         public Rectangle BoundingRect
@@ -99,6 +104,8 @@ namespace FreemooSDL.Controls
                 _boundingRect.Height = _height;
             }
         }
+
+        public bool SafeRemove { get; set; }
 
         public abstract void Update(FreemooTimer pTimer);
         public abstract void Draw(FreemooTimer pTimer, FreemooSDL.Service.GuiService pGuiService);

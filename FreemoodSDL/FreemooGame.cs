@@ -115,6 +115,9 @@ namespace FreemooSDL
             ObjectPool.Initialize();
 
             buildServices();
+
+            this.Images.loadImages();
+
             buildEventHandlers();
             buildScreensCollection();
 
@@ -136,8 +139,8 @@ namespace FreemooSDL
 
         private void loadContent()
         {
-            this.Images.loadImages();
-            this.SoundFX.loadSoundFX();
+            //this.Images.loadImages();
+            //this.SoundFX.loadSoundFX();
 
 
         }

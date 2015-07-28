@@ -24,11 +24,8 @@ namespace FreemooSDL.Controls
         {
             X = x;
             Y = y;
-            mBoundingRect = ObjectPool.RectanglePool.GetObject();
-            mBoundingRect.X = X;
-            mBoundingRect.Y = Y;
-            mBoundingRect.Width = WIDTH;
-            mBoundingRect.Height = HEIGHT;
+            Width = WIDTH;
+            Height = HEIGHT;
             Text = btnText;
         }
 

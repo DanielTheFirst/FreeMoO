@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using FreemooSDL.Service;
 using FreemooSDL.Collections;
@@ -47,6 +48,12 @@ namespace FreemooSDL.Screens
         public abstract void Update(FreemooTimer pTimer);
 
         public abstract void Draw(FreemooTimer pTimer, GuiService pGuiService);
+
+        public bool SafeRemove { get; set; }
+
+        public bool Enabled { get; set; }
+
+        public bool Visible { get; set; }
 
         public virtual void keyPressed(KeyboardEventArgs pKea)
         {
@@ -136,6 +143,12 @@ namespace FreemooSDL.Screens
             {
                 Controls.remove(i);
             }
+            var safeRemove = Controls.GetSafeRemove();
+            foreach (var s in safeRemove)
+            {
+                Controls.remove(s.Value.Id);
+            }
+                             
         }
 
 

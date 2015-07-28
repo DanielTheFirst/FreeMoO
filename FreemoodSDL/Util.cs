@@ -40,7 +40,6 @@ namespace FreemooSDL
         private static int mFleetId = 0;
         public static int getNextFleetId()
         {
-            // cause I'm an oracle guy and it's just easier for me to do it this way
             return mFleetId++;
         }
 
@@ -48,6 +47,10 @@ namespace FreemooSDL
         {
             int idxZero = -1;
             for (int i = 0; i < bytes.Length && idxZero < 0; i++) if (bytes[i] == 0x00) idxZero = i;
+            if (idxZero < 0)
+            {
+                return string.Empty;
+            }
             return Encoding.ASCII.GetString(bytes, 0, idxZero);
         }
     }

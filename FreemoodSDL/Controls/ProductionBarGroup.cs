@@ -40,7 +40,6 @@ namespace FreemooSDL.Controls
             }
         }
 
-        // who needs events? um, I do because it's probably cheaper than casting things all the fucking time
         public void ClickUp(string id)
         {
 

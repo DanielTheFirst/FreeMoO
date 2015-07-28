@@ -42,6 +42,10 @@ namespace FreemooSDL.Controls
             _buttonImage = new FreemooImageInstance(pButtonImageArchive, pButtonImageIndex, pImgService);
             Surface s = _buttonImage.getCurrentFrame();
             //mBoundingRect = new Rectangle(px, py, s.Width,s.Height);
+            X = px;
+            Y = py;
+            Width = s.Width;
+            Height = s.Height;
             mImgServiceRef = pImgService;
         }
 

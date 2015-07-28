@@ -29,22 +29,37 @@ namespace FreemooSDL.Controls
 
         private const string RANGE_TEMPLATE = "Range {0} Parsecs";
 
-        public EnemyColonyPanel(MainScreen ms, Planet p)
+        public EnemyColonyPanel(MainScreen ms)
             :base()
         {
             _mainScreen = ms;
-            _planet = p;
-            Id = "EnemyColony_" + p.Name;
-            _ownerRace = _mainScreen.Game.OrionGame.Players[p.PlayerId].Race.ToString() + " Colony";
+            //_planet = p;
+            Id = "EnemyColony";
+            //_ownerRace = _mainScreen.Game.OrionGame.Players[p.PlayerId].Race.ToString() + " Colony";
 
-            RecalculateRange();
+            //RecalculateRange();
             BuildControls();
+        }
+
+        public Planet Planet
+        {
+            get
+            {
+                return _planet;
+            }
+            set
+            {
+                _planet = value;
+                RecalculateRange();
+                _ownerRace = _mainScreen.Game.OrionGame.Players[_planet.PlayerId].Race.ToString() + " Colony";
+                _spl.SetPlanet(_planet);
+            }
         }
 
         private void BuildControls()
         {
-            _spl = new SmallPlanetLabel(_mainScreen, this, _planet);
-            _spl.Id = "spl_" + _planet.Name;
+            _spl = new SmallPlanetLabel(_mainScreen, this);
+            _spl.Id = "smallplanetlabel1";// +_planet.Name;
             Controls.add(_spl);
         }
 
@@ -56,42 +71,46 @@ namespace FreemooSDL.Controls
 
         public override void Update(FreemooTimer pTimer)
         {
-            // nothing
-            foreach(var ctrls in Controls)
+            if (this.Enabled)
             {
-                ctrls.Value.Update(pTimer);
+                foreach (var ctrls in Controls)
+                {
+                    ctrls.Value.Update(pTimer);
+                }
             }
         }
 
         public override void Draw(FreemooTimer pTimer, GuiService guiService)
         {
-
-            Surface panelSurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.STARMAP, "EN_COLNY", 0);
-            guiService.drawImage(panelSurf, 224, 5);
-
-            Surface colonySurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.COLONIES, environments[(int)_planet.PlanetType], 0);
-            guiService.drawImage(colonySurf, 227, 73);
-
-            Rectangle rect = new Rectangle(227, 8, 84, 13);
-            guiService.drawString(_planet.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
-
-            Rectangle ownerRect = new Rectangle(237, 83, 63, 9);
-            //string ownerStr = _mainScreen.Game.OrionGame.Players[_planet.PlayerId].Race.ToString() + " Colony";
-            guiService.drawString(_ownerRace, ownerRect, FontEnum.font_1, Color.Magenta, TextAlignEnum.Center, TextVAlignEnum.Center);
-
-            Rectangle rangeRect = new Rectangle(237, 94, 63, 8);
-            guiService.drawString(_rangeText, rangeRect, FontEnum.font_0, FontPaletteEnum.UnexploredRange);
-
-            string currentPopulation = _planet.CurrentPopulation.ToString().PadLeft(3, ' ');
-            guiService.drawString(currentPopulation, new Rectangle(259, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
-
-            string currentBases = _planet.AmtBases.ToString().PadLeft(3, ' ');
-            //guiService.drawString(currentBases, new Rectangle(304, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
-
-
-            foreach(var ctrls in Controls)
+            if (this.Visible)
             {
-                ctrls.Value.Draw(pTimer, guiService);
+                Surface panelSurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.STARMAP, "EN_COLNY", 0);
+                guiService.drawImage(panelSurf, 224, 5);
+
+                Surface colonySurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.COLONIES, environments[(int)_planet.PlanetType], 0);
+                guiService.drawImage(colonySurf, 227, 73);
+
+                Rectangle rect = new Rectangle(227, 8, 84, 13);
+                guiService.drawString(_planet.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
+
+                Rectangle ownerRect = new Rectangle(237, 83, 63, 9);
+                //string ownerStr = _mainScreen.Game.OrionGame.Players[_planet.PlayerId].Race.ToString() + " Colony";
+                guiService.drawString(_ownerRace, ownerRect, FontEnum.font_1, Color.Magenta, TextAlignEnum.Center, TextVAlignEnum.Center);
+
+                Rectangle rangeRect = new Rectangle(237, 94, 63, 8);
+                guiService.drawString(_rangeText, rangeRect, FontEnum.font_0, FontPaletteEnum.UnexploredRange);
+
+                string currentPopulation = _planet.CurrentPopulation.ToString().PadLeft(3, ' ');
+                guiService.drawString(currentPopulation, new Rectangle(259, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
+
+                string currentBases = _planet.AmtBases.ToString().PadLeft(3, ' ');
+                //guiService.drawString(currentBases, new Rectangle(304, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
+
+
+                foreach (var ctrls in Controls)
+                {
+                    ctrls.Value.Draw(pTimer, guiService);
+                }
             }
         }
     }

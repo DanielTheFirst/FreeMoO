@@ -28,23 +28,37 @@ namespace FreemooSDL.Controls
 
         private const string RANGE_TEMPLATE = "Range {0} Parsecs";
 
-        public NoColonyPanel(MainScreen ms, Planet p)
+        public NoColonyPanel(MainScreen ms)
             : base()
         {
             _mainScreen = ms;
-            _planet = p;
-            Id = "NoColony_" + p.Name;
+            //_planet = p;
+            Id = "NoColonyPanel";
             //_ownerRace = _mainScreen.Game.OrionGame.Players[p.PlayerId].Name
 
-            RecalculateRange();
+            //RecalculateRange();
             BuildControls();
         }
 
         private void BuildControls()
         {
-            _spl = new SmallPlanetLabel(_mainScreen, this, _planet);
-            _spl.Id = "spl_" + _planet.Name;
+            _spl = new SmallPlanetLabel(_mainScreen, this);
+            _spl.Id = "smallplanetlabel1";
             Controls.add(_spl);
+        }
+
+        public Planet Planet
+        {
+            get
+            {
+                return _planet;
+            }
+            set
+            {
+                _planet = value;
+                RecalculateRange();
+                _ownerRace = _mainScreen.Game.OrionGame.Players[Planet.PlayerId].Name;
+            }
         }
 
         public void RecalculateRange()
@@ -55,33 +69,39 @@ namespace FreemooSDL.Controls
 
         public override void Update(FreemooTimer pTimer)
         {
-            foreach (var ctrls in Controls)
+            if (this.Enabled)
             {
-                ctrls.Value.Update(pTimer);
+                foreach (var ctrls in Controls)
+                {
+                    ctrls.Value.Update(pTimer);
+                }
             }
         }
 
         public override void Draw(FreemooTimer timer, GuiService guiService)
         {
-            Surface panelSurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.STARMAP, "NO_COLNY", 0);
-            guiService.drawImage(panelSurf, 224, 5);
-
-            Surface colonySurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.COLONIES, environments[(int)_planet.PlanetType], 0);
-            guiService.drawImage(colonySurf, 227, 73);
-
-            //Rectangle rect = new Rectangle(227, 8, 84, 13);
-            var rect = ObjectPool.GetRectangle(227, 8, 84, 13);
-            guiService.drawString(_planet.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
-            ObjectPool.RectanglePool.PutObject(rect);
-
-            //Rectangle rangeRect = new Rectangle(237, 84, 63, 8);
-            var rangeRect = ObjectPool.GetRectangle(237, 84, 63, 8);
-            guiService.drawString(_rangeText, rangeRect, FontEnum.font_0, FontPaletteEnum.UnexploredRange);
-            ObjectPool.RectanglePool.PutObject(rangeRect);
-
-            foreach (var ctrls in Controls)
+            if (this.Visible)
             {
-                ctrls.Value.Draw(timer, guiService);
+                Surface panelSurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.STARMAP, "NO_COLNY", 0);
+                guiService.drawImage(panelSurf, 224, 5);
+
+                Surface colonySurf = _mainScreen.Game.Images.getSurface(ArchiveEnum.COLONIES, environments[(int)_planet.PlanetType], 0);
+                guiService.drawImage(colonySurf, 227, 73);
+
+                //Rectangle rect = new Rectangle(227, 8, 84, 13);
+                var rect = ObjectPool.GetRectangle(227, 8, 84, 13);
+                guiService.drawString(_planet.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
+                ObjectPool.RectanglePool.PutObject(rect);
+
+                //Rectangle rangeRect = new Rectangle(237, 84, 63, 8);
+                var rangeRect = ObjectPool.GetRectangle(237, 84, 63, 8);
+                guiService.drawString(_rangeText, rangeRect, FontEnum.font_0, FontPaletteEnum.UnexploredRange);
+                ObjectPool.RectanglePool.PutObject(rangeRect);
+
+                foreach (var ctrls in Controls)
+                {
+                    ctrls.Value.Draw(timer, guiService);
+                }
             }
         }
     }

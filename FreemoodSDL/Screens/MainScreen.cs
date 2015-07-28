@@ -25,6 +25,31 @@ namespace FreemooSDL.Screens
         public MainScreen(FreemooGame pGame)
             : base(pGame)
         {
+            InitializeControls();
+        }
+
+        private void InitializeControls()
+        {
+            _unexploredPanel = new UnexploredStarPanel(this);
+            _unexploredPanel.Enabled = false;
+            _unexploredPanel.Visible = false;
+            Controls.add(_unexploredPanel);
+
+            mColonyPanel = new ColonyPanel(this);
+            mColonyPanel.Enabled = false;
+            mColonyPanel.Visible = false;
+            Controls.add(mColonyPanel);
+
+            _enemyColPanel = new EnemyColonyPanel(this);
+            _enemyColPanel.Enabled = false;
+            _enemyColPanel.Visible = false;
+            Controls.add(_enemyColPanel);
+
+            _noColPanel = new NoColonyPanel(this);
+            _noColPanel.Enabled = false;
+            _noColPanel.Visible = false;
+            Controls.add(_noColPanel);
+
         }
 
         public override void Update(FreemooTimer pTimer)
@@ -117,33 +142,33 @@ namespace FreemooSDL.Screens
             //{
             //    Game.changeScreen(ScreenEnum.ResearchScreen);
             //}
-            for (int i = 0; i < Controls.count(); i++)
+            /*for (int i = 0; i < Controls.count(); i++)
             {
                 if (Controls.get(i) != null)
                 {
                     Controls.get(i).mouseReleased(pMbea);
                 }
-            }
+            }*/
             base.mouseReleased(pMbea);
         }
 
         public override void mouseMoved(SdlDotNet.Input.MouseMotionEventArgs pMbea)
         {
             //if (mColonyPanel != null) mColonyPanel.mouseMoved(pMbea);
-            for (int i = 0; i < Controls.count(); i++)
-            {
-                Controls.get(i).mouseMoved(pMbea);
-            }
+            //for (int i = 0; i < Controls.count(); i++)
+            //{
+            //    Controls.get(i).mouseMoved(pMbea);
+            //}
             base.mouseMoved(pMbea);
         }
 
         public override void mousePressed(SdlDotNet.Input.MouseButtonEventArgs pMbea)
         {
             //if (mColonyPanel != null) mColonyPanel.mousePressed(pMbea);
-            for (int i = 0; i < Controls.count(); i++)
-            {
-                Controls.get(i).mousePressed(pMbea);
-            }
+            //for (int i = 0; i < Controls.count(); i++)
+            //{
+            //    Controls.get(i).mousePressed(pMbea);
+            //}
             base.mousePressed(pMbea);
         }
 
@@ -153,53 +178,75 @@ namespace FreemooSDL.Screens
             base.keyPressed(pKea);
         }
 
+        private void SetVisibleAndEnabled(AbstractControl ctrl, bool val)
+        {
+            ctrl.Visible = val;
+            ctrl.Enabled = val;
+        }
+
         private void handlePlanetClick(object Sender, EventArgs ea)
         {
             Planet p = (Planet)Sender;
+            SetVisibleAndEnabled(mColonyPanel, false);
+            SetVisibleAndEnabled(_unexploredPanel, false);
+            SetVisibleAndEnabled(_enemyColPanel, false);
+            SetVisibleAndEnabled(_noColPanel, false);
             // this should probably be strongly typed using delegates....eventually
             // also, should not be nulling and newing here. 
-            if (mColonyPanel != null)
+            /*if (mColonyPanel != null)
             {
-                Controls.remove(mColonyPanel.Id);
+                //Controls.remove(mColonyPanel.Id);
+                mColonyPanel.SafeRemove = true;
                 mColonyPanel = null;
             }
             if (_unexploredPanel != null)
             {
-                Controls.remove(_unexploredPanel.Id);
+                //Controls.remove(_unexploredPanel.Id);
+                _unexploredPanel.SafeRemove = true;
                 _unexploredPanel = null;
             }
             if (_enemyColPanel != null)
             {
-                Controls.remove(_enemyColPanel.Id);
+                //Controls.remove(_enemyColPanel.Id);
+                _enemyColPanel.SafeRemove = true;
                 _enemyColPanel = null;
             }
             if (_noColPanel != null)
             {
                 // seriously, rewriting this should be quite high on your to do list
-                Controls.remove(_noColPanel.Id);
+                //Controls.remove(_noColPanel.Id);
+                _noColPanel.SafeRemove = true;
                 _noColPanel = null;
-            }
+            }*/
             
             if (p.PlayerId == 0)
             {
-                mColonyPanel = new ColonyPanel(this, p);
-                mColonyPanel.ShipProductionUpdateEvent += this.HandleColonyShipProdChange;
-                Controls.add(mColonyPanel);
+                //mColonyPanel = new ColonyPanel(this, p);
+                //mColonyPanel.ShipProductionUpdateEvent += this.HandleColonyShipProdChange;
+                //Controls.add(mColonyPanel);
+                mColonyPanel.Planet = p;
+                SetVisibleAndEnabled(mColonyPanel, true);
             }
             else if (!p.Player0Explored)
             {
-                _unexploredPanel = new UnexploredStarPanel(this, p);
-                Controls.add(_unexploredPanel);
+                //_unexploredPanel = new UnexploredStarPanel(this, p);
+                //Controls.add(_unexploredPanel);
+                SetVisibleAndEnabled(_unexploredPanel, true);
+                _unexploredPanel.Planet = p;
             }
             else if (p.Player0Explored && p.IsColonized)
             {
-                _enemyColPanel = new EnemyColonyPanel(this, p);
-                Controls.add(_enemyColPanel);
+                //_enemyColPanel = new EnemyColonyPanel(this, p);
+                //Controls.add(_enemyColPanel);
+                SetVisibleAndEnabled(_enemyColPanel, true);
+                _enemyColPanel.Planet = p;
             }
             else if (p.Player0Explored && !p.IsColonized)
             {
-                _noColPanel = new NoColonyPanel(this, p);
-                Controls.add(_noColPanel);
+                //_noColPanel = new NoColonyPanel(this, p);
+                //Controls.add(_noColPanel);
+                SetVisibleAndEnabled(_noColPanel, true);
+                _noColPanel.Planet = p;
             }
 
             Game.OrionGame.UpdatePlanetFocus(p.ID);

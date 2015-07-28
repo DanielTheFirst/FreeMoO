@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using FreemooSDL.Controls;
 
@@ -26,6 +27,14 @@ namespace FreemooSDL.Collections
         public Dictionary<string, IControl>.Enumerator GetEnumerator()
         {
             return mControls.GetEnumerator();
+        }
+
+        public IEnumerable<KeyValuePair<string, IControl>> GetSafeRemove()
+        {
+            var test = from c in mControls
+                       where c.Value.SafeRemove == true
+                       select c;
+            return test;
         }
 
         public IControl get(string pId)
