@@ -278,6 +278,14 @@ namespace FreemooSDL.Controls
             mScreenRef = pScreen;
             mStarControls = new List<StarImage>();
             mFleetControls = new List<FleetImage>();
+            //mSelectedPlanet = mScreenRef.Game.OrionGame.GalaxyData.PlanetFocus;
+            //int x = mScreenRef.Game.OrionGame.Planets[mSelectedPlanet].X;
+            //int y = mScreenRef.Game.OrionGame.Planets[mSelectedPlanet].Y;
+            //recenterMap(new Point(x, y));
+        }
+
+        public void OnScreenStart()
+        {
             mSelectedPlanet = mScreenRef.Game.OrionGame.GalaxyData.PlanetFocus;
             int x = mScreenRef.Game.OrionGame.Planets[mSelectedPlanet].X;
             int y = mScreenRef.Game.OrionGame.Planets[mSelectedPlanet].Y;

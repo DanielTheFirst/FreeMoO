@@ -167,7 +167,7 @@ namespace FreemooSDL
                 Screen.takescreenshot();
                 _screenshot = false;
             }
-            Screen.drawString(_dispFps, 0, 0, FontEnum.font_2, FontPaletteEnum.PopulationGreen);
+            //Screen.drawString(_dispFps, 0, 0, FontEnum.font_2, FontPaletteEnum.PopulationGreen);
             this.Screen.flip();
         }
 

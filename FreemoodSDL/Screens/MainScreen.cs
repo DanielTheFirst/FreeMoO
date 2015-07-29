@@ -15,8 +15,8 @@ namespace FreemooSDL.Screens
 {
     public class MainScreen : AbstractScreen
     {
-        private MainStarmap mStarmap = null;
-        private ColonyPanel mColonyPanel = null;
+        private MainStarmap _starmap = null;
+        private ColonyPanel _colonyPanel = null;
         private UnexploredStarPanel _unexploredPanel = null;
         private EnemyColonyPanel _enemyColPanel = null;
         private NoColonyPanel _noColPanel = null;
@@ -35,10 +35,11 @@ namespace FreemooSDL.Screens
             _unexploredPanel.Visible = false;
             Controls.add(_unexploredPanel);
 
-            mColonyPanel = new ColonyPanel(this);
-            mColonyPanel.Enabled = false;
-            mColonyPanel.Visible = false;
-            Controls.add(mColonyPanel);
+            _colonyPanel = new ColonyPanel(this);
+            _colonyPanel.Enabled = false;
+            _colonyPanel.Visible = false;
+            _colonyPanel.ShipProductionUpdateEvent += HandleColonyShipProdChange;
+            Controls.add(_colonyPanel);
 
             _enemyColPanel = new EnemyColonyPanel(this);
             _enemyColPanel.Enabled = false;
@@ -49,6 +50,14 @@ namespace FreemooSDL.Screens
             _noColPanel.Enabled = false;
             _noColPanel.Visible = false;
             Controls.add(_noColPanel);
+
+            _starmap = new MainStarmap(this);
+            _starmap.Id = "Main Starmap";
+            //_starmap.addPlanets(Game.OrionGame.Planets);
+            Controls.add(_starmap);
+            _starmap.PlanetClickEvent += new EventHandler<EventArgs>(this.handlePlanetClick);
+
+            initMenu();
 
         }
 
@@ -79,18 +88,19 @@ namespace FreemooSDL.Screens
 
         public override void start()
         {
-            mStarmap = new MainStarmap(this);
-            mStarmap.Id = "Main Starmap";
-            mStarmap.addPlanets(Game.OrionGame.Planets);
-            Controls.add(mStarmap);
-            mStarmap.PlanetClickEvent += new EventHandler<EventArgs>(this.handlePlanetClick);
-
+            //_starmap = new MainStarmap(this);
+            //_starmap.Id = "Main Starmap";
+            
+            //Controls.add(_starmap);
+            //_starmap.PlanetClickEvent += new EventHandler<EventArgs>(this.handlePlanetClick);
+            _starmap.addPlanets(Game.OrionGame.Planets);
+            _starmap.OnScreenStart();
             handlePlanetClick(Game.OrionGame.Planets[Game.OrionGame.GalaxyData.PlanetFocus], null); // ugly way to handle this  but it works
 
             //Music m = Game.SoundFX.GetMusic();
             //m.Play(true);
 
-            initMenu();
+            
         }
 
         private void initMenu()
@@ -187,7 +197,7 @@ namespace FreemooSDL.Screens
         private void handlePlanetClick(object Sender, EventArgs ea)
         {
             Planet p = (Planet)Sender;
-            SetVisibleAndEnabled(mColonyPanel, false);
+            SetVisibleAndEnabled(_colonyPanel, false);
             SetVisibleAndEnabled(_unexploredPanel, false);
             SetVisibleAndEnabled(_enemyColPanel, false);
             SetVisibleAndEnabled(_noColPanel, false);
@@ -224,8 +234,8 @@ namespace FreemooSDL.Screens
                 //mColonyPanel = new ColonyPanel(this, p);
                 //mColonyPanel.ShipProductionUpdateEvent += this.HandleColonyShipProdChange;
                 //Controls.add(mColonyPanel);
-                mColonyPanel.Planet = p;
-                SetVisibleAndEnabled(mColonyPanel, true);
+                _colonyPanel.Planet = p;
+                SetVisibleAndEnabled(_colonyPanel, true);
             }
             else if (!p.Player0Explored)
             {
