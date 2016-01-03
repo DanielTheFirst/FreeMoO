@@ -37,12 +37,17 @@ namespace FreemooSDL.Controls
             this.Id = pId;  // in this class, Id is the text to display
             mRect = pRect;
             mButtonEnum = pType;
+            Visible = true;
+            Enabled = true;
         }
 
         public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
         {
-            Color drawColor = mHover ? Color.FromArgb(0xefefef) : Color.FromArgb(0xa6a6a6);
-            mParentScreen.Game.Screen.drawString(Id, mRect, FontEnum.font_5, drawColor);
+            if (Visible)
+            {
+                Color drawColor = mHover ? Color.FromArgb(0xefefef) : Color.FromArgb(0xa6a6a6);
+                mParentScreen.Game.Screen.drawString(Id, mRect, FontEnum.font_5, drawColor);
+            }
         }
 
         public override void Update(FreemooTimer pTimer)
@@ -52,38 +57,47 @@ namespace FreemooSDL.Controls
 
         public override void mouseMoved(MouseMotionEventArgs pMbea)
         {
-            if (mRect.Contains(pMbea.Position))
+            if (Enabled)
             {
-                mHover = true;
+                if (mRect.Contains(pMbea.Position))
+                {
+                    mHover = true;
+                }
+                else
+                {
+                    mHover = false;
+                }
+                base.mouseMoved(pMbea);
             }
-            else
-            {
-                mHover = false;
-            }
-            base.mouseMoved(pMbea);
         }
 
         public override void mousePressed(MouseButtonEventArgs pMbea)
         {
-            if (mRect.Contains(pMbea.Position))
+            if (Enabled)
             {
-                mClick = true;
+                if (mRect.Contains(pMbea.Position))
+                {
+                    mClick = true;
+                }
+                base.mousePressed(pMbea);
             }
-            base.mousePressed(pMbea);
         }
 
         public override void mouseReleased(MouseButtonEventArgs pMbea)
         {
-            bool saveClick = mClick;
-            mClick = false;
-            if (mHover && saveClick)
+            if (Enabled)
             {
-                if (Click != null)
+                bool saveClick = mClick;
+                mClick = false;
+                if (mHover && saveClick)
                 {
-                    Click(this, new EventArgs());
+                    if (Click != null)
+                    {
+                        Click(this, new EventArgs());
+                    }
                 }
+                base.mouseReleased(pMbea);
             }
-            base.mouseReleased(pMbea);
         }
     }
 }

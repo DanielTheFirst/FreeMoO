@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
+using FreemooSDL.Collections;
 using FreemooSDL.Screens;
 using FreemooSDL.Game;
 using FreemooSDL.Service;
@@ -78,13 +79,14 @@ namespace FreemooSDL.Controls
             int y = mPlanetRef.Y - mParent.View_Y;
             int w = mPlanetRef.StarSize == 6 ? 13 : 7;
             int h = mPlanetRef.StarSize == 6 ? 11 : 7;
-            Rectangle rec = new Rectangle(x, y, w, h);
+            Rectangle rec = ObjectPool.GetRectangle(x, y, w, h); // new Rectangle(x, y, w, h);
             bool ret = false;
             pMousePt = new Point(pMousePt.X, pMousePt.Y); 
             if (rec.Contains(pMousePt))
             {
                 ret = true;
             }
+            ObjectPool.RectanglePool.PutObject(rec);
             return ret;
         }
 
@@ -147,6 +149,8 @@ namespace FreemooSDL.Controls
     {
         const int WIDTH = 7;
         const int HEIGHT = 3;
+        const int ORBIT_X_OFFSET = 17;
+        const int ORBIT_Y_OFFSET = -1;
 
         MainStarmap mParent;
         private Fleet mFleetRef;
@@ -202,8 +206,8 @@ namespace FreemooSDL.Controls
                     {
                         int x = planetRef.X - mParent.View_X;
                         int y = planetRef.Y - mParent.View_Y;
-                        x += 17;
-                        y -= 1;
+                        x += ORBIT_X_OFFSET;
+                        y += ORBIT_Y_OFFSET;
                         pGui.drawImage(mImage.getCurrentFrame(), x, y);
                     }
                 }
@@ -212,31 +216,47 @@ namespace FreemooSDL.Controls
 
         private bool testClick(Point pMousePt)
         {
-            int x = mFleetRef.X - mParent.View_X;
-            int y = mFleetRef.Y - mParent.View_Y;
-            Rectangle rect = new Rectangle(x,y,WIDTH, HEIGHT);
-            //return rect.Contains(pMousePt);
-            //int ret = -1;
+            //int x = mFleetRef.X - mParent.View_X;
+            //int y = mFleetRef.Y - mParent.View_Y;
+            int x = 0;
+            int y = 0;
+            if (mFleetRef.InTransit)
+            {
+                x = mFleetRef.X - mParent.View_X;
+                y = mFleetRef.Y - mParent.View_Y;
+            }
+            else
+            {
+                var planetRef = mParent.Screen.Game.OrionGame.Planets[mFleetRef.PlanetId];
+                x = (planetRef.X - mParent.View_X) + ORBIT_X_OFFSET;
+                y = (planetRef.Y - mParent.View_Y) + ORBIT_Y_OFFSET;
+            }
+            Rectangle rect = ObjectPool.GetRectangle(x, y, WIDTH, HEIGHT);// new Rectangle(x, y, WIDTH, HEIGHT);
             bool ret = false;
             if (rect.Contains(pMousePt))
             {
-                //ret = mFleetRef.ID;
                 ret = true;
             }
+            ObjectPool.RectanglePool.PutObject(rect);
             return ret;
         }
 
         public override void mouseReleased(MouseButtonEventArgs pMbea)
         {
-            Point mousePt = new Point(pMbea.X / 4, pMbea.Y / 4);
-            if (pMbea.Button == MouseButton.PrimaryButton && testClick(mousePt))
+            //Point mousePt = new Point(pMbea.X / 4, pMbea.Y / 4);
+            if (pMbea.Button == MouseButton.PrimaryButton && testClick(pMbea.Position))
             {
-                if (FleetClickEvent != null)
-                {
-                    FleetClickEvent(this, new EventArgs());
-                }
+                FireClickEvent();
             }
             base.mouseReleased(pMbea);
+        }
+
+        private void FireClickEvent()
+        {
+            if (FleetClickEvent != null)
+            {
+                FleetClickEvent(mFleetRef, new EventArgs());
+            }
         }
     }
 
@@ -256,6 +276,7 @@ namespace FreemooSDL.Controls
         private bool mControlClicked = false;
 
         public event EventHandler<EventArgs> PlanetClickEvent;
+        public event EventHandler<EventArgs> FleetClickEvent;
 
         public int View_X
         {
@@ -412,10 +433,14 @@ namespace FreemooSDL.Controls
 
         private void handleFleetClick(object sender, EventArgs ea)
         {
-            FleetImage fi = (FleetImage)sender;
-            Console.WriteLine("Fleet " + fi.FleetRef.ID + " was clicked");
+            Fleet fi = (Fleet)sender;
+            Console.WriteLine("Fleet " + fi.ID + " was clicked");
             mControlClicked = true;
-            mSelectedFleet = fi.FleetRef.ID;
+            mSelectedFleet = fi.ID;
+            if (FleetClickEvent != null)
+            {
+                FleetClickEvent(fi, ea);
+            }
         }
     }
 }

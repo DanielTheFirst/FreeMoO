@@ -20,6 +20,8 @@ namespace FreemooSDL.Screens
         private UnexploredStarPanel _unexploredPanel = null;
         private EnemyColonyPanel _enemyColPanel = null;
         private NoColonyPanel _noColPanel = null;
+        private FleetDeploymentPanel _fleetDeployPanel = null;
+        private FleetIntransitPanel _fleetIntransitPanel = null;
         private MainScreenMenuButtons[] mMenuButtons = new MainScreenMenuButtons[8];
 
         public MainScreen(FreemooGame pGame)
@@ -51,11 +53,22 @@ namespace FreemooSDL.Screens
             _noColPanel.Visible = false;
             Controls.add(_noColPanel);
 
+            _fleetDeployPanel = new FleetDeploymentPanel(this);
+            _fleetDeployPanel.Enabled = false;
+            _fleetDeployPanel.Visible = false;
+            Controls.add(_fleetDeployPanel);
+
+            _fleetIntransitPanel = new FleetIntransitPanel(this);
+            _fleetIntransitPanel.Enabled = false;
+            _fleetIntransitPanel.Visible = false;
+            Controls.add(_fleetIntransitPanel);
+
             _starmap = new MainStarmap(this);
             _starmap.Id = "Main Starmap";
             //_starmap.addPlanets(Game.OrionGame.Planets);
             Controls.add(_starmap);
-            _starmap.PlanetClickEvent += new EventHandler<EventArgs>(this.handlePlanetClick);
+            _starmap.PlanetClickEvent += this.handlePlanetClick;
+            _starmap.FleetClickEvent += this.HandleFleetClick;
 
             initMenu();
 
@@ -194,13 +207,31 @@ namespace FreemooSDL.Screens
             ctrl.Enabled = val;
         }
 
-        private void handlePlanetClick(object Sender, EventArgs ea)
+        private void HideAllColonyPanels()
         {
-            Planet p = (Planet)Sender;
             SetVisibleAndEnabled(_colonyPanel, false);
             SetVisibleAndEnabled(_unexploredPanel, false);
             SetVisibleAndEnabled(_enemyColPanel, false);
             SetVisibleAndEnabled(_noColPanel, false);
+        }
+
+        private void HideAllFleetPanels()
+        {
+            SetVisibleAndEnabled(_fleetDeployPanel, false);
+            SetVisibleAndEnabled(_fleetIntransitPanel, false);
+        }
+
+        private void handlePlanetClick(object Sender, EventArgs ea)
+        {
+            Planet p = (Planet)Sender;
+            HideAllColonyPanels();
+            HideAllFleetPanels();
+            SetVisibleAndEnabled(mMenuButtons[6], true);
+            SetVisibleAndEnabled(mMenuButtons[7], true);
+            //SetVisibleAndEnabled(_colonyPanel, false);
+            //SetVisibleAndEnabled(_unexploredPanel, false);
+            //SetVisibleAndEnabled(_enemyColPanel, false);
+            //SetVisibleAndEnabled(_noColPanel, false);
             // this should probably be strongly typed using delegates....eventually
             // also, should not be nulling and newing here. 
             /*if (mColonyPanel != null)
@@ -260,6 +291,27 @@ namespace FreemooSDL.Screens
             }
 
             Game.OrionGame.UpdatePlanetFocus(p.ID);
+        }
+
+        private void HandleFleetClick(object sender, EventArgs ea)
+        {
+            Fleet fl = sender as Fleet;
+            HideAllColonyPanels();
+            HideAllFleetPanels();
+            if (fl.InTransit)
+            {
+                _fleetIntransitPanel.Fleet = fl;
+                SetVisibleAndEnabled(_fleetIntransitPanel, true);
+            }
+            else
+            {
+                _fleetDeployPanel.Fleet = fl;
+                SetVisibleAndEnabled(_fleetDeployPanel, true);
+                SetVisibleAndEnabled(mMenuButtons[6], false);
+                SetVisibleAndEnabled(mMenuButtons[7], false);
+            }
+
+            
         }
 
         private void handleMenuClick(object Sender, EventArgs ea)
