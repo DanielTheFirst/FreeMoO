@@ -62,6 +62,7 @@
     <Compile Include="Controls\ColonyPanel.cs" />
     <Compile Include="Controls\EmptyControl.cs" />
     <Compile Include="Controls\EnemyColonyPanel.cs" />
+    <Compile Include="Controls\FleetDeployButtonSet.cs" />
     <Compile Include="Controls\FleetDeploymentPanel.cs" />
     <Compile Include="Controls\FleetIntransitPanel.cs" />
     <Compile Include="Controls\IControl.cs" />

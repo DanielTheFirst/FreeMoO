@@ -22,6 +22,7 @@ namespace FreemooSDL.Controls
         private MooButton _cancelBtn = null;
         private MooButton _acceptBtn = null;
         private List<FreemooImageInstance> _images = null;
+        private List<FleetDeployButtonSet> _moveButtons = null;
 
         public FleetDeploymentPanel(MainScreen screen)
             :base()
@@ -47,6 +48,8 @@ namespace FreemooSDL.Controls
             set
             {
                 _fleetRef = value;
+                UpdateImageInstances();
+                UpdateMoveButtons();
             }
         }
 
@@ -60,6 +63,17 @@ namespace FreemooSDL.Controls
             _acceptBtn.Id = "FleetDeployAccept";
             _acceptBtn.Enabled = false;
             this.Controls.add(_acceptBtn);
+
+            _moveButtons = new List<FleetDeployButtonSet>();
+            for(int i = 0; i < 6; i++)
+            {
+                FleetDeployButtonSet btnSet = new FleetDeployButtonSet(_mainScreen, i);
+                btnSet.Id = "MOVEBUTTONSET_" + i;
+                btnSet.Visible = true;
+                btnSet.Enabled = true;
+                _moveButtons.Add(btnSet);
+                Controls.add(btnSet);
+            }
         }
 
         public override void Update(FreemooTimer pTimer)
@@ -166,6 +180,31 @@ namespace FreemooSDL.Controls
                     _images[idx].ChangeImageReference(shipArc, colors[playerColor] + shipSizes[shipSize], offset);
                     _images[idx].Offset = offset;
                     idx++;
+                }
+            }
+        }
+
+        private void UpdateMoveButtons()
+        {
+            int count = 0;
+            for(int i = 0; i < 6; i++)
+            {
+                if (_fleetRef[i] > 0)
+                {
+                    count++;
+                }
+            }
+            for(int i = 0; i < 6; i++)
+            {
+                if (i < count)
+                {
+                    _moveButtons[i].Visible = true;
+                    _moveButtons[i].Enabled = true;
+                }
+                else
+                {
+                    _moveButtons[i].Visible = false;
+                    _moveButtons[i].Enabled = false;
                 }
             }
         }
