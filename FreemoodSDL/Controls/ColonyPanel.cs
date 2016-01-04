@@ -432,6 +432,7 @@ namespace FreemooSDL.Controls
                 //Rectangle shipProdRect = new Rectangle(236, 142, 39, 29);
                 pGuiService.drawImage(imgService.getSurface(shipArc, colors[playerColor] + shipSizes[shipSize], 0, offset), 236, 142);
 
+
                 // BE9671
                 pGuiService.drawString(this.mScreenRef.Game.OrionGame.Starships[q].Name, new Rectangle(229, 168, 46, 7), FontEnum.font_2, Color.FromArgb(0xBE9671), TextAlignEnum.Center, TextVAlignEnum.Center);
 

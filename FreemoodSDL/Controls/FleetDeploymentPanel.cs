@@ -21,6 +21,7 @@ namespace FreemooSDL.Controls
         private Fleet _fleetRef = null;
         private MooButton _cancelBtn = null;
         private MooButton _acceptBtn = null;
+        private List<FreemooImageInstance> _images = null;
 
         public FleetDeploymentPanel(MainScreen screen)
             :base()
@@ -29,6 +30,12 @@ namespace FreemooSDL.Controls
 
             Id = "FleetDeploy";
             BuildButtons();
+            _images = new List<FreemooImageInstance>();
+            for (int i = 0; i < 6; i++)
+            {
+                FreemooImageInstance fii = new FreemooImageInstance(ArchiveEnum.SHIPS, "RSMALL", 0, _mainScreen.Game.Images);
+                _images.Add(fii);
+            }
         }
 
         public Fleet Fleet
@@ -91,9 +98,10 @@ namespace FreemooSDL.Controls
                         int shipSize = starshipImgIdx / 6 % 4;
                         int playerColor = _mainScreen.Game.OrionGame.Players[0].ColorId;
                         int ycoord = 22 + (idx * 27);
+                        int xCoord = 227;
                         pGuiService.drawRect(227, ycoord, 32, 24, Color.Black);
-                        pGuiService.drawImage(imgSvc.getSurface(shipArc, colors[playerColor] + shipSizes[shipSize], 0, offset), 227, ycoord);
-
+                        //pGuiService.drawImage(imgSvc.getSurface(shipArc, colors[playerColor] + shipSizes[shipSize], 0, offset), 227, ycoord);
+                        pGuiService.drawImage(_images[idx].getCurrentFrame(), xCoord, ycoord);
                         idx++;
                     }
                 }
@@ -128,6 +136,37 @@ namespace FreemooSDL.Controls
             for (int i = 0; i < Controls.count(); i++)
             {
                 Controls.get(i).mouseReleased(pMbea);
+            }
+        }
+
+        private void UpdateImageInstances()
+        {
+            var playerId = _fleetRef.PlayerId;
+            int idx = 0;
+            var ships = _mainScreen.Game.OrionGame.Starships.Where(s => s.PlayerID == playerId).ToList();
+            string[] shipSizes = { "SMALL", "MEDIUM", "LARGE", "HUGE" };
+            string[] colors = { "B", "G", "P", "R", "W", "Y" };
+            for (int i = 0; i < 6; i++)
+            {
+                if (_fleetRef[i] > 0)
+                {
+                    var starshipImgIdx = ships[i].ImageIdx;
+                    ArchiveEnum shipArc = ArchiveEnum.SHIPS;
+                    if (starshipImgIdx < 72)
+                    {
+                        shipArc = ArchiveEnum.SHIPS2;
+                    }
+                    else
+                    {
+                        starshipImgIdx -= 72;
+                    }
+                    int offset = starshipImgIdx % 6;
+                    int shipSize = starshipImgIdx / 6 % 4;
+                    int playerColor = _mainScreen.Game.OrionGame.Players[playerId].ColorId;
+                    _images[idx].ChangeImageReference(shipArc, colors[playerColor] + shipSizes[shipSize], offset);
+                    _images[idx].Offset = offset;
+                    idx++;
+                }
             }
         }
     }

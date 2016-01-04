@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using System.Drawing;
@@ -310,8 +311,17 @@ namespace FreemooSDL.Service
 
         public FreemooImage getImage(ArchiveEnum pArch, string pImageIdx)
         {
-            FreemooImage fi = mImageList.Single(x => x.Archive == pArch && x.ImageIndex == pImageIdx);
+            FreemooImage fi = mImageList.SingleOrDefault(x => x.Archive == pArch && x.ImageIndex == pImageIdx);
+            Debug.Assert(fi != null, "Tried to reference an image that isn't there.");
             return fi;
+        }
+
+        public FreemooImage getImageWithOffset(ArchiveEnum pArch, string pImageIdx, int offset)
+        {
+            var fi = mImageList.Where(x => x.Archive == pArch && x.ImageIndex == pImageIdx).ToList();
+            Debug.Assert(offset < fi.Count, "There are not enough images here to use that offset value");
+            return fi[offset];
+
         }
 
         public void ResetImageCache()
