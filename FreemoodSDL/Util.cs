@@ -53,5 +53,17 @@ namespace FreemooSDL
             }
             return Encoding.ASCII.GetString(bytes, 0, idxZero);
         }
+
+        public static int CountDigits(int num)
+        {
+            int i = Math.Abs(num);
+            int count = 0;
+            while (i > 0)
+            {
+                i /= 10;
+                count++;
+            }
+            return count;
+        }
     }
 }

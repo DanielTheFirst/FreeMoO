@@ -133,7 +133,8 @@ namespace FreemooSDL
         MainMenuBtnActive,
         LoadScreenGreen,
         LoadScreenGray,
-        LoadScreenRed
+        LoadScreenRed,
+        FleetPanelYellow
     }
 
     public enum TextAlignEnum

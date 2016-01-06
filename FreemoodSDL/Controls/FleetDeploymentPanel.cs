@@ -17,8 +17,11 @@ namespace FreemooSDL.Controls
     public class FleetDeploymentPanel
         : AbstractControl
     {
+        const string COUNT_STR = "{0}";
+
         private MainScreen _mainScreen = null;
         private Fleet _fleetRef = null;
+        private int[] _internalFleetCount = new int[6];
         private MooButton _cancelBtn = null;
         private MooButton _acceptBtn = null;
         private List<FreemooImageInstance> _images = null;
@@ -50,6 +53,7 @@ namespace FreemooSDL.Controls
                 _fleetRef = value;
                 UpdateImageInstances();
                 UpdateMoveButtons();
+                UpdateInternalFleetCount();
             }
         }
 
@@ -116,6 +120,12 @@ namespace FreemooSDL.Controls
                         pGuiService.drawRect(227, ycoord, 32, 24, Color.Black);
                         //pGuiService.drawImage(imgSvc.getSurface(shipArc, colors[playerColor] + shipSizes[shipSize], 0, offset), 227, ycoord);
                         pGuiService.drawImage(_images[idx].getCurrentFrame(), xCoord, ycoord);
+                        int numDigits = Util.CountDigits(_fleetRef[i]);
+                        
+                        // numbers are magically delicious
+                        Rectangle rect = ObjectPool.GetRectangle(258 - (numDigits * 5), 40 + (idx * 27), (5 * numDigits), 4);
+                        pGuiService.drawString(string.Format(COUNT_STR, _fleetRef[i]), rect, FontEnum.font_0, FontPaletteEnum.FleetPanelYellow);
+                        ObjectPool.RectanglePool.PutObject(rect);
                         idx++;
                     }
                 }
@@ -207,6 +217,11 @@ namespace FreemooSDL.Controls
                     _moveButtons[i].Enabled = false;
                 }
             }
+        }
+
+        private void UpdateInternalFleetCount()
+        {
+            for (int i = 0; i < 6; i++) _internalFleetCount[i] = _fleetRef[i];
         }
     }
 }
