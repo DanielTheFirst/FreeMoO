@@ -157,7 +157,7 @@ namespace FreemooSDL.Game
             // need to figure out where this is specified in the save file
             // andlogic here is loop through planets and see if any colonys have
             // pending transports and instantiate a transport object and deduct costs and population
-            var unlaunchedTransports = mTransports.Where(o => o.Launched == false).ToList();
+            List<Transport> unlaunchedTransports = mTransports.Where(o => o.Launched == false).ToList();
             foreach (var trans in unlaunchedTransports)
             {
                 var colony = mPlanets.FirstOrDefault(p => p.ID == trans.OriginPlanetId);

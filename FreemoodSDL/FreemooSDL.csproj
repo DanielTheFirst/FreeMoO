@@ -38,10 +38,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MoreLinq">
+      <HintPath>..\packages\morelinq.1.4.0\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
     <Reference Include="SdlDotNet">
       <HintPath>..\..\..\Visual Studio 2013\Projects\sdldotnet-6.1.1beta\sdldotnet-6.1.1beta\bin\SdlDotNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
     <Reference Include="Tao.Sdl, Version=1.2.13.0, Culture=neutral, PublicKeyToken=9c7a200e36c0094e, processorArchitecture=MSIL">
@@ -99,8 +103,6 @@
     <Compile Include="Game\Technology.cs" />
     <Compile Include="Game\TechTree.cs" />
     <Compile Include="Game\Transport.cs" />
-    <Compile Include="MoreLinq\MaxBy.cs" />
-    <Compile Include="MoreLinq\MinBy.cs" />
     <Compile Include="Reverse\Archive.cs" />
     <Compile Include="Reverse\ConfigMoo.cs" />
     <Compile Include="Reverse\Font.cs" />
@@ -129,7 +131,9 @@
     <Compile Include="Service\SoundFXService.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
