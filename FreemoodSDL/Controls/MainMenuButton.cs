@@ -2,10 +2,10 @@
 
 using SdlDotNet.Input;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Service;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     class MainMenuButton
         : MooButton

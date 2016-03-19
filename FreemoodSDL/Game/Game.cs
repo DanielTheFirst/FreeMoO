@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using MoreLinq;
 
-using FreemooSDL.Reverse;
+using FreeMoO.Reverse;
 
-namespace FreemooSDL.Game
+namespace FreeMoO.Game
 {
     public struct Galaxy
     {

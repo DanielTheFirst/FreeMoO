@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-using FreemooSDL.Service;
+using FreeMoO.Service;
 
 using SdlDotNet.Graphics;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     class MooButton 
         : AbstractControl

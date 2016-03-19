@@ -1,10 +1,10 @@
 ﻿using System;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Reverse;
+using FreeMoO.Collections;
+using FreeMoO.Reverse;
 using SdlDotNet.Audio;
 
-namespace FreemooSDL.Service
+namespace FreeMoO.Service
 {
     public class SoundFXService
     {

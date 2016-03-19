@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FreemooSDL
+namespace FreeMoO
 {
     // technicall i could just call it timer since it's already in the FreemooSDL namespace
     public class FreemooTimer

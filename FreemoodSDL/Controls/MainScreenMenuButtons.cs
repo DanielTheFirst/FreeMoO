@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using FreemooSDL.Screens;
-using FreemooSDL.Service;
-using FreemooSDL;
+using FreeMoO.Screens;
+using FreeMoO.Service;
+using FreeMoO;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public class MainScreenMenuButtons
         : AbstractControl

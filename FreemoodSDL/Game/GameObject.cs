@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace FreemooSDL.Game
+namespace FreeMoO.Game
 {
     public abstract class GameObject
     {

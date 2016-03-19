@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using FreemooSDL.Service;
+using FreeMoO.Service;
 using SdlDotNet.Graphics;
 using SdlDotNet.Core;
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     public class MapScreen
         : AbstractScreen

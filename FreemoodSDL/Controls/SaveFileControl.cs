@@ -4,10 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Service;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public delegate void OnSaveFileControlSelected(SaveFileControl ctrl);
 

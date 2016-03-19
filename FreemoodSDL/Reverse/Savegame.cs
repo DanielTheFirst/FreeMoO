@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-using FreemooSDL.Service;
-using FreemooSDL.Game;
+using FreeMoO.Service;
+using FreeMoO.Game;
 
-namespace FreemooSDL.Reverse
+namespace FreeMoO.Reverse
 {
     public class Savegame
     {

@@ -6,7 +6,7 @@ using SdlDotNet.Input;
 using SdlDotNet.Core;
 using Tao.Sdl;
 
-namespace FreemooSDL.Service
+namespace FreeMoO.Service
 {
 
     public struct ButtonState

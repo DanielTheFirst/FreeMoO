@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Drawing;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Controls;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Controls;
+using FreeMoO.Service;
 using SdlDotNet.Graphics;
 using SdlDotNet.Core;
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     class LoadingScreen
         : AbstractScreen

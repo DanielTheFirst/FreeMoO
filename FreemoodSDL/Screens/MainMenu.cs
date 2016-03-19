@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using FreemooSDL.Controls;
-using FreemooSDL.Service;
+using FreeMoO.Controls;
+using FreeMoO.Service;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     class MainMenu
         : AbstractScreen

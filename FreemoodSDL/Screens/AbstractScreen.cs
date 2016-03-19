@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using FreemooSDL.Service;
-using FreemooSDL.Collections;
-using FreemooSDL.Controls;
+using FreeMoO.Service;
+using FreeMoO.Collections;
+using FreeMoO.Controls;
 
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     public abstract class AbstractScreen : IScreen , IControl
     {

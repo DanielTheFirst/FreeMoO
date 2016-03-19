@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-using FreemooSDL.Service;
-using FreemooSDL.Controls;
-using FreemooSDL.Game;
+using FreeMoO.Service;
+using FreeMoO.Controls;
+using FreeMoO.Game;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 using SdlDotNet.Audio;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     public class MainScreen : AbstractScreen
     {

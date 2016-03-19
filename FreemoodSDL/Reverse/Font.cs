@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FreemooSDL.Reverse
+namespace FreeMoO.Reverse
 {
     public class Glyph
     {

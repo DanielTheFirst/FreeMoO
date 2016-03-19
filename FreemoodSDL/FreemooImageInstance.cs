@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 
-using FreemooSDL.Service;
+using FreeMoO.Service;
 
 using SdlDotNet.Graphics;
 
-namespace FreemooSDL
+namespace FreeMoO
 {
     public class FreemooImageInstance
     {

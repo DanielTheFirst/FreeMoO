@@ -2,9 +2,9 @@
 using System.Collections.Concurrent;
 using System.Drawing;
 
-using FreemooSDL.Controls;
+using FreeMoO.Controls;
 
-namespace FreemooSDL.Collections
+namespace FreeMoO.Collections
 {
     public class ObjectPool
     {

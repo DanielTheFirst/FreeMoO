@@ -1,10 +1,10 @@
 ﻿using System;
 
-using FreemooSDL.Service;
+using FreeMoO.Service;
 
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     public interface IScreen
     {

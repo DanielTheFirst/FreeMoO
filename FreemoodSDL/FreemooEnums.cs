@@ -1,5 +1,5 @@
 ﻿
-namespace FreemooSDL
+namespace FreeMoO
 {
     // service enums
     public enum ServiceEnum

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using SdlDotNet.Audio;
 
-namespace FreemooSDL.Collections
+namespace FreeMoO.Collections
 {
     public class SoundCollection
     : Dictionary<SoundFXEnum, Sound>

@@ -6,13 +6,13 @@ using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Service;
-using FreemooSDL.Game;
-using FreemooSDL.Screens;
-using FreemooSDL.Controls;
+using FreeMoO.Collections;
+using FreeMoO.Service;
+using FreeMoO.Game;
+using FreeMoO.Screens;
+using FreeMoO.Controls;
 
-namespace FreemooSDL
+namespace FreeMoO
 {
     public class FreemooGame : IDisposable
     {

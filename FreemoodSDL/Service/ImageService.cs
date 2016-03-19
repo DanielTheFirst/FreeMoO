@@ -10,11 +10,11 @@ using System.Linq;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 
-using FreemooSDL;
-using FreemooSDL.Collections;
-using FreemooSDL.Reverse;
+using FreeMoO;
+using FreeMoO.Collections;
+using FreeMoO.Reverse;
     
-namespace FreemooSDL.Service
+namespace FreeMoO.Service
 {
     public class ImageService
     {

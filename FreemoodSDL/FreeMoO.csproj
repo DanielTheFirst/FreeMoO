@@ -8,8 +8,8 @@
     <ProjectGuid>{BEDBF948-15FD-4877-9807-F2B1A5492C00}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FreemooSDL</RootNamespace>
-    <AssemblyName>FreemoodSDL</AssemblyName>
+    <RootNamespace>FreeMoO</RootNamespace>
+    <AssemblyName>FreeMoO</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>

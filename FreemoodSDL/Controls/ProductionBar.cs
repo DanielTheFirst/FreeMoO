@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
 
-using FreemooSDL.Collections;
+using FreeMoO.Collections;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
 
     public delegate void ProductionBarChangeDelegate(ProductionBarEventArgs arg);

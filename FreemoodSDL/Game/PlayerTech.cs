@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 using MoreLinq;
 
-namespace FreemooSDL.Game
+namespace FreeMoO.Game
 {
     public class KnownTech
     {

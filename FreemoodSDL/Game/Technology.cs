@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FreemooSDL.Game
+namespace FreeMoO.Game
 {
     // represents a single piece of technology
     public class Technology

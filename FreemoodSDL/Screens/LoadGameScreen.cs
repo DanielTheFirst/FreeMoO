@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Controls;
-using FreemooSDL.Reverse;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Controls;
+using FreeMoO.Reverse;
+using FreeMoO.Service;
 
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     class LoadGameScreen
         : AbstractScreen

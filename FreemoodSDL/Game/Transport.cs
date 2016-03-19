@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace FreemooSDL.Game
+namespace FreeMoO.Game
 {
     public class Transport
         : SpaceObject

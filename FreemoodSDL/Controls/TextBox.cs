@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-using FreemooSDL.Collections;
+using FreeMoO.Collections;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public delegate void OnTextBoxFocus (TextBox txtBox);
     public delegate void OnTextBoxBlur (TextBox txtBox);

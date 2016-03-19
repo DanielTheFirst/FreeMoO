@@ -1,4 +1,4 @@
-﻿namespace FreemooSDL
+﻿namespace FreeMoO
 {
     public static class FreemooConstants
     {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using FreemooSDL.Service;
+using FreeMoO.Service;
 using SdlDotNet.Graphics;
 using SdlDotNet.Core;
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     public class ResearchScreen
         : AbstractScreen

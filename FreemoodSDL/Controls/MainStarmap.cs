@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Screens;
-using FreemooSDL.Game;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Screens;
+using FreeMoO.Game;
+using FreeMoO.Service;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
 
     class StarImage

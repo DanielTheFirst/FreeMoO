@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-using FreemooSDL;
+using FreeMoO;
 
-namespace FreemooSDL.Collections
+namespace FreeMoO.Collections
 {
     public class ImageCollection
     {

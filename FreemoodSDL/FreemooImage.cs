@@ -5,7 +5,7 @@ using System.Diagnostics;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 
-namespace FreemooSDL
+namespace FreeMoO   
 {
     public class FreemooImage
     {

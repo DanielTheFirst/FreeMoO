@@ -3,7 +3,7 @@ using System.Drawing;
 
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public delegate void OnEmptyControlClick(EmptyControl sender, MouseButton btn);
 

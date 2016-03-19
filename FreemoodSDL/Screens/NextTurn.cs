@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     // the star map background is starmap_47.
     public class NextTurn

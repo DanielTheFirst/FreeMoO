@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using FreemooSDL.Controls;
-using FreemooSDL.Game;
-using FreemooSDL.Service;
+using FreeMoO.Controls;
+using FreeMoO.Game;
+using FreeMoO.Service;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 using SdlDotNet.Audio;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     public class OpeningMovie
         : AbstractScreen

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-using FreemooSDL.Reverse;
+using FreeMoO.Reverse;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 
-namespace FreemooSDL.Service
+namespace FreeMoO.Service
 {
     // all drawing is routed through here.  is this a good idea?  hell if i know.
     public class GuiService
