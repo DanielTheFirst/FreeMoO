@@ -107,7 +107,7 @@ namespace FreeMoO.Service
 
         private Archive GetArchive(ArchiveEnum ae)
         {
-            string fn = Config.DataFolder.PathCmb("LBX" + ae.ToString() + ".LBX");
+            string fn = Config.DataFolder.PathCmb("LBX",  ae.ToString() + ".LBX");
             Archive ar = new Archive(fn);
 
             return ar;

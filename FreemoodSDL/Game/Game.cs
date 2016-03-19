@@ -21,14 +21,14 @@ namespace FreeMoO.Game
 
     public class Game
     {
-        private List<Player> mPlayers = null;
-        private List<Planet> mPlanets = null;
-        private List<Fleet> mFleets = null;
-        private List<Starship> mStarshipDesigns = null;
-        private List<PlayerTech> mPlayerTech = null;
-        private List<Transport> mTransports = null;
-        private Galaxy mGalaxy;
-        private TechTree mTechTree = null;
+        private List<Player> _players = null;
+        private List<Planet> _planets = null;
+        private List<Fleet> _fleets = null;
+        private List<Starship> _starshipDesigns = null;
+        private List<PlayerTech> _playerTech = null;
+        private List<Transport> _transports = null;
+        private Galaxy _galaxy;
+        private TechTree _techTree = null;
         private List<Nebula> _nebulaList = null;
         private List<string> _saveGameNames = new List<string>();
 
@@ -40,48 +40,48 @@ namespace FreeMoO.Game
         {
             get
             {
-                return mPlanets;
+                return _planets;
             }
         }
         public List<Fleet> Fleets
         {
             get
             {
-                return mFleets;
+                return _fleets;
             }
         }
         public Galaxy GalaxyData
         {
             get
             {
-                return mGalaxy;
+                return _galaxy;
             }
         }
         public List<Player> Players
         {
             get
             {
-                return mPlayers;
+                return _players;
             }
         }
         public TechTree Tech
         {
             get
             {
-                return mTechTree;
+                return _techTree;
             }
         }
         public List<Starship> Starships
         {
             get
             {
-                return mStarshipDesigns;
+                return _starshipDesigns;
             }
         }
         #endregion
         public Game()
         {
-            mTechTree = new TechTree();
+            _techTree = new TechTree();
             LoadSaveGameNames();
             //Technology test = mTechTree.getByName("testing...");
         }
@@ -93,20 +93,20 @@ namespace FreeMoO.Game
         public void loadGame(int pIdx)
         {
             Savegame saveGame = new Savegame(pIdx, this);
-            mPlayers = saveGame.parsePlayers();
-            mGalaxy = saveGame.parseGalaxy();
-            mPlanets = saveGame.parsePlanets(mGalaxy.NumStars);
-            mFleets = saveGame.parseFleetsIntransit(mPlayers.Count);
+            _players = saveGame.parsePlayers();
+            _galaxy = saveGame.parseGalaxy();
+            _planets = saveGame.parsePlanets(_galaxy.NumStars);
+            _fleets = saveGame.parseFleetsIntransit(_players.Count);
             // and then concatenate with fleets in orbit
-            List<Fleet> orbits = saveGame.parseFleetsInOrbit(mPlanets.Count, mPlayers.Count);
-            mFleets.AddRange(orbits);
-            mStarshipDesigns = saveGame.parseStarshipsDesigns(mPlayers.Count);
-            mPlayerTech = saveGame.parsePlayerTechnologies(mPlayers, this);
-            for (int i = 0; i < mPlayers.Count; i++)
+            List<Fleet> orbits = saveGame.parseFleetsInOrbit(_planets.Count, _players.Count);
+            _fleets.AddRange(orbits);
+            _starshipDesigns = saveGame.parseStarshipsDesigns(_players.Count);
+            _playerTech = saveGame.parsePlayerTechnologies(_players, this);
+            for (int i = 0; i < _players.Count; i++)
             {
-                mPlayers[i].SetTechList(mPlayerTech[i]);
+                _players[i].SetTechList(_playerTech[i]);
             }
-            mTransports = saveGame.parseTransports();
+            _transports = saveGame.parseTransports();
         }
 
         public void saveGame(int pIdx)
@@ -147,7 +147,7 @@ namespace FreeMoO.Game
             t.DestPlanetId = destPlanet;
             t.SizeInMillions = size;
             t.PlayerId = playerId;
-            mTransports.Add(t);
+            _transports.Add(t);
             return t;
         }
 
@@ -157,10 +157,10 @@ namespace FreeMoO.Game
             // need to figure out where this is specified in the save file
             // andlogic here is loop through planets and see if any colonys have
             // pending transports and instantiate a transport object and deduct costs and population
-            List<Transport> unlaunchedTransports = mTransports.Where(o => o.Launched == false).ToList();
+            List<Transport> unlaunchedTransports = _transports.Where(o => o.Launched == false).ToList();
             foreach (var trans in unlaunchedTransports)
             {
-                var colony = mPlanets.FirstOrDefault(p => p.ID == trans.OriginPlanetId);
+                var colony = _planets.FirstOrDefault(p => p.ID == trans.OriginPlanetId);
                 Debug.Assert(colony != null, "Should never have a transporting unlaunched and invalid origin planet.");
                 Debug.Assert(colony.CurrentPopulation > trans.SizeInMillions, "Shouldn't even be able to launch transport with more people than are currently on the planet.");
                 colony.CurrentPopulation -= trans.SizeInMillions;
@@ -182,20 +182,20 @@ namespace FreeMoO.Game
         {
             // loop through planets and calculatehow many production points were accrued during
             // the turn for colonies.
-            foreach (var p in mPlanets)
+            foreach (var p in _planets)
             {
                 p.ProductionPoints = 0;
                 if (p.IsColonized)
                 {
                     // first, calc what is generated by the peoples
                     int playerId = p.PlayerId;
-                    double perWorker = (double)mPlayers[playerId].GetKnownTechLevel(TechTypeEnum.Computer) * 3 + 50;
+                    double perWorker = (double)_players[playerId].GetKnownTechLevel(TechTypeEnum.Computer) * 3 + 50;
                     perWorker /= 100;
                     p.ProductionPoints = (int)(perWorker * p.CurrentPopulation);
 
                     // then the factories
                     // need robotic control level, num workers, num factories
-                    int roboticTechLevel = mPlayerTech[playerId].GetRoboticTechLevel();
+                    int roboticTechLevel = _playerTech[playerId].GetRoboticTechLevel();
                     int numSupportableFactories = p.CurrentPopulation * roboticTechLevel;
                     if (numSupportableFactories <= p.AmtFactories)
                     {
@@ -235,14 +235,14 @@ namespace FreeMoO.Game
         public void MoveShips()
         {
             // first we do fleets, then we do transports
-            var shipsToMove = mFleets.Where(s => s.InTransit == true);
+            var shipsToMove = _fleets.Where(s => s.InTransit == true);
             foreach (var ship in shipsToMove)
             {
                 Point newLocation = _calculateNewLocation(ship.X, ship.Y, ship.PlanetId, ship.PlayerId, true);
 
             }
 
-            var transportsToMove = mTransports.Where(t => t.Launched == true);
+            var transportsToMove = _transports.Where(t => t.Launched == true);
             foreach (var trans in transportsToMove)
             {
  
@@ -267,16 +267,16 @@ namespace FreeMoO.Game
         #region Util Functions
         private int _getNextTransportId()
         {
-            return mTransports.MaxBy(o => o.ID).ID + 1;
+            return _transports.MaxBy(o => o.ID).ID + 1;
         }
         public void UpdatePlanetFocus(int id)
         {
-            mGalaxy.PlanetFocus = id;
+            _galaxy.PlanetFocus = id;
         }
         public int CalcPlayer0Range(int x, int y)
         {
             // in the shiny and new save game, Klystron is 2 parsecs while Dunatis is 4
-            var planets = mPlanets.Where(p => p.PlayerId == 0 && p.IsColonized == true);
+            var planets = _planets.Where(p => p.PlayerId == 0 && p.IsColonized == true);
             double x1, x2, y1, y2;
             x1 = ((double)x) ;
             y1 = ((double)y) ;
