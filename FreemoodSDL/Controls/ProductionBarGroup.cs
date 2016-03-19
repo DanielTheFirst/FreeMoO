@@ -16,7 +16,7 @@ namespace FreeMoO.Controls
         private ProductionBarUpdateArgs _updateArgs = new ProductionBarUpdateArgs();
         
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             for (int i = 0; i < Controls.count(); i++)
             {
@@ -24,7 +24,7 @@ namespace FreeMoO.Controls
             }
         }
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService)
         {
             for (int i = 0; i < Controls.count(); i++)
             {

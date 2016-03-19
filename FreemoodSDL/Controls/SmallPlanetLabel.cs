@@ -33,12 +33,12 @@ namespace FreeMoO.Controls
             _planetRef = p;
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService guiService)
+        public override void Draw(Timer pTimer, GuiService guiService)
         {
             //if (this.Visible)
             //{

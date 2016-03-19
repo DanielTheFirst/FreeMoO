@@ -132,12 +132,12 @@ namespace FreeMoO.Screens
             }
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             UpdateControls(pTimer);
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             pGuiService.drawImage(_loadScreenImage.getCurrentFrame(), 0, 0);
 

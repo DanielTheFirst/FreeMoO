@@ -98,12 +98,12 @@ namespace FreeMoO.Screens
 
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             _bgImage.UpdateAnimation(pTimer);
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             Game.Screen.drawImage(_bgImage.getCurrentFrame(), 0, 0);
             Game.Screen.drawImage(_title.getCurrentFrame(), 45, 11);

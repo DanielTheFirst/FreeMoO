@@ -12,8 +12,8 @@ namespace FreeMoO.Controls
     {
         // just a rectangle on the screen.  nothing gets drawn or updated
         // but it does field mouse events.  possibly key events down the road
-        public override void Update(FreemooTimer pTimer) { }
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService) { }
+        public override void Update(Timer pTimer) { }
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService) { }
 
         private bool _mouseOver = false;
         private bool _mouseDown = false;

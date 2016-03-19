@@ -52,7 +52,7 @@ namespace FreeMoO.Controls
             Enabled = true;
         }
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService)
         {
             if (this.Visible)
             {
@@ -73,7 +73,7 @@ namespace FreeMoO.Controls
             }
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
         }
 

@@ -16,7 +16,7 @@ namespace FreeMoO.Screens
         {
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             ImageService imgService = Game.Images;
             //GuiService gs = Game.Screen;
@@ -25,7 +25,7 @@ namespace FreeMoO.Screens
             pGuiService.drawImage(techBoard, 0, 0);
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             //throw new NotImplementedException();
         }

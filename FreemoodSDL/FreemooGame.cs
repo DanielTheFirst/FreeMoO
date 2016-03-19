@@ -19,7 +19,7 @@ namespace FreeMoO
         private ScreenCollection _screenCollection = null;
         private ScreenStack _screenStack = null;
         private bool _quit = false;
-        private FreemooTimer _timer = null;
+        private Timer _timer = null;
         private Game.Game _orionGame = null;
         //private IScreen mCurrentScreen = null;
         private SoundFXService _soundFxService = null;
@@ -90,11 +90,12 @@ namespace FreeMoO
                 if (timeGoneBy > 1000)
                 {
                     double fps = (double)framesElapsed / (timeGoneBy / 1000D);
-                    Console.Write("FPS = " + Math.Round(fps, 2) + Environment.NewLine);
+                    //Console.Write("FPS = " + Math.Round(fps, 2) + Environment.NewLine);
                     currMillis = _timer.TotalMilliseconds;
                     framesElapsed = 0;
                     //_dispFps = string.Format(fpsString, Math.Round(fps, 2));
                     var test = _dispFps.Fmt(Math.Round(fps, 2));
+                    Console.WriteLine(_dispFps.Fmt(Math.Round(fps, 2)));
                 }
                 update();
                 Draw();
@@ -130,7 +131,7 @@ namespace FreeMoO
 
             this.Screen.initializeVideo();
 
-            _timer = new FreemooTimer();
+            _timer = new Timer();
 
             _orionGame = new Game.Game();
             _orionGame.loadGame(1);
@@ -152,7 +153,7 @@ namespace FreeMoO
 
         private void update()
         {
-            _timer.update();
+            _timer.Update();
             Events.Poll();
             ScreenControl.Update(_timer);
         }

@@ -45,9 +45,9 @@ namespace FreeMoO.Screens
 
         public virtual void resume() { }
 
-        public abstract void Update(FreemooTimer pTimer);
+        public abstract void Update(Timer pTimer);
 
-        public abstract void Draw(FreemooTimer pTimer, GuiService pGuiService);
+        public abstract void Draw(Timer pTimer, GuiService pGuiService);
 
         public bool SafeRemove { get; set; }
 
@@ -125,7 +125,7 @@ namespace FreeMoO.Screens
 
         public event EventHandler<KeyboardEventArgs> keyReleasedEvent;
 
-        protected void UpdateControls(FreemooTimer timer)
+        protected void UpdateControls(Timer timer)
         {
             List<int> toRemove = new List<int>();
             for (int i = 0; i < Controls.count(); i++)

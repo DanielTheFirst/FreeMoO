@@ -80,12 +80,12 @@ namespace FreeMoO.Controls
             }
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             if (this.Visible)
             {

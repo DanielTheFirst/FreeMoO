@@ -30,7 +30,7 @@ namespace FreeMoO.Controls
 
         private Rectangle _boundRect;
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService)
         {
             /*Color c = Color.Red;
             if (HasFocus)
@@ -51,7 +51,7 @@ namespace FreeMoO.Controls
             }
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             
         }

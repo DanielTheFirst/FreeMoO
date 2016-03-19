@@ -6,14 +6,14 @@ using System.Text;
 namespace FreeMoO
 {
     // technicall i could just call it timer since it's already in the FreemooSDL namespace
-    public class FreemooTimer
+    public class Timer
     {
         private DateTime mCurrentTime;
         private TimeSpan mSinceLastFrame;
         private DateTime mStartTime;
         private TimeSpan mSinceBeginning;
 
-        public FreemooTimer()
+        public Timer()
         {
             mStartTime = DateTime.Now;
             mSinceBeginning = DateTime.Now.Subtract(mStartTime);
@@ -21,7 +21,7 @@ namespace FreeMoO
             mSinceLastFrame = mSinceBeginning;
         }
 
-        public void update()
+        public void Update()
         {
             DateTime tmpNOw = DateTime.Now;
             mSinceLastFrame = tmpNOw.Subtract(mCurrentTime);

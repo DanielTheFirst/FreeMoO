@@ -97,7 +97,7 @@ namespace FreeMoO
             }
         }
 
-        public void UpdateAnimation(FreemooTimer timer)
+        public void UpdateAnimation(Timer timer)
         {
             if (Animate)
             {

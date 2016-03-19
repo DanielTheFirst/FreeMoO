@@ -101,7 +101,7 @@ namespace FreeMoO.Screens
             }
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService guiSvc)
+        public override void Draw(Timer pTimer, GuiService guiSvc)
         {
             //Console.WriteLine(string.Format("Time since last draw event {0}", pTimer.MillisecondsElapsed));
             ImageService imgSvc = Game.Images;
@@ -114,7 +114,7 @@ namespace FreeMoO.Screens
             guiSvc.drawImage(surf, 0, 0);
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             //_introMovie1.AnimationTimer  += (long)pTimer.MillisecondsElapsed;
             //if (_introMovie1.AnimationTimer > _introMovie1.FrameRate * FreemooConstants.FRAMERATE_ADJUST)

@@ -105,7 +105,7 @@ namespace FreeMoO.Controls
             _indicatorLightGray = new FreemooImageInstance(ArchiveEnum.VORTEX, "LOAD     grey", imgRef);
         }
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService)
         {
             Text.Draw(pTimer, pGuiService);
 
@@ -124,7 +124,7 @@ namespace FreeMoO.Controls
             base.Release();
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
         }
 

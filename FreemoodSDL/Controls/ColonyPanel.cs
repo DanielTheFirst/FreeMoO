@@ -283,7 +283,7 @@ namespace FreeMoO.Controls
             base.Release();
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             //foreach (ProductionBars pb in mProductionBars)
             //{
@@ -296,7 +296,7 @@ namespace FreeMoO.Controls
             }
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             if (this.Visible)
             {

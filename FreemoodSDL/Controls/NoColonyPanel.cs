@@ -68,7 +68,7 @@ namespace FreeMoO.Controls
             _rangeText = string.Format(RANGE_TEMPLATE, range);
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             if (this.Enabled)
             {
@@ -79,7 +79,7 @@ namespace FreeMoO.Controls
             }
         }
 
-        public override void Draw(FreemooTimer timer, GuiService guiService)
+        public override void Draw(Timer timer, GuiService guiService)
         {
             if (this.Visible)
             {

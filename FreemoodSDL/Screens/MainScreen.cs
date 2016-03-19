@@ -74,7 +74,7 @@ namespace FreeMoO.Screens
 
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             //mStarmap.update(pTimer);
             //if (mColonyPanel != null) mColonyPanel.update(pTimer);
@@ -134,7 +134,7 @@ namespace FreeMoO.Screens
             }
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             ImageService imgService = Game.Images; //(ImageService)Game.Services.get(ServiceEnum.ImageService);
             //GuiService gs = Game.Screen; //(GuiService)Game.Services.get(ServiceEnum.GuiService);

@@ -53,7 +53,7 @@ namespace FreeMoO.Controls
 
         }
 
-        public override void Update(FreemooTimer timer)
+        public override void Update(Timer timer)
         {
             foreach(var fi in _images)
             {
@@ -65,7 +65,7 @@ namespace FreeMoO.Controls
             //_scannerImage.UpdateAnimation(timer);
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             if (this.Visible)
             {

@@ -41,12 +41,12 @@ namespace FreeMoO.Controls
             mPlanetBorder = new FreemooImageInstance(ArchiveEnum.STARMAP, "PLANBORD", imgService);
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             //checkAnimation(pTimer);
         }
 
-        private void checkAnimation(FreemooTimer pTimer)
+        private void checkAnimation(Timer pTimer)
         {
             if (mTwinkle)
             {
@@ -90,7 +90,7 @@ namespace FreeMoO.Controls
             return ret;
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGui)
+        public override void Draw(Timer pTimer, GuiService pGui)
         {
             int maxViewX = mParent.View_X + MainStarmap.WIDTH;
             int maxViewY = mParent.View_Y + MainStarmap.HEIGHT;
@@ -175,11 +175,11 @@ namespace FreeMoO.Controls
             mImage = new FreemooImageInstance(ArchiveEnum.STARMAP, "SMALSHIP" + colorId, imgService);
         }
 
-        public override void  Update(FreemooTimer pTimer)
+        public override void  Update(Timer pTimer)
         {
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGui)
+        public override void Draw(Timer pTimer, GuiService pGui)
         {
             if (mFleetRef.InTransit == true)
             {
@@ -328,7 +328,7 @@ namespace FreeMoO.Controls
 
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             
             rebuildFleets(); // really don't need too rebuild the fleets every turn though maybe do bounds checking an
@@ -339,7 +339,7 @@ namespace FreeMoO.Controls
             }
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGui)
+        public override void Draw(Timer pTimer, GuiService pGui)
         {
             foreach (StarImage si in mStarControls)
             {

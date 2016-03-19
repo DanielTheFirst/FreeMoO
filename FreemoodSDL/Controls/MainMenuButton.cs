@@ -29,7 +29,7 @@ namespace FreeMoO.Controls
             Text = btnText;
         }
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService guiSvc)
+        public override void Draw(Timer pTimer, Service.GuiService guiSvc)
         {
             FontPaletteEnum fpe = FontPaletteEnum.Font4Colors;
             if (Enabled && MouseOver)
