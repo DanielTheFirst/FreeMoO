@@ -88,7 +88,7 @@
     <Compile Include="FreemooImageInstance.cs" />
     <Compile Include="FreemooMusicAdapter.cs" />
     <Compile Include="FreemooSoundAdapter.cs" />
-    <Compile Include="FreemooTimer.cs" />
+    <Compile Include="Timer.cs" />
     <Compile Include="Game\Fleet.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameObject.cs" />
