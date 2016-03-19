@@ -10,7 +10,6 @@ using SdlDotNet.Graphics;
 
 namespace FreeMoO.Service
 {
-    // all drawing is routed through here.  is this a good idea?  hell if i know.
     public class GuiService
     {
         private FreemooGame mGame = null;
@@ -50,7 +49,7 @@ namespace FreeMoO.Service
 
         private void initializeFontPalettes()
         {
-            // to be used with a font that is a single collor on a transparent background
+            // to be used with a font that is a single color on a transparent background
             Color[] singleColor = new Color[2];
             singleColor[0] = Color.FromArgb(0x00, 0xff, 0x00, 0xff);
             singleColor[1] = Color.FromArgb(0x00, 0x00, 0x00);
