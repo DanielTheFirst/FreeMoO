@@ -126,7 +126,7 @@ namespace FreeMoO.Game
                 br.Close();
                 for (int i = 0; i < 6; i++)
                 {
-                    _saveGameNames.Add(Util.GetZString(Util.slice(buffer, CONFIG_NAME_OFFSET + (i * CONFIG_NAME_LENGTH), CONFIG_NAME_LENGTH)));
+                    _saveGameNames.Add(Util.slice(buffer, CONFIG_NAME_OFFSET + (i * CONFIG_NAME_LENGTH), CONFIG_NAME_LENGTH).GetZString());
                 }
             }
         }

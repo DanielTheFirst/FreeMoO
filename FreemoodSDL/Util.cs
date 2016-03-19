@@ -43,7 +43,7 @@ namespace FreeMoO
             return mFleetId++;
         }
 
-        public static string GetZString(byte[] bytes)
+        public static string GetZString(this byte[] bytes)
         {
             int idxZero = -1;
             for (int i = 0; i < bytes.Length && idxZero < 0; i++) if (bytes[i] == 0x00) idxZero = i;

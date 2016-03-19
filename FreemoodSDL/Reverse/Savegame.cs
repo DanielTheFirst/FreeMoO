@@ -123,7 +123,7 @@ namespace FreeMoO.Reverse
             byte[] nameBuffer = Util.slice(rawPlanetData, 0, 12);
             
             
-            p.Name = Util.GetZString(nameBuffer);
+            p.Name = nameBuffer.GetZString();
 
             // i think this way of doing it is bad and i should feel bad
             // and then i got rid of it and I don't feel bad anymore
@@ -290,7 +290,7 @@ namespace FreeMoO.Reverse
             Starship ship = new Starship(pStarshipId);
 
             var slice = Util.slice(pRawData, 0, 12);
-            ship.Name = Util.GetZString(Util.slice(pRawData, 0, 12));
+            ship.Name = Util.slice(pRawData, 0, 12).GetZString();
 
             ship.Weapon1 = pRawData[0x1c];
             ship.Weapon1Count = pRawData[0x24];

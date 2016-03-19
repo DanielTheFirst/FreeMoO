@@ -38,7 +38,7 @@ namespace FreeMoO.Reverse
                     _fileNameList[i] = string.Empty;
                     byte[] raw = new byte[0x14];
                     int bytesRead = br.Read(raw, 0, FILE_NAME_LENGTH);
-                    var fn = Util.GetZString(raw);
+                    var fn = raw.GetZString();
                     _fileNameList[i] = fn;
                 }
             }
