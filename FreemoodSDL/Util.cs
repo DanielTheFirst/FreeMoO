@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FreeMoO
 {
-    public class Util
+    public static class Util
     {
         public static T[] slice<T>(T[] src, int startindex, int size)
         {
@@ -15,17 +15,17 @@ namespace FreeMoO
             return dest;
         }
 
-        public bool MemoryCmp(byte[] left, byte[] right)
-        {
-            // half assed implementation of memcmp, done the slow way for 
-            // now because not really in an optimizing mood
-            if (left == null || right == null || left.Length != right.Length)
-            {
-                return false;
-            }
-            // ...and apparently I never actually wrote this function
-            return false;
-        }
+        //public bool MemoryCmp(byte[] left, byte[] right)
+        //{
+        //    // half assed implementation of memcmp, done the slow way for 
+        //    // now because not really in an optimizing mood
+        //    if (left == null || right == null || left.Length != right.Length)
+        //    {
+        //        return false;
+        //    }
+        //    // ...and apparently I never actually wrote this function
+        //    return false;
+        //}
 
         public static int buildInt(int low, int high)
         {

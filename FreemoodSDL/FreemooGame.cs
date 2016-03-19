@@ -27,7 +27,7 @@ namespace FreeMoO
         private ImageService _imageService = null;
         private GuiService _guiService = null;
         private bool _screenshot = false;
-        private string _dispFps = "60 FPS";
+        private string _dispFps = "{0} FPS";
         private ScreenActionEventArgs _queuedScreenAction = new ScreenActionEventArgs();
 
         // properties
@@ -93,7 +93,8 @@ namespace FreeMoO
                     Console.Write("FPS = " + Math.Round(fps, 2) + Environment.NewLine);
                     currMillis = _timer.TotalMilliseconds;
                     framesElapsed = 0;
-                    _dispFps = string.Format(fpsString, Math.Round(fps, 2));
+                    //_dispFps = string.Format(fpsString, Math.Round(fps, 2));
+                    var test = _dispFps.Fmt(Math.Round(fps, 2));
                 }
                 update();
                 Draw();
