@@ -57,6 +57,7 @@ namespace FreeMoO
                 writer.AutoFlush = true;
 
                 Channels.Add(channelName, new ChannelInfo() { FileName = filename, Writer = TextWriter.Synchronized(writer) });
+                return;
             }
         }
 

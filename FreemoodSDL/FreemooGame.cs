@@ -123,7 +123,7 @@ namespace FreeMoO
             buildEventHandlers();
             buildScreensCollection();
 
-            
+            Log.AddChannel("debug", "debug.log");
 
             //Mixer.Initialize();
 
