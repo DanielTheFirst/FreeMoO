@@ -69,5 +69,15 @@ namespace FreeMoO
         {
             return string.Format(str, args);
         }
+
+        public static string PathCmb(this string str, params string[] args)
+        {
+            var ret = str;
+            foreach(var a in args)
+            {
+                ret = System.IO.Path.Combine(ret, a);
+            }
+            return ret;
+        }
     }
 }

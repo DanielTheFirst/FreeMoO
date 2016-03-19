@@ -119,7 +119,7 @@ namespace FreeMoO.Game
             _saveGameNames.Clear();
             // config.moo is a bit of a mystery right now.  It's been about 20 years since I've seen an installation of 
             // master of orion without all six save games so...I'm going to for now assume that all six are there
-            using (BinaryReader br = new BinaryReader(new FileStream(Config.DataFolder + "\\CONFIG.MOO", FileMode.Open)))
+            using (BinaryReader br = new BinaryReader(new FileStream(Config.DataFolder.PathCmb("CONFIG.MOO"), FileMode.Open)))
             {
                 byte[] buffer = new byte[br.BaseStream.Length];
                 br.Read(buffer, 0, buffer.Length);

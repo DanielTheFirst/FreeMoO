@@ -32,7 +32,7 @@ namespace FreeMoO.Game
         {
             // I  think the config is going to  have to be static rather  than an instancee in the game class
             //string fn = "C:\\Users\\Daniel\\Documents\\Visual Studio 2010\\Projects\\FreemoodSDL\\data\\freemoo.xml";
-            string fn = Config.DataFolder + "\\rules\\tech.xml";
+            string fn = Config.DataFolder.PathCmb("rules", "tech.xml"); // +"\\rules\\tech.xml";
 
             XmlDocument xdoc = new XmlDocument();
             xdoc.Load(fn);

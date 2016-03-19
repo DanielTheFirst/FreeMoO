@@ -23,7 +23,7 @@ namespace FreeMoO.Reverse
 
         public ConfigMoo()
         {
-            _configFileName = string.Format("{0}\\{1}", Config.DataFolder, CONFIG_FILE);
+            _configFileName = Config.DataFolder.PathCmb(CONFIG_FILE); // string.Format("{0}\\{1}", Config.DataFolder, CONFIG_FILE);
             ReadFile();
         }
 

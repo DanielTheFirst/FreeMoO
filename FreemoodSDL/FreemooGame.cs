@@ -83,7 +83,7 @@ namespace FreeMoO
 
             int framesElapsed = 0;
             double currMillis = _timer.TotalMilliseconds;
-            string fpsString = "{0} FPS";
+            //string fpsString = "{0} FPS";
             while (!_quit)
             {
                 double timeGoneBy = _timer.TotalMilliseconds - currMillis;

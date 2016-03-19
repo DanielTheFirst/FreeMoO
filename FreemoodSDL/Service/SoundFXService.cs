@@ -20,7 +20,7 @@ namespace FreeMoO.Service
         public void loadSoundFX()
         {
             //string fn = ((ConfigService)mGame.Services[ServiceEnum.ConfigService]).DataFolder + "\\LBX\\SOUNDFX.LBX";
-            string fn = Config.DataFolder + "\\LBX\\SOUNDFX.LBX";
+            string fn = Config.DataFolder.PathCmb("LBX", "SOUNDFX.LBX"); // +"\\LBX\\SOUNDFX.LBX";
             Archive soundArc = new Archive(fn);
 
             Array soundEnumVals = Enum.GetValues(typeof(SoundFXEnum));
@@ -37,7 +37,7 @@ namespace FreeMoO.Service
         {
             Music m = null;
 
-            Archive musicArc = new Archive(Config.DataFolder + "\\LBX\\MUSIC.LBX");
+            Archive musicArc = new Archive(Config.DataFolder.PathCmb("LBX", "MUSIC.LBX"));
             byte[] musicData = musicArc.readMusic(0);
             byte[] midi = (new FreemooMusicAdapter()).Convert(musicData);
             //byte[] fileData = Util.slice(musicData, 0x10, 0x36ac);

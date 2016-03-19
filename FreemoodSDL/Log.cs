@@ -28,7 +28,7 @@ namespace FreeMoO
 
         private static IEnumerable<string> GetSafeFilename(string chanName, string fileName)
         {
-            var path = Path.Combine(Config.DataFolder, "Log");
+            var path = Config.DataFolder.PathCmb("Log");
 
             if (!Directory.Exists(path))
             {

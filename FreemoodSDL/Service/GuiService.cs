@@ -37,7 +37,7 @@ namespace FreeMoO.Service
 
         private void initializeFonts()
         {
-            Archive arc = new Archive(Config.DataFolder + "\\LBX\\FONTS.LBX");
+            Archive arc = new Archive(Config.DataFolder.PathCmb("LBX", "FONTS.LBX"));
             mFontCollection.Add(FontEnum.font_0, arc.readFont(0));
             mFontCollection.Add(FontEnum.font_1, arc.readFont(1));
             mFontCollection.Add(FontEnum.font_2, arc.readFont(2)); // this font has no space character so lowercase and numbers won't work unless i compensate for it somehow
@@ -368,7 +368,7 @@ namespace FreeMoO.Service
         {
             //mBuffer.CreateStretchedSurface(new Size(1280, 800)).Bitmap.Save("", System.Drawing.Imaging.ImageFormat.Png);
             Surface s = mBuffer.CreateStretchedSurface(new Size(1280, 800));
-            string fn = Config.DataFolder + "\\screenshots\\" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "." + DateTime.Now.Minute + "." + DateTime.Now.Second + ".png";
+            string fn = Config.DataFolder.PathCmb("screenshots", DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "." + DateTime.Now.Minute + "." + DateTime.Now.Second + ".png");
             s.Bitmap.Save(fn, System.Drawing.Imaging.ImageFormat.Png);
         }
     }

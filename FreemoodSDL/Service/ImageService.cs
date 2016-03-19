@@ -107,7 +107,7 @@ namespace FreeMoO.Service
 
         private Archive GetArchive(ArchiveEnum ae)
         {
-            string fn = Config.DataFolder + "\\LBX\\" + ae.ToString() + ".LBX";
+            string fn = Config.DataFolder.PathCmb("LBX" + ae.ToString() + ".LBX");
             Archive ar = new Archive(fn);
 
             return ar;
@@ -116,7 +116,7 @@ namespace FreeMoO.Service
         private int GetPictureIndex(ArchiveEnum ae, string imgStringIdx)
         {
             XmlDocument xdoc = new XmlDocument();
-            string fn = Config.DataFolder + "\\" + FreemooConstants.FREEMOO_GRAPHICS;
+            string fn = Config.DataFolder.PathCmb(FreemooConstants.FREEMOO_GRAPHICS);
             xdoc.Load(fn);
 
             string xpath = String.Format("/lbx/archive [@name='{0}.LBX']/img [@name='{1}']", ae.ToString(), imgStringIdx);
@@ -130,7 +130,7 @@ namespace FreeMoO.Service
         {
             // first load the xml into memory
             XmlDocument xdoc = new XmlDocument();
-            string fn = Config.DataFolder + "\\" + FreemooConstants.FREEMOO_GRAPHICS;
+            string fn = Config.DataFolder.PathCmb(FreemooConstants.FREEMOO_GRAPHICS);
             xdoc.Load(fn);
 
             // now query the xml to find the names of each of the lbx archives
@@ -138,7 +138,7 @@ namespace FreeMoO.Service
             XmlNodeList xarchives = xdoc.SelectNodes("/lbx/archive");
             foreach (XmlNode a in xarchives)
             {
-                string archiveFn = Config.DataFolder + "\\LBX\\" + a.Attributes["name"].Value;
+                string archiveFn = Config.DataFolder.PathCmb("LBX", a.Attributes["name"].Value);
                 Archive ar = new Archive(archiveFn);
                 archives.Add(a.Attributes["name"].Value, ar);
             }
