@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace FreemooSDL.Game
+namespace FreeMoO.Game
 {
     // not really a tree but it is a dictionary of all technologies
     public class TechTree

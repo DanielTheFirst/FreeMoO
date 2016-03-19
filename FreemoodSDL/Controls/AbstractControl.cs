@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
 
-using FreemooSDL.Collections;
+using FreeMoO.Collections;
 
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public abstract class AbstractControl : IControl
     {
@@ -107,8 +107,8 @@ namespace FreemooSDL.Controls
 
         public bool SafeRemove { get; set; }
 
-        public abstract void Update(FreemooTimer pTimer);
-        public abstract void Draw(FreemooTimer pTimer, FreemooSDL.Service.GuiService pGuiService);
+        public abstract void Update(Timer pTimer);
+        public abstract void Draw(Timer pTimer, FreeMoO.Service.GuiService pGuiService);
         public virtual void Release() 
         {
             ObjectPool.RectanglePool.PutObject(_boundingRect);

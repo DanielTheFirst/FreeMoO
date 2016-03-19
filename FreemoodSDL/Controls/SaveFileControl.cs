@@ -4,10 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Service;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public delegate void OnSaveFileControlSelected(SaveFileControl ctrl);
 
@@ -105,7 +105,7 @@ namespace FreemooSDL.Controls
             _indicatorLightGray = new FreemooImageInstance(ArchiveEnum.VORTEX, "LOAD     grey", imgRef);
         }
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService)
         {
             Text.Draw(pTimer, pGuiService);
 
@@ -124,7 +124,7 @@ namespace FreemooSDL.Controls
             base.Release();
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
         }
 

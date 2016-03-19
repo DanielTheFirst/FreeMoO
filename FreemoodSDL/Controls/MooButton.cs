@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-using FreemooSDL.Service;
+using FreeMoO.Service;
 
 using SdlDotNet.Graphics;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     class MooButton 
         : AbstractControl
@@ -32,7 +32,8 @@ namespace FreemooSDL.Controls
         public MooButton()
             : base()
         {
-
+            Visible = true;
+            Enabled = true;
         }
 
         public MooButton(ArchiveEnum pButtonImageArchive, string pButtonImageIndex, ImageService pImgService, int px, int py)
@@ -47,64 +48,79 @@ namespace FreemooSDL.Controls
             Width = s.Width;
             Height = s.Height;
             mImgServiceRef = pImgService;
+            Visible = true;
+            Enabled = true;
         }
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService)
         {
-            int frame = 0;
-            if (_mouseDown && _mouseOver)
+            if (this.Visible)
             {
-                //pGuiService.drawImage(mButtonImage[1], mBoundingRect.X, mBoundingRect.Y);
-                frame = 1;
+                int frame = 0;
+                if (_mouseDown && _mouseOver)
+                {
+                    //pGuiService.drawImage(mButtonImage[1], mBoundingRect.X, mBoundingRect.Y);
+                    frame = 1;
+                }
+                else if (!Enabled)
+                {
+                    //pGuiService.drawImage(mButtonImage[0], mBoundingRect.X, mBoundingRect.Y);
+                    frame = 1;
+                }
+                _buttonImage.CurrentFrameNum = frame;
+                Surface surf = _buttonImage.getCurrentFrame(); //mImgServiceRef.getSurface(mButtonImage.Archive, mButtonImage.ImageIndex, frame);
+                pGuiService.drawImage(surf, BoundingRect.X, BoundingRect.Y);
             }
-            else
-            {
-                //pGuiService.drawImage(mButtonImage[0], mBoundingRect.X, mBoundingRect.Y);
-            }
-            _buttonImage.CurrentFrameNum = frame;
-            Surface surf = _buttonImage.getCurrentFrame(); //mImgServiceRef.getSurface(mButtonImage.Archive, mButtonImage.ImageIndex, frame);
-            pGuiService.drawImage(surf, BoundingRect.X, BoundingRect.Y);
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
         }
 
         public override void mouseMoved(SdlDotNet.Input.MouseMotionEventArgs pMbea)
         {
-            if (BoundingRect.Contains(pMbea.Position))
+            if (this.Enabled)
             {
-                _mouseOver = true;
+                if (BoundingRect.Contains(pMbea.Position))
+                {
+                    _mouseOver = true;
+                }
+                else
+                {
+                    _mouseOver = false;
+                }
+                base.mouseMoved(pMbea);
             }
-            else
-            {
-                _mouseOver = false;
-            }
-            base.mouseMoved(pMbea);
         }
 
         public override void mousePressed(SdlDotNet.Input.MouseButtonEventArgs pMbea)
         {
-            if (BoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
+            if (this.Enabled)
             {
-                _mouseDown = true;
+                if (BoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
+                {
+                    _mouseDown = true;
+                }
+                base.mousePressed(pMbea);
             }
-            base.mousePressed(pMbea);
         }
 
         public override void mouseReleased(SdlDotNet.Input.MouseButtonEventArgs pMbea)
         {
-            _mouseDown = false;
-            if (BoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
+            if (this.Enabled)
             {
-                //mMouseDown = false;
-                // bubble up a click event
-                if (Click != null)
+                _mouseDown = false;
+                if (BoundingRect.Contains(pMbea.Position) && pMbea.Button == SdlDotNet.Input.MouseButton.PrimaryButton)
                 {
-                    Click(this, new EventArgs());
+                    //mMouseDown = false;
+                    // bubble up a click event
+                    if (Click != null)
+                    {
+                        Click(this, new EventArgs());
+                    }
                 }
+                base.mouseReleased(pMbea);
             }
-            base.mouseReleased(pMbea);
         }
     }
 }

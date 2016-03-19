@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-using FreemooSDL.Collections;
+using FreeMoO.Collections;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public delegate void OnTextBoxFocus (TextBox txtBox);
     public delegate void OnTextBoxBlur (TextBox txtBox);
@@ -30,7 +30,7 @@ namespace FreemooSDL.Controls
 
         private Rectangle _boundRect;
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService)
         {
             /*Color c = Color.Red;
             if (HasFocus)
@@ -51,7 +51,7 @@ namespace FreemooSDL.Controls
             }
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             
         }

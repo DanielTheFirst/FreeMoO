@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FreemooSDL.Game
+namespace FreeMoO.Game
 {
     public class Player : GameObject
     {

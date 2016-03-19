@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FreemooSDL
+namespace FreeMoO
 {
     static class Freemoo
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 
-using FreemooSDL.Service;
+using FreeMoO.Service;
 
 using SdlDotNet.Graphics;
 
-namespace FreemooSDL
+namespace FreeMoO
 {
     public class FreemooImageInstance
     {
@@ -17,6 +17,7 @@ namespace FreemooSDL
         public Boolean Animate { get; set; }
         public Boolean AnimateLoop { get; set; }
         public Double AnimationTimer { get; set; }
+        public int Offset { get; set; }
         public long FrameRate
         {
             get
@@ -33,13 +34,50 @@ namespace FreemooSDL
             mImageIndex = pImageIndex;
             mImageRef = mImgServiceRef.getImage(pArchive, pImageIndex);
             mCurrentFrame = 0;
+            Offset = 0;
             if (mImageRef.FrameRate == 0) mImageRef.FrameRate = 100; // just do animations at 10 frames per second if none is specified.
+        }
+
+        public FreemooImageInstance(ArchiveEnum pArchive, string pImageIndex, int offset, ImageService pImgService)
+        {
+            mImgServiceRef = pImgService;
+            mArchiveEnum = pArchive;
+            mImageIndex = pImageIndex;
+            mImageRef = mImgServiceRef.getImageWithOffset(pArchive, pImageIndex,offset);
+            mCurrentFrame = 0;
+            Offset = offset;
+            if (mImageRef.FrameRate == 0) mImageRef.FrameRate = 100; // just do animations at 10 frames per second if none is specified.
+        }
+
+        public void ChangeImageReference(ArchiveEnum archive, string imgIndex)
+        {
+            mArchiveEnum = archive;
+            mImageIndex = imgIndex;
+            mImageRef = mImgServiceRef.getImage(mArchiveEnum, mImageIndex);
+            ResetAnimation();
+            if (mImageRef.FrameRate == 0) mImageRef.FrameRate = 100; // just do animations at 10 frames per second if none is specified.
+        }
+
+        public void ChangeImageReference(ArchiveEnum archive, string imgIndex, int offset)
+        {
+            mArchiveEnum = archive;
+            mImageIndex = imgIndex;
+            Offset = offset;
+            mImageRef = mImgServiceRef.getImageWithOffset(mArchiveEnum, mImageIndex, Offset);
+            ResetAnimation();
+            if (mImageRef.FrameRate == 0) mImageRef.FrameRate = 100; // just do animations at 10 frames per second if none is specified
+            
         }
 
         public Surface getCurrentFrame()
         {
             //return mImageRef[mCurrentFrame];
-            return mImgServiceRef.getSurface(mArchiveEnum, mImageIndex, mCurrentFrame);
+            return mImgServiceRef.getSurface(mArchiveEnum, mImageIndex, mCurrentFrame, Offset);
+        }
+
+        public Surface getCurrentFrame(int offset)
+        {
+            return mImgServiceRef.getSurface(mArchiveEnum, mImageIndex, mCurrentFrame, offset);
         }
 
         public Surface getNextFrame()
@@ -59,7 +97,7 @@ namespace FreemooSDL
             }
         }
 
-        public void UpdateAnimation(FreemooTimer timer)
+        public void UpdateAnimation(Timer timer)
         {
             if (Animate)
             {

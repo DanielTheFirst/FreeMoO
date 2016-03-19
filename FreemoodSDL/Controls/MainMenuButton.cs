@@ -2,10 +2,10 @@
 
 using SdlDotNet.Input;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Service;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     class MainMenuButton
         : MooButton
@@ -29,7 +29,7 @@ namespace FreemooSDL.Controls
             Text = btnText;
         }
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService guiSvc)
+        public override void Draw(Timer pTimer, Service.GuiService guiSvc)
         {
             FontPaletteEnum fpe = FontPaletteEnum.Font4Colors;
             if (Enabled && MouseOver)

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Game;
-using FreemooSDL.Screens;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Game;
+using FreeMoO.Screens;
+using FreeMoO.Service;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     /*class ProductionBarEventArgs
         : EventArgs
@@ -192,6 +192,8 @@ namespace FreemooSDL.Controls
             //Controls.add(_smallPlanetLabel);
 
             _smallPlanetLabel = new SmallPlanetLabel(mScreenRef, this);
+            _smallPlanetLabel.Id = "SmallPlanetLabel_ColonyPanel";
+            Controls.add(_smallPlanetLabel);
 
             InitializeProductionBars();
         }
@@ -276,12 +278,12 @@ namespace FreemooSDL.Controls
 
         public override void Release()
         {
-            _productionBars.Release();
-            ObjectPool.ProductionBarGroupPool.PutObject(_productionBars);
+            //_productionBars.Release();
+            //ObjectPool.ProductionBarGroupPool.PutObject(_productionBars);
             base.Release();
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             //foreach (ProductionBars pb in mProductionBars)
             //{
@@ -294,7 +296,7 @@ namespace FreemooSDL.Controls
             }
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             if (this.Visible)
             {
@@ -429,6 +431,7 @@ namespace FreemooSDL.Controls
                 string[] colors = { "B", "G", "P", "R", "W", "Y" };
                 //Rectangle shipProdRect = new Rectangle(236, 142, 39, 29);
                 pGuiService.drawImage(imgService.getSurface(shipArc, colors[playerColor] + shipSizes[shipSize], 0, offset), 236, 142);
+
 
                 // BE9671
                 pGuiService.drawString(this.mScreenRef.Game.OrionGame.Starships[q].Name, new Rectangle(229, 168, 46, 7), FontEnum.font_2, Color.FromArgb(0xBE9671), TextAlignEnum.Center, TextVAlignEnum.Center);

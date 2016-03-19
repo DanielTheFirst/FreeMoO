@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Game;
-using FreemooSDL.Screens;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Game;
+using FreeMoO.Screens;
+using FreeMoO.Service;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public class SmallPlanetLabel
         : AbstractControl
@@ -33,15 +33,15 @@ namespace FreemooSDL.Controls
             _planetRef = p;
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService guiService)
+        public override void Draw(Timer pTimer, GuiService guiService)
         {
-            if (this.Visible)
-            {
+            //if (this.Visible)
+            //{
                 ImageService imgService = _screenRef.Game.Images;
                 string smallPlanet = "PLANET" + (_planetRef.SmallPlanetImageIndex + 1);
                 Surface smallPanetSurf = imgService.getSurface(ArchiveEnum.PLANETS, smallPlanet, 0); //imgService.Images[ArchiveEnum.PLANETS, smallPlanet][0];
@@ -73,7 +73,7 @@ namespace FreemooSDL.Controls
 
                 string popString = "POP" + _planetRef.MaxPopulation.ToString().PadLeft(3, ' ') + " MAX";
                 guiService.drawString(popString, new Rectangle(263, 45, 43, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
-            }
+            //}
 
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FreemooSDL
+namespace FreeMoO
 {
     // maintain this and the original configservice class for now just to keep backwards compatibility.
     public static class Config

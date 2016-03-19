@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace FreemooSDL.Game
+namespace FreeMoO.Game
 {
     public class LookupVals
     {

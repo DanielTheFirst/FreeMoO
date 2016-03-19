@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-using FreemooSDL.Reverse;
+using FreeMoO.Reverse;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 
-namespace FreemooSDL.Service
+namespace FreeMoO.Service
 {
-    // all drawing is routed through here.  is this a good idea?  hell if i know.
     public class GuiService
     {
         private FreemooGame mGame = null;
@@ -50,7 +49,7 @@ namespace FreemooSDL.Service
 
         private void initializeFontPalettes()
         {
-            // to be used with a font that is a single collor on a transparent background
+            // to be used with a font that is a single color on a transparent background
             Color[] singleColor = new Color[2];
             singleColor[0] = Color.FromArgb(0x00, 0xff, 0x00, 0xff);
             singleColor[1] = Color.FromArgb(0x00, 0x00, 0x00);
@@ -117,6 +116,9 @@ namespace FreemooSDL.Service
 
             Color[] loadScreenGreen = buildPalette(new int[] { 0xff00ff, 0x00BE00, 0xff00fe, 0xff00fe, 0x007900 });
             mFontPalettes.Add(FontPaletteEnum.LoadScreenGreen, loadScreenGreen);
+
+            Color[] fleetPanel = buildPalette(new int[] { 0xff00ff, 0xFFDF51, 0xff00fe, 0xff00fe, 0xcb9600 });
+            mFontPalettes.Add(FontPaletteEnum.FleetPanelYellow, fleetPanel);
         }
 
         private Color[] buildPalette(int[] pColors)
@@ -366,7 +368,7 @@ namespace FreemooSDL.Service
         {
             //mBuffer.CreateStretchedSurface(new Size(1280, 800)).Bitmap.Save("", System.Drawing.Imaging.ImageFormat.Png);
             Surface s = mBuffer.CreateStretchedSurface(new Size(1280, 800));
-            string fn = mGame.Config.DataFolder + "\\screenshots\\" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "." + DateTime.Now.Minute + "." + DateTime.Now.Second + ".png";
+            string fn = Config.DataFolder + "\\screenshots\\" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "." + DateTime.Now.Minute + "." + DateTime.Now.Second + ".png";
             s.Bitmap.Save(fn, System.Drawing.Imaging.ImageFormat.Png);
         }
     }

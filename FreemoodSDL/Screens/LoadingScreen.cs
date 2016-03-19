@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Drawing;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Controls;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Controls;
+using FreeMoO.Service;
 using SdlDotNet.Graphics;
 using SdlDotNet.Core;
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     class LoadingScreen
         : AbstractScreen
@@ -83,7 +83,7 @@ namespace FreemooSDL.Screens
             base.mouseReleased(pMbea);
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             //throw new NotImplementedException();
             _fadeTimer += pTimer.MillisecondsElapsed;
@@ -135,7 +135,7 @@ namespace FreemooSDL.Screens
             }
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             ImageService img = Game.Images;
             GuiService gui = Game.Screen;

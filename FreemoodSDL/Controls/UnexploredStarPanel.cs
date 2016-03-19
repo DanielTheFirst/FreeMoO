@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Game;
-using FreemooSDL.Screens;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Game;
+using FreeMoO.Screens;
+using FreeMoO.Service;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     class UnexploredStarPanel
         : AbstractControl
@@ -85,7 +85,7 @@ namespace FreemooSDL.Controls
             _rangeText = string.Format(RANGE_TEMPLATE, range);
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             if (this.Visible)
             {
@@ -134,7 +134,7 @@ namespace FreemooSDL.Controls
 
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             
         }

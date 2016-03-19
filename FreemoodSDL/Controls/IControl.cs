@@ -1,16 +1,16 @@
 ﻿using System;
 
-using FreemooSDL.Service;
-using FreemooSDL.Collections;
+using FreeMoO.Service;
+using FreeMoO.Collections;
 
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public interface IControl
     {
-        void Update(FreemooTimer pTimer);
-        void Draw(FreemooTimer pTimer, FreemooSDL.Service.GuiService pGuiService);
+        void Update(Timer pTimer);
+        void Draw(Timer pTimer, FreeMoO.Service.GuiService pGuiService);
         void Release();
         void keyPressed(KeyboardEventArgs pKea);
 

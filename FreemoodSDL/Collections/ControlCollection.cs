@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using FreemooSDL.Controls;
+using FreeMoO.Controls;
 
-namespace FreemooSDL.Collections
+namespace FreeMoO.Collections
 {
     public class ControlCollection
     {

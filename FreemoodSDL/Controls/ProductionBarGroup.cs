@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using FreemooSDL.Collections;
+using FreeMoO.Collections;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
     public delegate void ProductionBarUpdateDelegate(ProductionBarUpdateArgs args);
 
@@ -16,7 +16,7 @@ namespace FreemooSDL.Controls
         private ProductionBarUpdateArgs _updateArgs = new ProductionBarUpdateArgs();
         
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             for (int i = 0; i < Controls.count(); i++)
             {
@@ -24,7 +24,7 @@ namespace FreemooSDL.Controls
             }
         }
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService)
         {
             for (int i = 0; i < Controls.count(); i++)
             {

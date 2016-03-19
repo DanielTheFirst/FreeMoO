@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Controls;
-using FreemooSDL.Reverse;
-using FreemooSDL.Service;
+using FreeMoO.Collections;
+using FreeMoO.Controls;
+using FreeMoO.Reverse;
+using FreeMoO.Service;
 
 using SdlDotNet.Input;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     class LoadGameScreen
         : AbstractScreen
@@ -132,12 +132,12 @@ namespace FreemooSDL.Screens
             }
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             UpdateControls(pTimer);
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             pGuiService.drawImage(_loadScreenImage.getCurrentFrame(), 0, 0);
 

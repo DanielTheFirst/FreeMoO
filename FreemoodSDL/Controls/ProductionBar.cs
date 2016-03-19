@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
 
-using FreemooSDL.Collections;
+using FreeMoO.Collections;
 
-namespace FreemooSDL.Controls
+namespace FreeMoO.Controls
 {
 
     public delegate void ProductionBarChangeDelegate(ProductionBarEventArgs arg);
@@ -51,12 +51,12 @@ namespace FreemooSDL.Controls
         public ProductionEnum ProdType { get; set; }
 
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             
         }
 
-        public override void Draw(FreemooTimer pTimer, Service.GuiService pGuiService)
+        public override void Draw(Timer pTimer, Service.GuiService pGuiService)
         {
             pGuiService.drawRect(X + LabelWidth + PROD_BAR_OFFSET_X, Y + PROD_BAR_OFFSET_Y, Width - LabelWidth - PROD_BAR_OFFSET_X - 7, 4, _bgFillColor);
             pGuiService.drawRect(X + LabelWidth + PROD_BAR_OFFSET_X, Y + PROD_BAR_OFFSET_Y + 1, _value, 3, Locked ? _lockedColor : _unlockedColor);

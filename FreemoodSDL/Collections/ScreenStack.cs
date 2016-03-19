@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using FreemooSDL.Screens;
+using FreeMoO.Screens;
 
-namespace FreemooSDL.Collections
+namespace FreeMoO.Collections
 {
     public class ScreenStack
         : Stack<IScreen>

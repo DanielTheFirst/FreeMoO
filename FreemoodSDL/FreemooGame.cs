@@ -6,28 +6,28 @@ using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 
-using FreemooSDL.Collections;
-using FreemooSDL.Service;
-using FreemooSDL.Game;
-using FreemooSDL.Screens;
-using FreemooSDL.Controls;
+using FreeMoO.Collections;
+using FreeMoO.Service;
+using FreeMoO.Game;
+using FreeMoO.Screens;
+using FreeMoO.Controls;
 
-namespace FreemooSDL
+namespace FreeMoO
 {
     public class FreemooGame : IDisposable
     {
         private ScreenCollection _screenCollection = null;
         private ScreenStack _screenStack = null;
         private bool _quit = false;
-        private FreemooTimer _timer = null;
+        private Timer _timer = null;
         private Game.Game _orionGame = null;
         //private IScreen mCurrentScreen = null;
         private SoundFXService _soundFxService = null;
-        private ConfigService _configService = null;
+        //private ConfigService _configService = null;
         private ImageService _imageService = null;
         private GuiService _guiService = null;
         private bool _screenshot = false;
-        private string _dispFps = "60 FPS";
+        private string _dispFps = "{0} FPS";
         private ScreenActionEventArgs _queuedScreenAction = new ScreenActionEventArgs();
 
         // properties
@@ -45,13 +45,13 @@ namespace FreemooSDL
                 return _soundFxService;
             }
         }
-        public ConfigService Config
-        {
-            get
-            {
-                return _configService;
-            }
-        }
+        //public ConfigService Config
+        //{
+        //    get
+        //    {
+        //        return _configService;
+        //    }
+        //}
         public GuiService Screen
         {
             get
@@ -77,8 +77,8 @@ namespace FreemooSDL
             Initialize();
             loadContent();
 
-            //changeScreen(ScreenEnum.MainScreen);
-            changeScreen(ScreenEnum.LoadingScreen);
+            changeScreen(ScreenEnum.MainScreen);
+            //changeScreen(ScreenEnum.LoadingScreen);
             //changeScreen(ScreenEnum.MainMenu);
 
             int framesElapsed = 0;
@@ -90,10 +90,12 @@ namespace FreemooSDL
                 if (timeGoneBy > 1000)
                 {
                     double fps = (double)framesElapsed / (timeGoneBy / 1000D);
-                    Console.Write("FPS = " + Math.Round(fps, 2) + Environment.NewLine);
+                    //Console.Write("FPS = " + Math.Round(fps, 2) + Environment.NewLine);
                     currMillis = _timer.TotalMilliseconds;
                     framesElapsed = 0;
-                    _dispFps = string.Format(fpsString, Math.Round(fps, 2));
+                    //_dispFps = string.Format(fpsString, Math.Round(fps, 2));
+                    var test = _dispFps.Fmt(Math.Round(fps, 2));
+                    Console.WriteLine(_dispFps.Fmt(Math.Round(fps, 2)));
                 }
                 update();
                 Draw();
@@ -129,10 +131,10 @@ namespace FreemooSDL
 
             this.Screen.initializeVideo();
 
-            _timer = new FreemooTimer();
+            _timer = new Timer();
 
             _orionGame = new Game.Game();
-            //_orionGame.loadGame(1);
+            _orionGame.loadGame(1);
 
             
         }
@@ -151,7 +153,7 @@ namespace FreemooSDL
 
         private void update()
         {
-            _timer.update();
+            _timer.Update();
             Events.Poll();
             ScreenControl.Update(_timer);
         }
@@ -167,14 +169,14 @@ namespace FreemooSDL
                 Screen.takescreenshot();
                 _screenshot = false;
             }
-            Screen.drawString(_dispFps, 0, 0, FontEnum.font_2, FontPaletteEnum.PopulationGreen);
+            //Screen.drawString(_dispFps, 0, 0, FontEnum.font_2, FontPaletteEnum.PopulationGreen);
             this.Screen.flip();
         }
 
         private void buildServices()
         {
 
-            _configService = new ConfigService(this);
+            //_configService = new ConfigService(this);
             _imageService = new ImageService(this);
             _guiService = new GuiService(this);
 
@@ -216,7 +218,7 @@ namespace FreemooSDL
 
         private MouseButtonEventArgs scaleMouseBtnPos(MouseButtonEventArgs pBtnArgs)
         {
-            short scale = (short)this.Config.StretchRatio;
+            short scale = (short)Config.StretchRatio;
             MouseButton btn = pBtnArgs.Button;
             bool pressed = pBtnArgs.ButtonPressed;
             short x = (short)(pBtnArgs.X / scale);
@@ -227,7 +229,7 @@ namespace FreemooSDL
 
         private MouseMotionEventArgs scaleMouseMovedPos(MouseMotionEventArgs pMouseArgs)
         {
-            short scale = (short)this.Config.StretchRatio;
+            short scale = (short)Config.StretchRatio;
             MouseButton btn = pMouseArgs.Button;
             short x = (short)(pMouseArgs.X / scale);
             short y = (short)(pMouseArgs.Y / scale);

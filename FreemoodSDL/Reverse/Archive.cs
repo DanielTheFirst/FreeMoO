@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections.Generic;
 
 // hey look!  it's poorly commented code directly transcribed from ruby.
-namespace FreemooSDL.Reverse
+namespace FreeMoO.Reverse
 {
     class Archive
     {

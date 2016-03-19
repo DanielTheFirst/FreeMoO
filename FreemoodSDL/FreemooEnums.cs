@@ -1,5 +1,5 @@
 ﻿
-namespace FreemooSDL
+namespace FreeMoO
 {
     // service enums
     public enum ServiceEnum
@@ -133,7 +133,8 @@ namespace FreemooSDL
         MainMenuBtnActive,
         LoadScreenGreen,
         LoadScreenGray,
-        LoadScreenRed
+        LoadScreenRed,
+        FleetPanelYellow
     }
 
     public enum TextAlignEnum

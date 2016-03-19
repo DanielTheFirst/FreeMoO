@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-using FreemooSDL.Service;
-using FreemooSDL.Controls;
-using FreemooSDL.Game;
+using FreeMoO.Service;
+using FreeMoO.Controls;
+using FreeMoO.Game;
 
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
 using SdlDotNet.Audio;
 
-namespace FreemooSDL.Screens
+namespace FreeMoO.Screens
 {
     public class MainScreen : AbstractScreen
     {
-        private MainStarmap mStarmap = null;
-        private ColonyPanel mColonyPanel = null;
+        private MainStarmap _starmap = null;
+        private ColonyPanel _colonyPanel = null;
         private UnexploredStarPanel _unexploredPanel = null;
         private EnemyColonyPanel _enemyColPanel = null;
         private NoColonyPanel _noColPanel = null;
+        private FleetDeploymentPanel _fleetDeployPanel = null;
+        private FleetIntransitPanel _fleetIntransitPanel = null;
         private MainScreenMenuButtons[] mMenuButtons = new MainScreenMenuButtons[8];
 
         public MainScreen(FreemooGame pGame)
@@ -35,10 +37,11 @@ namespace FreemooSDL.Screens
             _unexploredPanel.Visible = false;
             Controls.add(_unexploredPanel);
 
-            mColonyPanel = new ColonyPanel(this);
-            mColonyPanel.Enabled = false;
-            mColonyPanel.Visible = false;
-            Controls.add(mColonyPanel);
+            _colonyPanel = new ColonyPanel(this);
+            _colonyPanel.Enabled = false;
+            _colonyPanel.Visible = false;
+            _colonyPanel.ShipProductionUpdateEvent += HandleColonyShipProdChange;
+            Controls.add(_colonyPanel);
 
             _enemyColPanel = new EnemyColonyPanel(this);
             _enemyColPanel.Enabled = false;
@@ -50,9 +53,28 @@ namespace FreemooSDL.Screens
             _noColPanel.Visible = false;
             Controls.add(_noColPanel);
 
+            _fleetDeployPanel = new FleetDeploymentPanel(this);
+            _fleetDeployPanel.Enabled = false;
+            _fleetDeployPanel.Visible = false;
+            Controls.add(_fleetDeployPanel);
+
+            _fleetIntransitPanel = new FleetIntransitPanel(this);
+            _fleetIntransitPanel.Enabled = false;
+            _fleetIntransitPanel.Visible = false;
+            Controls.add(_fleetIntransitPanel);
+
+            _starmap = new MainStarmap(this);
+            _starmap.Id = "Main Starmap";
+            //_starmap.addPlanets(Game.OrionGame.Planets);
+            Controls.add(_starmap);
+            _starmap.PlanetClickEvent += this.handlePlanetClick;
+            _starmap.FleetClickEvent += this.HandleFleetClick;
+
+            initMenu();
+
         }
 
-        public override void Update(FreemooTimer pTimer)
+        public override void Update(Timer pTimer)
         {
             //mStarmap.update(pTimer);
             //if (mColonyPanel != null) mColonyPanel.update(pTimer);
@@ -79,18 +101,19 @@ namespace FreemooSDL.Screens
 
         public override void start()
         {
-            mStarmap = new MainStarmap(this);
-            mStarmap.Id = "Main Starmap";
-            mStarmap.addPlanets(Game.OrionGame.Planets);
-            Controls.add(mStarmap);
-            mStarmap.PlanetClickEvent += new EventHandler<EventArgs>(this.handlePlanetClick);
-
+            //_starmap = new MainStarmap(this);
+            //_starmap.Id = "Main Starmap";
+            
+            //Controls.add(_starmap);
+            //_starmap.PlanetClickEvent += new EventHandler<EventArgs>(this.handlePlanetClick);
+            _starmap.addPlanets(Game.OrionGame.Planets);
+            _starmap.OnScreenStart();
             handlePlanetClick(Game.OrionGame.Planets[Game.OrionGame.GalaxyData.PlanetFocus], null); // ugly way to handle this  but it works
 
             //Music m = Game.SoundFX.GetMusic();
             //m.Play(true);
 
-            initMenu();
+            
         }
 
         private void initMenu()
@@ -111,7 +134,7 @@ namespace FreemooSDL.Screens
             }
         }
 
-        public override void Draw(FreemooTimer pTimer, GuiService pGuiService)
+        public override void Draw(Timer pTimer, GuiService pGuiService)
         {
             ImageService imgService = Game.Images; //(ImageService)Game.Services.get(ServiceEnum.ImageService);
             //GuiService gs = Game.Screen; //(GuiService)Game.Services.get(ServiceEnum.GuiService);
@@ -184,13 +207,31 @@ namespace FreemooSDL.Screens
             ctrl.Enabled = val;
         }
 
-        private void handlePlanetClick(object Sender, EventArgs ea)
+        private void HideAllColonyPanels()
         {
-            Planet p = (Planet)Sender;
-            SetVisibleAndEnabled(mColonyPanel, false);
+            SetVisibleAndEnabled(_colonyPanel, false);
             SetVisibleAndEnabled(_unexploredPanel, false);
             SetVisibleAndEnabled(_enemyColPanel, false);
             SetVisibleAndEnabled(_noColPanel, false);
+        }
+
+        private void HideAllFleetPanels()
+        {
+            SetVisibleAndEnabled(_fleetDeployPanel, false);
+            SetVisibleAndEnabled(_fleetIntransitPanel, false);
+        }
+
+        private void handlePlanetClick(object Sender, EventArgs ea)
+        {
+            Planet p = (Planet)Sender;
+            HideAllColonyPanels();
+            HideAllFleetPanels();
+            SetVisibleAndEnabled(mMenuButtons[6], true);
+            SetVisibleAndEnabled(mMenuButtons[7], true);
+            //SetVisibleAndEnabled(_colonyPanel, false);
+            //SetVisibleAndEnabled(_unexploredPanel, false);
+            //SetVisibleAndEnabled(_enemyColPanel, false);
+            //SetVisibleAndEnabled(_noColPanel, false);
             // this should probably be strongly typed using delegates....eventually
             // also, should not be nulling and newing here. 
             /*if (mColonyPanel != null)
@@ -224,8 +265,8 @@ namespace FreemooSDL.Screens
                 //mColonyPanel = new ColonyPanel(this, p);
                 //mColonyPanel.ShipProductionUpdateEvent += this.HandleColonyShipProdChange;
                 //Controls.add(mColonyPanel);
-                mColonyPanel.Planet = p;
-                SetVisibleAndEnabled(mColonyPanel, true);
+                _colonyPanel.Planet = p;
+                SetVisibleAndEnabled(_colonyPanel, true);
             }
             else if (!p.Player0Explored)
             {
@@ -250,6 +291,27 @@ namespace FreemooSDL.Screens
             }
 
             Game.OrionGame.UpdatePlanetFocus(p.ID);
+        }
+
+        private void HandleFleetClick(object sender, EventArgs ea)
+        {
+            Fleet fl = sender as Fleet;
+            HideAllColonyPanels();
+            HideAllFleetPanels();
+            if (fl.InTransit)
+            {
+                _fleetIntransitPanel.Fleet = fl;
+                SetVisibleAndEnabled(_fleetIntransitPanel, true);
+            }
+            else
+            {
+                _fleetDeployPanel.Fleet = fl;
+                SetVisibleAndEnabled(_fleetDeployPanel, true);
+                SetVisibleAndEnabled(mMenuButtons[6], false);
+                SetVisibleAndEnabled(mMenuButtons[7], false);
+            }
+
+            
         }
 
         private void handleMenuClick(object Sender, EventArgs ea)

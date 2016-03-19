@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-using FreemooSDL;
+using FreeMoO;
 
-namespace FreemooSDL.Service
+namespace FreeMoO.Service
 {
     public class ConfigService
     {

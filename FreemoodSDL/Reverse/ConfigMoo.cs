@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
 
-namespace FreemooSDL.Reverse
+namespace FreeMoO.Reverse
 {
     /*
      * The file Config.MOO contains a list of the names of the save games.  it might contain other stuff, not sure yet
@@ -38,7 +38,7 @@ namespace FreemooSDL.Reverse
                     _fileNameList[i] = string.Empty;
                     byte[] raw = new byte[0x14];
                     int bytesRead = br.Read(raw, 0, FILE_NAME_LENGTH);
-                    var fn = Util.GetZString(raw);
+                    var fn = raw.GetZString();
                     _fileNameList[i] = fn;
                 }
             }

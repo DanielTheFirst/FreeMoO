@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using MoreLinq;
 
-using FreemooSDL.Reverse;
+using FreeMoO.Reverse;
 
-namespace FreemooSDL.Game
+namespace FreeMoO.Game
 {
     public struct Galaxy
     {
@@ -126,7 +126,7 @@ namespace FreemooSDL.Game
                 br.Close();
                 for (int i = 0; i < 6; i++)
                 {
-                    _saveGameNames.Add(Util.GetZString(Util.slice(buffer, CONFIG_NAME_OFFSET + (i * CONFIG_NAME_LENGTH), CONFIG_NAME_LENGTH)));
+                    _saveGameNames.Add(Util.slice(buffer, CONFIG_NAME_OFFSET + (i * CONFIG_NAME_LENGTH), CONFIG_NAME_LENGTH).GetZString());
                 }
             }
         }
@@ -157,7 +157,7 @@ namespace FreemooSDL.Game
             // need to figure out where this is specified in the save file
             // andlogic here is loop through planets and see if any colonys have
             // pending transports and instantiate a transport object and deduct costs and population
-            var unlaunchedTransports = mTransports.Where(o => o.Launched == false).ToList();
+            List<Transport> unlaunchedTransports = mTransports.Where(o => o.Launched == false).ToList();
             foreach (var trans in unlaunchedTransports)
             {
                 var colony = mPlanets.FirstOrDefault(p => p.ID == trans.OriginPlanetId);
