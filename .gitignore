@@ -2,7 +2,6 @@
 /data
 /FreemoodSDL/bin
 /FreemoodSDL/obj
-/FreemooSDL.suo
-FreemooSDL.v12.suo
-
 *.suo
+FreeMoO.sln
+FreeMoO.sln~HEAD
