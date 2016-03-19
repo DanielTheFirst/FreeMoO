@@ -82,7 +82,7 @@
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Controls\UnexploredStarPanel.cs" />
     <Compile Include="Freemoo.cs" />
-    <Compile Include="FreemooEnums.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="FreemooGame.cs" />
     <Compile Include="FreemooImage.cs" />
     <Compile Include="FreemooImageInstance.cs" />
