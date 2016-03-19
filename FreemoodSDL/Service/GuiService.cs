@@ -369,7 +369,7 @@ namespace FreeMoO.Service
         {
             //mBuffer.CreateStretchedSurface(new Size(1280, 800)).Bitmap.Save("", System.Drawing.Imaging.ImageFormat.Png);
             Surface s = mBuffer.CreateStretchedSurface(new Size(1280, 800));
-            string fn = mGame.Config.DataFolder + "\\screenshots\\" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "." + DateTime.Now.Minute + "." + DateTime.Now.Second + ".png";
+            string fn = Config.DataFolder + "\\screenshots\\" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + DateTime.Now.Hour + "." + DateTime.Now.Minute + "." + DateTime.Now.Second + ".png";
             s.Bitmap.Save(fn, System.Drawing.Imaging.ImageFormat.Png);
         }
     }

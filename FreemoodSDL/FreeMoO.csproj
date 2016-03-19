@@ -121,7 +121,6 @@
     <Compile Include="Screens\PlanetsScreen.cs" />
     <Compile Include="Screens\RaceScreen.cs" />
     <Compile Include="Screens\ResearchScreen.cs" />
-    <Compile Include="Service\ConfigService.cs" />
     <Compile Include="Service\GuiService.cs" />
     <Compile Include="Service\ImageService.cs" />
     <Compile Include="Service\InputService.cs" />

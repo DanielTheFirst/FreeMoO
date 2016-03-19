@@ -23,7 +23,7 @@ namespace FreeMoO
         private Game.Game _orionGame = null;
         //private IScreen mCurrentScreen = null;
         private SoundFXService _soundFxService = null;
-        private ConfigService _configService = null;
+        //private ConfigService _configService = null;
         private ImageService _imageService = null;
         private GuiService _guiService = null;
         private bool _screenshot = false;
@@ -45,13 +45,13 @@ namespace FreeMoO
                 return _soundFxService;
             }
         }
-        public ConfigService Config
-        {
-            get
-            {
-                return _configService;
-            }
-        }
+        //public ConfigService Config
+        //{
+        //    get
+        //    {
+        //        return _configService;
+        //    }
+        //}
         public GuiService Screen
         {
             get
@@ -176,7 +176,7 @@ namespace FreeMoO
         private void buildServices()
         {
 
-            _configService = new ConfigService(this);
+            //_configService = new ConfigService(this);
             _imageService = new ImageService(this);
             _guiService = new GuiService(this);
 
@@ -218,7 +218,7 @@ namespace FreeMoO
 
         private MouseButtonEventArgs scaleMouseBtnPos(MouseButtonEventArgs pBtnArgs)
         {
-            short scale = (short)this.Config.StretchRatio;
+            short scale = (short)Config.StretchRatio;
             MouseButton btn = pBtnArgs.Button;
             bool pressed = pBtnArgs.ButtonPressed;
             short x = (short)(pBtnArgs.X / scale);
@@ -229,7 +229,7 @@ namespace FreeMoO
 
         private MouseMotionEventArgs scaleMouseMovedPos(MouseMotionEventArgs pMouseArgs)
         {
-            short scale = (short)this.Config.StretchRatio;
+            short scale = (short)Config.StretchRatio;
             MouseButton btn = pMouseArgs.Button;
             short x = (short)(pMouseArgs.X / scale);
             short y = (short)(pMouseArgs.Y / scale);
