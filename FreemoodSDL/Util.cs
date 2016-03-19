@@ -11,7 +11,6 @@ namespace FreeMoO
         {
             T[] dest = new T[size];
             Array.Copy(src, startindex, dest, 0, size);
-            //List<int> t = new List<int>(); // what in the world was this??
             return dest;
         }
 
