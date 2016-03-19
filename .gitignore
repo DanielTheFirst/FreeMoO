@@ -4,3 +4,5 @@
 /FreemoodSDL/obj
 /FreemooSDL.suo
 FreemooSDL.v12.suo
+
+*.suo
