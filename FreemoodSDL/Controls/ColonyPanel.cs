@@ -232,6 +232,7 @@ namespace FreeMoO.Controls
                 pb.PreCalculateRectangles();
                 pb.MaxValue = 25; // 100 / 4
                 pb.ProductionBarChange += _productionBars.HandleProductionBarChange;
+                pb.ProdType = (ProductionEnum)i;
                 _productionBars.Controls.add(pb);
             }
             Controls.add(_productionBars);
