@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 using FreeMoO.Collections;
 using FreeMoO.Screens;
@@ -265,6 +266,7 @@ namespace FreeMoO.Controls
     {
         private List<StarImage> mStarControls;
         private List<FleetImage> mFleetControls;
+        private List<ShipPathLine> _shipPathLines;
         private MainScreen mScreenRef;
         private int mViewableX;
         private int mViewableY;
@@ -299,6 +301,7 @@ namespace FreeMoO.Controls
             mScreenRef = pScreen;
             mStarControls = new List<StarImage>();
             mFleetControls = new List<FleetImage>();
+            _shipPathLines = new List<ShipPathLine>();
             //mSelectedPlanet = mScreenRef.Game.OrionGame.GalaxyData.PlanetFocus;
             //int x = mScreenRef.Game.OrionGame.Planets[mSelectedPlanet].X;
             //int y = mScreenRef.Game.OrionGame.Planets[mSelectedPlanet].Y;
@@ -328,14 +331,37 @@ namespace FreeMoO.Controls
 
         }
 
+        public Rectangle GetBoundingRectangle()
+        {
+            return ObjectPool.GetRectangle(mViewableX, mViewableY, WIDTH, HEIGHT);
+        }
+
+        static bool didLine = false;
+
         public override void Update(Timer pTimer)
         {
             
-            rebuildFleets(); // really don't need too rebuild the fleets every turn though maybe do bounds checking an
+            rebuildFleets(); // really don't need too rebuild the fleets every turn though maybe do bounds checking and
             // only build the ones on screen
+
+            //if (!didLine)
+            //{
+            //    didLine = true;
+            //    var linePath = ObjectPool.PathLines.GetObject();
+            //    // fleet id 28
+            //    var flt = mFleetControls.Where(f => f.FleetRef.ID == 28).FirstOrDefault();
+            //    var dest = mStarControls.Where(s => s.PlanetRef.ID == flt.FleetRef.PlanetId).FirstOrDefault();
+            //    linePath.Reinitialize(flt.FleetRef.X, flt.FleetRef.Y, dest.PlanetRef.X, dest.PlanetRef.Y, ShipPathColor.Gray, 0.0, this);
+            //    _shipPathLines.Add(linePath);
+            //}
+            
             foreach (StarImage si in mStarControls)
             {
                 si.Update(pTimer);
+            }
+            foreach(var path in _shipPathLines)
+            {
+                path.Update(pTimer);
             }
         }
 
@@ -348,6 +374,10 @@ namespace FreeMoO.Controls
             foreach (FleetImage fi in mFleetControls)
             {
                 fi.Draw(pTimer, pGui);
+            }
+            foreach(var path in _shipPathLines)
+            {
+                path.Draw(pTimer, pGui);
             }
         }
 

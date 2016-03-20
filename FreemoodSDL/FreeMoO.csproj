@@ -78,6 +78,7 @@
     <Compile Include="Controls\ProductionBar.cs" />
     <Compile Include="Controls\ProductionBarGroup.cs" />
     <Compile Include="Controls\SaveFileControl.cs" />
+    <Compile Include="Controls\ShipPathLine.cs" />
     <Compile Include="Controls\SmallPlanetLabel.cs" />
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Controls\UnexploredStarPanel.cs" />

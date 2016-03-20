@@ -361,7 +361,6 @@ namespace FreeMoO.Service
         public void drawRect(int x, int y, int w, int h, Color pColor)
         {
             mBuffer.Fill(new Rectangle(x, y, w, h), pColor);
-
         }
 
         public void takescreenshot()

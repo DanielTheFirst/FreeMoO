@@ -30,6 +30,7 @@ namespace FreeMoO.Collections
             {
                 T item;
                 if (_objects.TryTake(out item)) return item;
+                //Log.Write("debug", "Tried to retrieve an instance of {0} from the pool but the pool was empty.", item.GetType().Name);
                 return _objectGenerator();
             }
 
@@ -47,6 +48,8 @@ namespace FreeMoO.Collections
             PointObjPool = new ObjectPoolImpl<Point>(() => new Point(), 100);
             ProductionBarGroupPool = new ObjectPoolImpl<ProductionBarGroup>(() => new ProductionBarGroup(), 10);
             ProductionBarPool = new ObjectPoolImpl<ProductionBar>(() => new ProductionBar(), 10);
+            PathLines = new ObjectPoolImpl<ShipPathLine>(() => new ShipPathLine(), 100);
+            PointFObjPool = new ObjectPoolImpl<PointF>(() => new PointF(), 100);
         }
 
         public static Rectangle GetRectangle(int x, int y, int w, int h)
@@ -64,6 +67,8 @@ namespace FreeMoO.Collections
         public static ObjectPoolImpl<Point> PointObjPool;
         public static ObjectPoolImpl<ProductionBarGroup> ProductionBarGroupPool;
         public static ObjectPoolImpl<ProductionBar> ProductionBarPool;
+        public static ObjectPoolImpl<ShipPathLine> PathLines;
+        public static ObjectPoolImpl<PointF> PointFObjPool;
 
     }
 }

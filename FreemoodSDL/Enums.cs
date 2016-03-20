@@ -177,4 +177,9 @@ namespace FreeMoO
     {
         Small, Medium, Large, Huge
     }
+
+    public enum ShipPathColor
+    {
+        Green, Red, Gray
+    }
 }
