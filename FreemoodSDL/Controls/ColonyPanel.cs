@@ -158,8 +158,8 @@ namespace FreeMoO.Controls
     public class ColonyPanel 
         : AbstractControl
     {
-        private Planet mPlanetRef = null;
-        private MainScreen mScreenRef = null;
+        private Planet _planetRef = null;
+        private MainScreen _screenRef = null;
         //private ProductionBars[] mProductionBars = null;
         private ProductionBarGroup _productionBars = null;
         private MooButton[] _buttons = null;
@@ -180,7 +180,7 @@ namespace FreeMoO.Controls
             : base()
         {
             //mPlanetRef = pPlanet;
-            mScreenRef = pScreen;
+            _screenRef = pScreen;
             //Id = "COLONYPANEL_" + pPlanet.Name;
             Id = "COLONYPANEL";
 
@@ -191,7 +191,7 @@ namespace FreeMoO.Controls
             //_smallPlanetLabel.Id = "spl_" + mPlanetRef.Name;
             //Controls.add(_smallPlanetLabel);
 
-            _smallPlanetLabel = new SmallPlanetLabel(mScreenRef, this);
+            _smallPlanetLabel = new SmallPlanetLabel(_screenRef, this);
             _smallPlanetLabel.Id = "SmallPlanetLabel_ColonyPanel";
             Controls.add(_smallPlanetLabel);
 
@@ -202,11 +202,11 @@ namespace FreeMoO.Controls
         {
             get
             {
-                return mPlanetRef;
+                return _planetRef;
             }
             set
             {
-                mPlanetRef = value;
+                _planetRef = value;
                 BuildProductionBars();
                 _smallPlanetLabel.SetPlanet(value);
 
@@ -240,7 +240,7 @@ namespace FreeMoO.Controls
 
         private void BuildProductionBars()
         {
-            PlanetaryProduction pp = mPlanetRef.Production;
+            PlanetaryProduction pp = _planetRef.Production;
             int[] vals = pp.getArrayOfValues();
             bool[] locked = pp.getArrayOfLocked();
 
@@ -256,7 +256,7 @@ namespace FreeMoO.Controls
         private void buildButtons()
         {
             _buttons = new MooButton[3];
-            ImageService imgService = mScreenRef.Game.Images;
+            ImageService imgService = _screenRef.Game.Images;
             _buttons[0] = new MooButton(ArchiveEnum.STARMAP, "COL_BUTT ship", imgService, 282, 140);
             _buttons[0].Id = "ShipButton";
             _buttons[0].Click +=new EventHandler<EventArgs>(this.ShipBtn_Click);
@@ -301,7 +301,7 @@ namespace FreeMoO.Controls
         {
             if (this.Visible)
             {
-                ImageService imgService = mScreenRef.Game.Images; //(ImageService)mScreenRef.Game.Services[ServiceEnum.ImageService];
+                ImageService imgService = _screenRef.Game.Images; //(ImageService)mScreenRef.Game.Services[ServiceEnum.ImageService];
                 Rectangle poolRect = ObjectPool.RectanglePool.GetObject();
                 Point poolPoint = ObjectPool.PointObjPool.GetObject();
                 Size poolSize = ObjectPool.SizeObjPool.GetObject();
@@ -342,7 +342,7 @@ namespace FreeMoO.Controls
                 pGuiService.drawImage(panelSurf, 224, 5);
 
                 Rectangle rect = new Rectangle(227, 8, 311 - 227, 21 - 8);
-                pGuiService.drawString(mPlanetRef.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
+                pGuiService.drawString(_planetRef.Name, rect, FontEnum.font_4, FontPaletteEnum.Font4Colors);
 
                 /*string smallPlanet = "PLANET" + (mPlanetRef.SmallPlanetImageIndex+1);
                 Surface smallPanetSurf = imgService.getSurface(ArchiveEnum.PLANETS, smallPlanet, 0); //imgService.Images[ArchiveEnum.PLANETS, smallPlanet][0];
@@ -375,27 +375,27 @@ namespace FreeMoO.Controls
                 string popString = "POP" + mPlanetRef.MaxPopulation.ToString().PadLeft(3, ' ') + " MAX";
                 pGuiService.drawString(popString, new Rectangle(263, 45, 43, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
                 */
-                string currentPopulation = mPlanetRef.CurrentPopulation.ToString().PadLeft(3, ' ');
+                string currentPopulation = _planetRef.CurrentPopulation.ToString().PadLeft(3, ' ');
                 pGuiService.drawString(currentPopulation, new Rectangle(259, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
 
-                string currentBases = mPlanetRef.AmtBases.ToString().PadLeft(3, ' ');
+                string currentBases = _planetRef.AmtBases.ToString().PadLeft(3, ' ');
                 pGuiService.drawString(currentBases, new Rectangle(304, 61, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Right, TextVAlignEnum.None);
 
-                string productivity = mPlanetRef.AmtProductivity.ToString().PadLeft(3, ' ');
+                string productivity = _planetRef.AmtProductivity.ToString().PadLeft(3, ' ');
                 pGuiService.drawString(productivity, new Rectangle(283, 72, 8, 5), FontEnum.font_2, FontPaletteEnum.PlanetType, TextAlignEnum.Left, TextVAlignEnum.None);
 
-                string maxProductivity = "(" + mPlanetRef.MaxProductivity.ToString().PadLeft(3, ' ') + ")";
+                string maxProductivity = "(" + _planetRef.MaxProductivity.ToString().PadLeft(3, ' ') + ")";
                 pGuiService.drawString(maxProductivity, new Rectangle(298, 72, 14, 5), FontEnum.font_2, FontPaletteEnum.PopulationGreen, TextAlignEnum.Right, TextVAlignEnum.None);
 
 
                 string shipString = string.Empty;
-                if (mPlanetRef.Production.Ship.Value > 0)
+                if (_planetRef.Production.Ship.Value > 0)
                 {
 
-                    int shipsPerYear = mPlanetRef.calcSingleYearShipProduction();
+                    int shipsPerYear = _planetRef.calcSingleYearShipProduction();
                     if (shipsPerYear == 0)
                     {
-                        int yearsPerShip = mPlanetRef.calcNumYearsToProduceShip();
+                        int yearsPerShip = _planetRef.calcNumYearsToProduceShip();
                         shipString = yearsPerShip + " Y";
                     }
                     else
@@ -412,8 +412,8 @@ namespace FreeMoO.Controls
 
                 // figure out what ship to draw in the current ship thing
                 // will eventually include star gates under certain circumstances
-                int q = mPlanetRef.CurrShip;
-                int starshipImageIdx = this.mScreenRef.Game.OrionGame.Starships[q].ImageIdx;
+                int q = _planetRef.CurrShip;
+                int starshipImageIdx = this._screenRef.Game.OrionGame.Starships[q].ImageIdx;
                 ArchiveEnum shipArc = ArchiveEnum.SHIPS;
                 if (starshipImageIdx < 72)
                 {
@@ -427,7 +427,7 @@ namespace FreeMoO.Controls
 
                 int offset = starshipImageIdx % 6;
                 int shipSize = starshipImageIdx / 6 % 4;
-                int playerColor = mScreenRef.Game.OrionGame.Players[0].ColorId;
+                int playerColor = _screenRef.Game.OrionGame.Players[0].ColorId;
                 string[] shipSizes = { "SMALL", "MEDIUM", "LARGE", "HUGE" };
                 string[] colors = { "B", "G", "P", "R", "W", "Y" };
                 //Rectangle shipProdRect = new Rectangle(236, 142, 39, 29);
@@ -435,7 +435,7 @@ namespace FreeMoO.Controls
 
 
                 // BE9671
-                pGuiService.drawString(this.mScreenRef.Game.OrionGame.Starships[q].Name, new Rectangle(229, 168, 46, 7), FontEnum.font_2, Color.FromArgb(0xBE9671), TextAlignEnum.Center, TextVAlignEnum.Center);
+                pGuiService.drawString(this._screenRef.Game.OrionGame.Starships[q].Name, new Rectangle(229, 168, 46, 7), FontEnum.font_2, Color.FromArgb(0xBE9671), TextAlignEnum.Center, TextVAlignEnum.Center);
 
                 for (int i = 0; i < Controls.count(); i++)
                 {
@@ -496,7 +496,7 @@ namespace FreeMoO.Controls
 
         private void HandleProductionBarGroupUpdate(ProductionBarUpdateArgs args)
         {
-            PlanetaryProduction pp = mPlanetRef.Production;
+            PlanetaryProduction pp = _planetRef.Production;
             //pp.Ship.Value = args.prodValues.Value;
             //pp.Defense.Value = mProductionBars[1].Value;
             //pp.Industry.Value = mProductionBars[2].Value;
@@ -528,7 +528,7 @@ namespace FreeMoO.Controls
                         break;
                 }
             }
-            mPlanetRef.Production = pp;
+            _planetRef.Production = pp;
         }
 
         private void handleProductionBarChange(object sender, ProductionBarEventArgs pArgs)
@@ -603,7 +603,7 @@ namespace FreeMoO.Controls
         {
             if (ShipProductionUpdateEvent != null)
             {
-                ShipProductionUpdateEvent(this.mPlanetRef.ID);
+                ShipProductionUpdateEvent(this._planetRef.ID);
             }
         }
 
