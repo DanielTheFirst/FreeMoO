@@ -7,9 +7,9 @@ using SdlDotNet.Graphics;
 
 namespace FreeMoO
 {
-    public class FreemooImageInstance
+    public class ImageInstance
     {
-        private FreemooImage mImageRef = null;
+        private Image mImageRef = null;
         private ImageService mImgServiceRef = null;
         private int mCurrentFrame = 0;
         private ArchiveEnum mArchiveEnum;
@@ -26,7 +26,7 @@ namespace FreeMoO
             }
         }
 
-        public FreemooImageInstance(ArchiveEnum pArchive, string pImageIndex, ImageService pImgService)
+        public ImageInstance(ArchiveEnum pArchive, string pImageIndex, ImageService pImgService)
         {
             //mImageRef = pImgService.Images[pArchive, pImageIndex];
             mImgServiceRef = pImgService;
@@ -38,7 +38,7 @@ namespace FreeMoO
             if (mImageRef.FrameRate == 0) mImageRef.FrameRate = 100; // just do animations at 10 frames per second if none is specified.
         }
 
-        public FreemooImageInstance(ArchiveEnum pArchive, string pImageIndex, int offset, ImageService pImgService)
+        public ImageInstance(ArchiveEnum pArchive, string pImageIndex, int offset, ImageService pImgService)
         {
             mImgServiceRef = pImgService;
             mArchiveEnum = pArchive;

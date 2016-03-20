@@ -11,8 +11,8 @@ namespace FreeMoO.Screens
     class MainMenu
         : AbstractScreen
     {
-        private FreemooImageInstance _bgImage = null;
-        private FreemooImageInstance _title = null;
+        private ImageInstance _bgImage = null;
+        private ImageInstance _title = null;
 
         private MainMenuButton _continueBtn = null;
         private MainMenuButton _newBtn = null;
@@ -27,12 +27,12 @@ namespace FreeMoO.Screens
 
         public override void start()
         {
-            _bgImage = new FreemooImageInstance(ArchiveEnum.VORTEX, "VORTEX", Game.Images);
+            _bgImage = new ImageInstance(ArchiveEnum.VORTEX, "VORTEX", Game.Images);
             _bgImage.ResetAnimation();
             _bgImage.Animate = true;
             _bgImage.AnimateLoop = true;
 
-            _title = new FreemooImageInstance(ArchiveEnum.VORTEX, "STARLORD", Game.Images);
+            _title = new ImageInstance(ArchiveEnum.VORTEX, "STARLORD", Game.Images);
 
             _continueBtn = new MainMenuButton(119, 127, "Continue Game");
             _continueBtn.Id = "Continue";

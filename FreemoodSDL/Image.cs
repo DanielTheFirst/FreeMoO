@@ -7,7 +7,7 @@ using SdlDotNet.Graphics;
 
 namespace FreeMoO   
 {
-    public class FreemooImage
+    public class Image
     {
         private List<Surface> mSurfaces = new List<Surface>();
         private int mCurrFrame = 0;
@@ -24,7 +24,7 @@ namespace FreeMoO
         public int InternalColorCount = 0;
 
 
-        public FreemooImage()
+        public Image()
         {
         }
 

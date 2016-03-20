@@ -24,7 +24,7 @@ namespace FreeMoO.Controls
         private int[] _internalFleetCount = new int[6];
         private MooButton _cancelBtn = null;
         private MooButton _acceptBtn = null;
-        private List<FreemooImageInstance> _images = null;
+        private List<ImageInstance> _images = null;
         private List<FleetDeployButtonSet> _moveButtons = null;
 
         public FleetDeploymentPanel(MainScreen screen)
@@ -34,10 +34,10 @@ namespace FreeMoO.Controls
 
             Id = "FleetDeploy";
             BuildButtons();
-            _images = new List<FreemooImageInstance>();
+            _images = new List<ImageInstance>();
             for (int i = 0; i < 6; i++)
             {
-                FreemooImageInstance fii = new FreemooImageInstance(ArchiveEnum.SHIPS, "RSMALL", 0, _mainScreen.Game.Images);
+                ImageInstance fii = new ImageInstance(ArchiveEnum.SHIPS, "RSMALL", 0, _mainScreen.Game.Images);
                 _images.Add(fii);
             }
         }

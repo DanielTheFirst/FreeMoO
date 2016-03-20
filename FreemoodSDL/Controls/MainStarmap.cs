@@ -17,8 +17,8 @@ namespace FreeMoO.Controls
     class StarImage
         : AbstractControl
     {
-        private FreemooImageInstance mStarImage;
-        private FreemooImageInstance mPlanetBorder;
+        private ImageInstance mStarImage;
+        private ImageInstance mPlanetBorder;
 
         private MainStarmap mParent;
         private Planet mPlanetRef;
@@ -36,9 +36,9 @@ namespace FreeMoO.Controls
 
             string imageIndex = (mPlanetRef.StarSize == 0 ? "SMSTARS  " : "MEDSTARS ") + colorRef[mPlanetRef.StarColor];
             ImageService imgService = mParent.Screen.Game.Images; //(ImageService)mParent.Screen.Game.Services[ServiceEnum.ImageService];
-            mStarImage = new FreemooImageInstance(ArchiveEnum.STARMAP, imageIndex, imgService);
+            mStarImage = new ImageInstance(ArchiveEnum.STARMAP, imageIndex, imgService);
 
-            mPlanetBorder = new FreemooImageInstance(ArchiveEnum.STARMAP, "PLANBORD", imgService);
+            mPlanetBorder = new ImageInstance(ArchiveEnum.STARMAP, "PLANBORD", imgService);
         }
 
         public override void Update(Timer pTimer)
@@ -154,7 +154,7 @@ namespace FreeMoO.Controls
 
         MainStarmap mParent;
         private Fleet mFleetRef;
-        FreemooImageInstance mImage;
+        ImageInstance mImage;
 
         public event EventHandler<EventArgs> FleetClickEvent;
 
@@ -172,7 +172,7 @@ namespace FreeMoO.Controls
             mFleetRef = pFleet;
             ImageService imgService = mParent.Screen.Game.Images;
             int colorId = this.mParent.Screen.Game.OrionGame.Players[mFleetRef.PlayerId].ColorId;
-            mImage = new FreemooImageInstance(ArchiveEnum.STARMAP, "SMALSHIP" + colorId, imgService);
+            mImage = new ImageInstance(ArchiveEnum.STARMAP, "SMALSHIP" + colorId, imgService);
         }
 
         public override void  Update(Timer pTimer)

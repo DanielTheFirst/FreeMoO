@@ -17,9 +17,9 @@ namespace FreeMoO.Screens
     public class OpeningMovie
         : AbstractScreen
     {
-        private FreemooImageInstance _introMovie1 = null;
+        private ImageInstance _introMovie1 = null;
 
-        private List<FreemooImageInstance> _introMovieSequence = null;
+        private List<ImageInstance> _introMovieSequence = null;
         private string[] _intro1Movies = { "TITLE", "BOMBNEW", "LAUNCHER", "CITYBOMB" };
         private string[] _intro2Movies = { "EXPLODE","WARP", "CREDITS" };
         private int _currPicIdx = 0;
@@ -82,10 +82,10 @@ namespace FreeMoO.Screens
 
         private void BuildMovie()
         {
-            _introMovieSequence = new List<FreemooImageInstance>();
+            _introMovieSequence = new List<ImageInstance>();
             foreach (string m in _intro1Movies)
             {
-                FreemooImageInstance fii = new FreemooImageInstance(ArchiveEnum.INTRO, m, Game.Images);
+                ImageInstance fii = new ImageInstance(ArchiveEnum.INTRO, m, Game.Images);
                 fii.Animate = true;
                 fii.AnimationTimer = 0;
                 fii.ResetAnimation();
@@ -93,7 +93,7 @@ namespace FreeMoO.Screens
             }
             foreach (string m in _intro2Movies)
             {
-                FreemooImageInstance fii = new FreemooImageInstance(ArchiveEnum.INTRO2, m, Game.Images);
+                ImageInstance fii = new ImageInstance(ArchiveEnum.INTRO2, m, Game.Images);
                 fii.Animate = true;
                 fii.AnimationTimer = 0;
                 fii.ResetAnimation();

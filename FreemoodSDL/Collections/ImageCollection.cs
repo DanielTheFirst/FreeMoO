@@ -9,17 +9,17 @@ namespace FreeMoO.Collections
 {
     public class ImageCollection
     {
-        private Dictionary<ArchiveEnum, Dictionary<string, FreemooImage>> mImages = new Dictionary<ArchiveEnum, Dictionary<string, FreemooImage>>();
+        private Dictionary<ArchiveEnum, Dictionary<string, Image>> mImages = new Dictionary<ArchiveEnum, Dictionary<string, Image>>();
 
         public ImageCollection()
         {
         }
 
-        public void add(ArchiveEnum pArchive, string pImageName, FreemooImage pImage)
+        public void add(ArchiveEnum pArchive, string pImageName, Image pImage)
         {
             if (!mImages.ContainsKey(pArchive))
             {
-                Dictionary<string, FreemooImage> tmp = new Dictionary<string, FreemooImage>();
+                Dictionary<string, Image> tmp = new Dictionary<string, Image>();
                 mImages.Add(pArchive, tmp);
             }
             while (mImages[pArchive].ContainsKey(pImageName))
@@ -29,14 +29,14 @@ namespace FreeMoO.Collections
             mImages[pArchive].Add(pImageName, pImage);
         }
 
-        public FreemooImage get(ArchiveEnum pArchive, string pImageName)
+        public Image get(ArchiveEnum pArchive, string pImageName)
         {
             //Debug.Assert(mImages.ContainsKey(pArchive), "That archive " + pArchive.ToString() + " is not found in this collection...but it shoudl be.");
             //Debug.Assert(mImages[pArchive].ContainsKey(pImageName), "That image " + pImageName + " is not found in this collection.");
             return mImages[pArchive][pImageName];
         }
 
-        public FreemooImage this[ArchiveEnum pArchive, string pImageName]
+        public Image this[ArchiveEnum pArchive, string pImageName]
         {
             get
             {

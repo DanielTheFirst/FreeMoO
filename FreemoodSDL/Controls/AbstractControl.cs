@@ -2,6 +2,7 @@
 using System.Drawing;
 
 using FreeMoO.Collections;
+using FreeMoO.Service;
 
 using SdlDotNet.Input;
 
@@ -108,7 +109,7 @@ namespace FreeMoO.Controls
         public bool SafeRemove { get; set; }
 
         public abstract void Update(Timer pTimer);
-        public abstract void Draw(Timer pTimer, FreeMoO.Service.GuiService pGuiService);
+        public abstract void Draw(Timer pTimer, GuiService pGuiService);
         public virtual void Release() 
         {
             ObjectPool.RectanglePool.PutObject(_boundingRect);

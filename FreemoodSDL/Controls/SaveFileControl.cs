@@ -33,8 +33,8 @@ namespace FreeMoO.Controls
 
         public int SaveFileIndex { get; set; }
 
-        private FreemooImageInstance _indicatorLightGreen = null;
-        private FreemooImageInstance _indicatorLightGray = null;
+        private ImageInstance _indicatorLightGreen = null;
+        private ImageInstance _indicatorLightGray = null;
 
         private SaveFileControlState _sfcState = SaveFileControlState.Deselected;
         public SaveFileControlState ControlState 
@@ -101,8 +101,8 @@ namespace FreeMoO.Controls
 
         public void InitIndicator(ImageService imgRef)
         {
-            _indicatorLightGreen = new FreemooImageInstance(ArchiveEnum.VORTEX, "LOAD     green", imgRef);
-            _indicatorLightGray = new FreemooImageInstance(ArchiveEnum.VORTEX, "LOAD     grey", imgRef);
+            _indicatorLightGreen = new ImageInstance(ArchiveEnum.VORTEX, "LOAD     green", imgRef);
+            _indicatorLightGray = new ImageInstance(ArchiveEnum.VORTEX, "LOAD     grey", imgRef);
         }
 
         public override void Draw(Timer pTimer, Service.GuiService pGuiService)

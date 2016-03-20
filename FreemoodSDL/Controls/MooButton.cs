@@ -16,7 +16,7 @@ namespace FreeMoO.Controls
 
         //protected Rectangle mBoundingRect;
         //private FreemooImage mButtonImage;
-        private FreemooImageInstance _buttonImage;
+        private ImageInstance _buttonImage;
         private ImageService mImgServiceRef = null;
 
         public event EventHandler<EventArgs> Click;
@@ -40,7 +40,7 @@ namespace FreeMoO.Controls
             : base()
         {
             //mButtonImage = pImgService.getImage(pButtonImageArchive, pButtonImageIndex); //pImgService.Images[pButtonImageArchive, pButtonImageIndex];
-            _buttonImage = new FreemooImageInstance(pButtonImageArchive, pButtonImageIndex, pImgService);
+            _buttonImage = new ImageInstance(pButtonImageArchive, pButtonImageIndex, pImgService);
             Surface s = _buttonImage.getCurrentFrame();
             //mBoundingRect = new Rectangle(px, py, s.Width,s.Height);
             X = px;

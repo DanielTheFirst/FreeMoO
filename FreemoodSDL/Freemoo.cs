@@ -2,7 +2,7 @@
 
 namespace FreeMoO
 {
-    static class Freemoo
+    static class FreeMoO
     {
 
         static void Main(string[] args)

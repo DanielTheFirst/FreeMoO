@@ -81,11 +81,11 @@
     <Compile Include="Controls\SmallPlanetLabel.cs" />
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Controls\UnexploredStarPanel.cs" />
-    <Compile Include="Freemoo.cs" />
+    <Compile Include="FreeMoO.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="FreemooGame.cs" />
-    <Compile Include="FreemooImage.cs" />
-    <Compile Include="FreemooImageInstance.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="ImageInstance.cs" />
     <Compile Include="FreemooMusicAdapter.cs" />
     <Compile Include="FreemooSoundAdapter.cs" />
     <Compile Include="Log.cs" />

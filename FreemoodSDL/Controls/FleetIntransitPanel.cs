@@ -19,8 +19,8 @@ namespace FreeMoO.Controls
     {
         private MainScreen _mainScreen = null;
         private Fleet _fleetRef = null;
-        private List<FreemooImageInstance> _images = null;
-        private FreemooImageInstance _scannerImage = null;
+        private List<ImageInstance> _images = null;
+        private ImageInstance _scannerImage = null;
 
         public Fleet Fleet
         {
@@ -40,14 +40,14 @@ namespace FreeMoO.Controls
         {
             _mainScreen = main;
             Id = "FleetIntransit";
-            _images = new List<FreemooImageInstance>();
+            _images = new List<ImageInstance>();
             for(int i = 0; i < 6; i++)
             {
-                FreemooImageInstance fii = new FreemooImageInstance(ArchiveEnum.SHIPS, "RSMALL", 0, _mainScreen.Game.Images);
+                ImageInstance fii = new ImageInstance(ArchiveEnum.SHIPS, "RSMALL", 0, _mainScreen.Game.Images);
                 fii.Animate = true; fii.AnimateLoop = true;
                 _images.Add(fii);
             }
-            _scannerImage = new FreemooImageInstance(ArchiveEnum.STARMAP, "SCANNER", _mainScreen.Game.Images);
+            _scannerImage = new ImageInstance(ArchiveEnum.STARMAP, "SCANNER", _mainScreen.Game.Images);
             _scannerImage.Animate = true;
             _scannerImage.AnimateLoop = true;
 

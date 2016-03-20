@@ -19,7 +19,7 @@ namespace FreeMoO.Screens
         private const int SFC_WIDTH = 134;
         private const int SFC_HEIGHT = 18;
 
-        FreemooImageInstance _loadScreenImage = null;
+        ImageInstance _loadScreenImage = null;
         ConfigMoo _saveFileNames = new ConfigMoo();
         private EmptyControl _loadBtn = null;
         private EmptyControl _cancelBtn = null;
@@ -33,7 +33,7 @@ namespace FreeMoO.Screens
 
         public override void start()
         {
-            _loadScreenImage = new FreemooImageInstance(ArchiveEnum.VORTEX, "LOAD_OPT", Game.Images);
+            _loadScreenImage = new ImageInstance(ArchiveEnum.VORTEX, "LOAD_OPT", Game.Images);
             // cancel 273, 287
             // load 401, 287
             // height 322- 287

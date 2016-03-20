@@ -32,7 +32,7 @@ namespace FreeMoO.Service
         private FreemooGame mGame = null;
 
         private ImageCollection mImageCollection = new ImageCollection();
-        private List<FreemooImage> mImageList = new List<FreemooImage>();
+        private List<Image> mImageList = new List<Image>();
         Dictionary<string, Color[]> mPalettes = null;
         Dictionary<string, Surface> mImageCache = new Dictionary<string, Surface>();
         public ImageCollection Images
@@ -168,7 +168,7 @@ namespace FreeMoO.Service
                     string pal = img.Attributes["palette"].Value;
                     Archive.PictureInfo pic = archives[archiveName][idx];
 
-                    FreemooImage fi = new FreemooImage();
+                    Image fi = new Image();
                     int[,] frame0 = archives[archiveName].decodePicture(idx, 0);
                     fi.addFrame(frame0);
                     fi.ImageIndex = name;
@@ -223,7 +223,7 @@ namespace FreeMoO.Service
             }
         }
 
-        private Color[] buildInternalPalette(Color[] pal, FreemooImage img)
+        private Color[] buildInternalPalette(Color[] pal, Image img)
         {
             // probably should put an assert in here to make sure this is never called in error
             Color[] newPal = new Color[256];
@@ -261,7 +261,7 @@ namespace FreeMoO.Service
             else
             {
                 var fiList = mImageList.Where(x => x.Archive == pArch && x.ImageIndex == pImageIdx).ToList();
-                FreemooImage fi = null;
+                Image fi = null;
                 if (fiList.Count > offset)
                 {
                     fi = fiList[offset];
@@ -309,14 +309,14 @@ namespace FreeMoO.Service
             }
         }
 
-        public FreemooImage getImage(ArchiveEnum pArch, string pImageIdx)
+        public Image getImage(ArchiveEnum pArch, string pImageIdx)
         {
-            FreemooImage fi = mImageList.SingleOrDefault(x => x.Archive == pArch && x.ImageIndex == pImageIdx);
+            Image fi = mImageList.SingleOrDefault(x => x.Archive == pArch && x.ImageIndex == pImageIdx);
             Debug.Assert(fi != null, "Tried to reference an image that isn't there.");
             return fi;
         }
 
-        public FreemooImage getImageWithOffset(ArchiveEnum pArch, string pImageIdx, int offset)
+        public Image getImageWithOffset(ArchiveEnum pArch, string pImageIdx, int offset)
         {
             var fi = mImageList.Where(x => x.Archive == pArch && x.ImageIndex == pImageIdx).ToList();
             Debug.Assert(offset < fi.Count, "There are not enough images here to use that offset value");
