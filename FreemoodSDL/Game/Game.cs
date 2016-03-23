@@ -10,14 +10,14 @@ using FreeMoO.Reverse;
 
 namespace FreeMoO.Game
 {
-    public struct Galaxy
-    {
-        public int NumStars;
-        public int GalaxySize;
-        public int Difficulty;
-        public int Turn;
-        public int PlanetFocus;
-    }
+    //public struct Galaxy
+    //{
+    //    public int NumStars;
+    //    public int GalaxySize;
+    //    public int Difficulty;
+    //    public int Turn;
+    //    public int PlanetFocus;
+    //}
 
     public class Game
     {

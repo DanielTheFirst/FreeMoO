@@ -85,6 +85,7 @@
     <Compile Include="FreeMoO.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="FreemooGame.cs" />
+    <Compile Include="Game\Galaxy.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="ImageInstance.cs" />
     <Compile Include="FreemooMusicAdapter.cs" />
