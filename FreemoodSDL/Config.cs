@@ -12,7 +12,8 @@ namespace FreeMoO
         {
             get
             {
-                return "C:\\Users\\Daniel\\Documents\\Visual Studio 2013\\FreeMoO Data\\data";
+                //return "C:\\Users\\Daniel\\Documents\\Visual Studio 2013\\FreeMoO Data\\data";
+                return "C:\\Users\\Daniel\\Dev\\FreeMoO Data\\data";
             }
         }
 
